@@ -1,4 +1,4 @@
-import type { CATEGORIES } from '../data/categories';
+import type { CATEGORIES } from '../constants/categories';
 
 export type CategoryId = (typeof CATEGORIES)[number]['id'];
 
