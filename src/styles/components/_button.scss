@@ -1,0 +1,26 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+.button {
+  padding: 12px 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  color: $ui-white;
+  text-decoration: none;
+  background: $ui-green;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background-color 150ms $timing-function;
+  @include focus-ring;
+
+  @media (hover: hover) {
+    &:hover {
+      background: $ui-green-strong;
+    }
+  }
+}
