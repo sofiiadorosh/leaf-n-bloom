@@ -7,17 +7,23 @@ export type Category = {
   name: string;
 };
 
+export type ProductSize = {
+  inches: number;
+  price: number;
+};
+
 export type Product = {
   id: string;
   name: string;
   category: CategoryId;
-  price: number;
+  sizes: readonly ProductSize[];
   description: string;
-  image?: string;
+  images: readonly string[];
   isBestSeller?: boolean;
 };
 
 export type CartItem = {
   productId: Product['id'];
+  inches: ProductSize['inches'];
   quantity: number;
 };
