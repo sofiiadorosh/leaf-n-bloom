@@ -13,7 +13,7 @@ export type Product = {
   category: CategoryId;
   price: number;
   description: string;
-  image?: string;
+  images: readonly string[];
   isBestSeller?: boolean;
 };
 

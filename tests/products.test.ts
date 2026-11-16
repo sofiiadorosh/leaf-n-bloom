@@ -42,4 +42,24 @@ describe('PRODUCTS data', () => {
       expect(product.description.trim()).not.toBe('');
     });
   });
+
+  it('has at least one image for every product', () => {
+    PRODUCTS.forEach((product) => {
+      expect(product.images.length).toBeGreaterThan(0);
+    });
+  });
+
+  it('keeps product images in the product folder', () => {
+    PRODUCTS.forEach((product) => {
+      product.images.forEach((image) => {
+        expect(image.startsWith(`images/products/${product.id}/`)).toBe(true);
+      });
+    });
+  });
+
+  it('uses 1.webp as the main image', () => {
+    PRODUCTS.forEach((product) => {
+      expect(product.images[0]).toBe(`images/products/${product.id}/1.webp`);
+    });
+  });
 });
