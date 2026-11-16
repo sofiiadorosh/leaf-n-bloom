@@ -5,7 +5,11 @@ export const PRODUCTS: readonly Product[] = [
     id: 'monstera-deliciosa',
     name: 'Monstera Deliciosa',
     category: 'indoor',
-    price: 699,
+    sizes: [
+      { inches: 6, price: 29.99 },
+      { inches: 8, price: 44.99 },
+      { inches: 10, price: 69.99 },
+    ],
     images: [
       'images/products/monstera-deliciosa/1.webp',
       'images/products/monstera-deliciosa/2.webp',
@@ -20,7 +24,11 @@ export const PRODUCTS: readonly Product[] = [
     id: 'snake-plant',
     name: 'Snake Plant',
     category: 'indoor',
-    price: 399,
+    sizes: [
+      { inches: 6, price: 19.99 },
+      { inches: 8, price: 29.99 },
+      { inches: 10, price: 44.99 },
+    ],
     images: [
       'images/products/snake-plant/1.webp',
       'images/products/snake-plant/2.webp',
@@ -35,7 +43,11 @@ export const PRODUCTS: readonly Product[] = [
     id: 'peace-lily',
     name: 'Peace Lily',
     category: 'flowering',
-    price: 499,
+    sizes: [
+      { inches: 6, price: 24.99 },
+      { inches: 8, price: 34.99 },
+      { inches: 10, price: 49.99 },
+    ],
     images: [
       'images/products/peace-lily/1.webp',
       'images/products/peace-lily/2.webp',
@@ -50,7 +62,11 @@ export const PRODUCTS: readonly Product[] = [
     id: 'fiddle-leaf-fig',
     name: 'Fiddle Leaf Fig',
     category: 'indoor',
-    price: 899,
+    sizes: [
+      { inches: 6, price: 39.99 },
+      { inches: 8, price: 59.99 },
+      { inches: 10, price: 89.99 },
+    ],
     images: [
       'images/products/fiddle-leaf-fig/1.webp',
       'images/products/fiddle-leaf-fig/2.webp',
@@ -64,7 +80,11 @@ export const PRODUCTS: readonly Product[] = [
     id: 'zz-plant',
     name: 'ZZ Plant',
     category: 'indoor',
-    price: 449,
+    sizes: [
+      { inches: 6, price: 22.99 },
+      { inches: 8, price: 32.99 },
+      { inches: 10, price: 47.99 },
+    ],
     images: [
       'images/products/zz-plant/1.webp',
       'images/products/zz-plant/2.webp',
@@ -78,7 +98,11 @@ export const PRODUCTS: readonly Product[] = [
     id: 'orchid-phalaenopsis',
     name: 'Phalaenopsis Orchid',
     category: 'flowering',
-    price: 649,
+    sizes: [
+      { inches: 4, price: 27.99 },
+      { inches: 5, price: 34.99 },
+      { inches: 6, price: 44.99 },
+    ],
     images: [
       'images/products/orchid-phalaenopsis/1.webp',
       'images/products/orchid-phalaenopsis/2.webp',
@@ -92,7 +116,11 @@ export const PRODUCTS: readonly Product[] = [
     id: 'anthurium',
     name: 'Anthurium',
     category: 'flowering',
-    price: 549,
+    sizes: [
+      { inches: 5, price: 24.99 },
+      { inches: 6, price: 29.99 },
+      { inches: 8, price: 42.99 },
+    ],
     images: [
       'images/products/anthurium/1.webp',
       'images/products/anthurium/2.webp',
@@ -106,7 +134,11 @@ export const PRODUCTS: readonly Product[] = [
     id: 'aloe-vera',
     name: 'Aloe Vera',
     category: 'succulents',
-    price: 349,
+    sizes: [
+      { inches: 4, price: 14.99 },
+      { inches: 6, price: 22.99 },
+      { inches: 8, price: 32.99 },
+    ],
     images: [
       'images/products/aloe-vera/1.webp',
       'images/products/aloe-vera/2.webp',
@@ -121,7 +153,11 @@ export const PRODUCTS: readonly Product[] = [
     id: 'echeveria',
     name: 'Echeveria',
     category: 'succulents',
-    price: 199,
+    sizes: [
+      { inches: 3, price: 8.99 },
+      { inches: 4, price: 11.99 },
+      { inches: 5, price: 15.99 },
+    ],
     images: [
       'images/products/echeveria/1.webp',
       'images/products/echeveria/2.webp',
@@ -135,7 +171,11 @@ export const PRODUCTS: readonly Product[] = [
     id: 'haworthia',
     name: 'Haworthia Zebra',
     category: 'succulents',
-    price: 179,
+    sizes: [
+      { inches: 3, price: 7.99 },
+      { inches: 4, price: 10.99 },
+      { inches: 5, price: 14.99 },
+    ],
     images: [
       'images/products/haworthia/1.webp',
       'images/products/haworthia/2.webp',
@@ -149,7 +189,11 @@ export const PRODUCTS: readonly Product[] = [
     id: 'ceramic-planter',
     name: 'Ceramic Planter',
     category: 'planters',
-    price: 299,
+    sizes: [
+      { inches: 6, price: 14.99 },
+      { inches: 8, price: 19.99 },
+      { inches: 10, price: 29.99 },
+    ],
     images: [
       'images/products/ceramic-planter/1.webp',
       'images/products/ceramic-planter/2.webp',
@@ -163,7 +207,11 @@ export const PRODUCTS: readonly Product[] = [
     id: 'wooden-plant-stand',
     name: 'Wooden Plant Stand',
     category: 'planters',
-    price: 599,
+    sizes: [
+      { inches: 8, price: 24.99 },
+      { inches: 10, price: 29.99 },
+      { inches: 12, price: 34.99 },
+    ],
     images: [
       'images/products/wooden-plant-stand/1.webp',
       'images/products/wooden-plant-stand/2.webp',
