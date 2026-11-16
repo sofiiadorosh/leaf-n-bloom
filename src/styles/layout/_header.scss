@@ -1,0 +1,68 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+.header {
+  padding: 16px 0;
+  background: $page-background;
+  border-bottom: 1px solid $ui-divider;
+
+  @include tablet {
+    padding: 20px 0;
+  }
+
+  &__container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px 24px;
+  }
+}
+
+.logo {
+  font-family: $heading-font;
+  font-size: 24px;
+  font-weight: 600;
+  color: $ui-green;
+  text-decoration: none;
+  @include focus-ring;
+
+  @include tablet {
+    font-size: 28px;
+  }
+}
+
+.nav {
+  &__list {
+    display: flex;
+    gap: 20px;
+
+    @include tablet {
+      gap: 32px;
+    }
+  }
+
+  &__link {
+    padding: 4px 0;
+    font-size: 15px;
+    font-weight: 500;
+    color: $ui-muted;
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    transition:
+      color 150ms $timing-function,
+      border-color 150ms $timing-function;
+    @include focus-ring;
+
+    &[aria-current='page'] {
+      color: $ui-green;
+      border-bottom-color: $ui-green;
+    }
+
+    @media (hover: hover) {
+      &:hover {
+        color: $ui-green;
+      }
+    }
+  }
+}
