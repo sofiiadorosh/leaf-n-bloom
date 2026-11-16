@@ -35,4 +35,20 @@
       <use href="#leaf-shape" transform="translate(96 30) rotate(-30) scale(0.5)" />
     </g>
   </symbol>
+
+  <symbol id="logo" viewBox="53.6 4 404.4 507.4">
+    <path d="M130 490C205 440 290 335 320 190" fill="none" stroke="currentColor" stroke-width="14" stroke-linecap="round" />
+    <path
+      d="M322 185C383.9 149.7 379.8 63.2 320 12C261.4 64.6 259.3 151.1 322 185ZM306 250C315.7 184.3 249.9 137.6 178 152C182.9 225.2 245.1 276.5 306 250ZM306 268C369.4 300.6 439.6 250 450 172C374 151.6 300.2 197 306 268ZM265 355C273.2 285.9 203 238.8 128 256C135.2 332.6 202 384.5 265 355ZM262 362C307.9 413.3 388.8 391.8 425 325C363.4 280.4 281.3 295.9 262 362ZM180 448C199.6 381.5 138.4 323.6 62 328C56.4 404.4 113.2 466.5 180 448ZM180 460C213 519.4 295.5 516.4 345 460C295.5 403.6 213 400.6 180 460Z"
+      fill="currentColor"
+    />
+  </symbol>
+
+  <symbol id="cart" viewBox="0 0 24 24">
+    <g fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M2.5 3.5h2.4l2.3 10.6a1.6 1.6 0 0 0 1.6 1.3h8.4a1.6 1.6 0 0 0 1.6-1.2l1.7-6.7H6" />
+      <circle cx="9.5" cy="19.5" r="1.3" />
+      <circle cx="17" cy="19.5" r="1.3" />
+    </g>
+  </symbol>
 </svg>
