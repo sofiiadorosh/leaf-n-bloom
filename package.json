@@ -1,0 +1,59 @@
+{
+  "name": "leaf-n-bloom",
+  "version": "1.0.0",
+  "description": "Leaf & Bloom — a small online store of houseplants with a catalog, filters and a shopping cart. RS School team project.",
+  "keywords": [
+    "typescript",
+    "vite",
+    "sass",
+    "jest",
+    "eslint",
+    "prettier",
+    "husky",
+    "online-store"
+  ],
+  "homepage": "https://github.com/sofiiadorosh/leaf-n-bloom#readme",
+  "bugs": {
+    "url": "https://github.com/sofiiadorosh/leaf-n-bloom/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sofiiadorosh/leaf-n-bloom.git"
+  },
+  "license": "ISC",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "format": "prettier . --write",
+    "format:check": "prettier . --check",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "test": "jest --passWithNoTests",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "*.ts": [
+      "eslint",
+      "prettier --check"
+    ],
+    "*.{js,json,html,css,scss,md,yml}": "prettier --check"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/jest": "^30.0.0",
+    "eslint": "^10.14.0",
+    "eslint-config-prettier": "^10.1.8",
+    "globals": "^17.14.0",
+    "husky": "^9.1.7",
+    "jest": "^30.5.2",
+    "lint-staged": "^17.6.0",
+    "prettier": "3.9.10",
+    "sass": "^1.108.2",
+    "ts-jest": "^29.4.15",
+    "typescript": "~6.0.3",
+    "typescript-eslint": "^8.72.2",
+    "vite": "^8.3.8"
+  }
+}

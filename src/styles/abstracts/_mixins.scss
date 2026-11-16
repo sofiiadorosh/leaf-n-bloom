@@ -1,0 +1,33 @@
+@use './variables' as *;
+
+@mixin soft-card($radius: $ui-radius) {
+  background: $ui-white;
+  border-radius: $radius;
+  box-shadow: $ui-shadow;
+}
+
+@mixin label-caps($size: 13px) {
+  font-size: $size;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+@mixin focus-ring($color: $ui-green) {
+  &:focus-visible {
+    outline: 3px solid $color;
+    outline-offset: 3px;
+  }
+}
+
+@mixin tablet {
+  @media screen and (min-width: $tablet-min-width) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media screen and (min-width: $desktop-min-width) {
+    @content;
+  }
+}
