@@ -1,5 +1,5 @@
-import { CATEGORIES } from '../src/data/categories';
-import { PRODUCTS } from '../src/data/products';
+import { CATEGORIES } from '../src/constants/categories';
+import { PRODUCTS } from '../src/constants/products';
 
 describe('PRODUCTS data', () => {
   it('has between 8 and 12 products', () => {
