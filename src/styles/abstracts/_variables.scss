@@ -1,0 +1,28 @@
+$timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+
+$tablet-min-width: 768px;
+$desktop-min-width: 1200px;
+$container-max-width: 1200px;
+
+$ui-font:
+  'Inter',
+  system-ui,
+  -apple-system,
+  'Segoe UI',
+  sans-serif;
+$heading-font: 'Cormorant Garamond', Georgia, serif;
+
+$ui-ink: #2b2b2b;
+$ui-muted: #6b6b63;
+$ui-white: #ffffff;
+$ui-divider: #e4e0d6;
+$page-background: #f4f1ea;
+
+$ui-green: #2f4a35;
+$ui-green-strong: #243a29;
+$ui-sage: #dfe6d6;
+
+$ui-radius: 16px;
+$ui-radius-small: 10px;
+$ui-shadow: 0 8px 24px rgba(47, 74, 53, 0.08);
+$ui-shadow-raised: 0 12px 28px rgba(47, 74, 53, 0.14);
