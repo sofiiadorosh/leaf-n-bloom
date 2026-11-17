@@ -1,0 +1,4 @@
+{
+  "pattern": "^(feat|fix|refactor|docs|test|chore|ci|build)/[a-z0-9]+(-[a-z0-9]+)*$",
+  "errorMsg": "Invalid branch name. Expected: <type>/<short-description>"
+}
