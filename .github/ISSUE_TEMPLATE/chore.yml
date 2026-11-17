@@ -1,0 +1,28 @@
+name: Chore
+description: Maintenance, tooling, or configuration tasks.
+title: 'chore: '
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What needs to be changed and why?
+      placeholder: Write here...
+    validations:
+      required: true
+  - type: textarea
+    id: tasks
+    attributes:
+      label: Tasks
+      description: List the required work.
+      placeholder: Write here...
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance-criteria
+    attributes:
+      label: Acceptance Criteria
+      description: How will we know the task is complete?
+      placeholder: Write here...
+    validations:
+      required: true

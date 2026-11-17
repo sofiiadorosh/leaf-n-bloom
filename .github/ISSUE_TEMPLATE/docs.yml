@@ -1,0 +1,28 @@
+name: Documentation
+description: Create or update project documentation.
+title: 'docs: '
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What documentation needs to change and why?
+      placeholder: Write here...
+    validations:
+      required: true
+  - type: textarea
+    id: required-changes
+    attributes:
+      label: Required Changes
+      description: What information must be added or updated?
+      placeholder: Write here...
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance-criteria
+    attributes:
+      label: Acceptance Criteria
+      description: How will we verify the documentation is complete?
+      placeholder: Write here...
+    validations:
+      required: true
