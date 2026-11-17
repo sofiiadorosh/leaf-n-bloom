@@ -9,11 +9,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
+
       - uses: actions/setup-node@v5
         with:
           node-version: 24
           cache: npm
+
       - run: npm ci
+
+      - name: Validate branch name
+        run: npx validate-branch-name --test "$BRANCH_NAME"
+        env:
+          BRANCH_NAME: ${{ github.head_ref }}
+
       - run: npm run lint
       - run: npm run format:check
       - run: npm test
