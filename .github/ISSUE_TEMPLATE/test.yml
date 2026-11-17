@@ -1,0 +1,28 @@
+name: Tests
+description: Add or improve automated tests.
+title: 'test: '
+body:
+  - type: textarea
+    id: test-scope
+    attributes:
+      label: Test Scope
+      description: Which component or behavior needs tests?
+      placeholder: Write here...
+    validations:
+      required: true
+  - type: textarea
+    id: test-scenarios
+    attributes:
+      label: Test Scenarios
+      description: Which cases should be covered?
+      placeholder: Write here...
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance-criteria
+    attributes:
+      label: Acceptance Criteria
+      description: How will we verify the tests?
+      placeholder: Write here...
+    validations:
+      required: true

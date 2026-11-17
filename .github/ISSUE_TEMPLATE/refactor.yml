@@ -1,0 +1,28 @@
+name: Refactor
+description: Improve internal code structure without changing behavior.
+title: 'refactor: '
+body:
+  - type: textarea
+    id: current-implementation
+    attributes:
+      label: Current Implementation
+      description: What needs improvement?
+      placeholder: Write here...
+    validations:
+      required: true
+  - type: textarea
+    id: proposed-changes
+    attributes:
+      label: Proposed Changes
+      description: What should be restructured?
+      placeholder: Write here...
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance-criteria
+    attributes:
+      label: Acceptance Criteria
+      description: How will we verify behavior remains unchanged?
+      placeholder: Write here...
+    validations:
+      required: true
