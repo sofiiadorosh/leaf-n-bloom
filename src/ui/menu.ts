@@ -1,4 +1,4 @@
-export const initMenu = (): void => {
+export const renderMenu = (): void => {
   const button = document.querySelector<HTMLButtonElement>('.menu');
   const navigation = document.querySelector<HTMLElement>('.navigation');
 
