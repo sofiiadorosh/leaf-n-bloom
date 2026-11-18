@@ -1,4 +1,6 @@
 import '../styles/main.scss';
-import { initMenu } from '../ui/menu';
+import { renderCategories } from '../ui/categories';
+import { renderMenu } from '../ui/menu';
 
-initMenu();
+renderMenu();
+renderCategories();
