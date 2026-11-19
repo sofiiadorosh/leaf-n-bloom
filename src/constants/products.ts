@@ -17,6 +17,8 @@ export const PRODUCTS: readonly Product[] = [
       'images/products/monstera-deliciosa/3.webp',
       'images/products/monstera-deliciosa/4.webp',
     ],
+    light: 'medium',
+    petSafe: false,
     description:
       'A tropical favourite with large, glossy split leaves. Easy to care for and great for bright rooms.',
     isBestSeller: true,
@@ -37,6 +39,8 @@ export const PRODUCTS: readonly Product[] = [
       'images/products/snake-plant/3.webp',
       'images/products/snake-plant/4.webp',
     ],
+    light: 'low',
+    petSafe: false,
     description:
       'Upright, sword-like leaves that purify the air. Tolerates low light and irregular watering.',
     isBestSeller: true,
@@ -57,6 +61,8 @@ export const PRODUCTS: readonly Product[] = [
       'images/products/peace-lily/3.webp',
       'images/products/peace-lily/4.webp',
     ],
+    light: 'low',
+    petSafe: false,
     description:
       'Elegant white blooms and dark green leaves. Tells you when it needs water by drooping slightly.',
     isBestSeller: true,
@@ -77,6 +83,8 @@ export const PRODUCTS: readonly Product[] = [
       'images/products/fiddle-leaf-fig/3.webp',
       'images/products/fiddle-leaf-fig/4.webp',
     ],
+    light: 'bright',
+    petSafe: false,
     description:
       'A statement plant with big violin-shaped leaves. Loves bright, indirect light and a stable spot.',
   },
@@ -96,6 +104,8 @@ export const PRODUCTS: readonly Product[] = [
       'images/products/zz-plant/3.webp',
       'images/products/zz-plant/4.webp',
     ],
+    light: 'low',
+    petSafe: false,
     description:
       'Waxy, glossy leaves on graceful stems. One of the most forgiving plants for beginners.',
   },
@@ -115,6 +125,8 @@ export const PRODUCTS: readonly Product[] = [
       'images/products/orchid-phalaenopsis/3.webp',
       'images/products/orchid-phalaenopsis/4.webp',
     ],
+    light: 'medium',
+    petSafe: true,
     description:
       'Long-lasting blooms that can stay for months. Prefers bright, indirect light and weekly watering.',
   },
@@ -134,6 +146,8 @@ export const PRODUCTS: readonly Product[] = [
       'images/products/anthurium/3.webp',
       'images/products/anthurium/4.webp',
     ],
+    light: 'medium',
+    petSafe: false,
     description:
       'Bright red heart-shaped flowers all year round. Enjoys warmth and humidity.',
   },
@@ -153,6 +167,8 @@ export const PRODUCTS: readonly Product[] = [
       'images/products/aloe-vera/3.webp',
       'images/products/aloe-vera/4.webp',
     ],
+    light: 'bright',
+    petSafe: false,
     description:
       'A soothing succulent with thick, fleshy leaves. Needs plenty of sun and very little water.',
     isBestSeller: true,
@@ -173,6 +189,8 @@ export const PRODUCTS: readonly Product[] = [
       'images/products/echeveria/3.webp',
       'images/products/echeveria/4.webp',
     ],
+    light: 'bright',
+    petSafe: true,
     description:
       'A compact rosette succulent in soft blue-green tones. Perfect for sunny windowsills.',
   },
@@ -192,6 +210,8 @@ export const PRODUCTS: readonly Product[] = [
       'images/products/haworthia/3.webp',
       'images/products/haworthia/4.webp',
     ],
+    light: 'medium',
+    petSafe: true,
     description:
       'Small striped succulent that is happy in partial shade. Ideal for desks and shelves.',
   },

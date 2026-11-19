@@ -1,9 +1,4 @@
-type ElementOptions = {
-  className?: string;
-  text?: string;
-  attributes?: Record<string, string | number>;
-  children?: readonly (Node | string)[];
-};
+import type { ElementOptions } from '../core/types';
 
 export const createElement = <Tag extends keyof HTMLElementTagNameMap>(
   tag: Tag,

@@ -1,0 +1,38 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+.shop {
+  padding: 40px 0;
+
+  @include tablet {
+    padding: 56px 0;
+  }
+
+  &__title {
+    margin-bottom: 24px;
+    font-size: 36px;
+    line-height: 1.1;
+
+    @include tablet {
+      margin-bottom: 32px;
+      font-size: 48px;
+    }
+  }
+
+  &__layout {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+
+    @include desktop {
+      display: grid;
+      grid-template-columns: 320px minmax(0, 1fr);
+      align-items: start;
+      gap: 32px;
+    }
+  }
+
+  &__placeholder {
+    color: $ui-muted;
+  }
+}

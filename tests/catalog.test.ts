@@ -1,4 +1,8 @@
-import { getMinPrice, getRandomBestSellers } from '../src/core/catalog';
+import {
+  getMinPrice,
+  getPriceBounds,
+  getRandomBestSellers,
+} from '../src/core/catalog';
 import type { Product } from '../src/core/types';
 
 const makeProduct = (
@@ -99,5 +103,46 @@ describe('getMinPrice', () => {
     });
 
     expect(getMinPrice(product)).toBe(24.99);
+  });
+});
+
+describe('getPriceBounds', () => {
+  it('rounds the lowest price down and the highest price up', () => {
+    const products = [
+      makeProduct('a', {
+        sizes: [
+          { inches: 4, price: 7.99 },
+          { inches: 6, price: 12.5 },
+        ],
+      }),
+      makeProduct('b', { sizes: [{ inches: 10, price: 89.99 }] }),
+    ];
+
+    expect(getPriceBounds(products)).toEqual({ min: 7, max: 90 });
+  });
+
+  it('keeps whole prices as they are', () => {
+    const products = [
+      makeProduct('a', { sizes: [{ inches: 6, price: 10 }] }),
+      makeProduct('b', { sizes: [{ inches: 8, price: 40 }] }),
+    ];
+
+    expect(getPriceBounds(products)).toEqual({ min: 10, max: 40 });
+  });
+
+  it('uses every size, not only the first one', () => {
+    const product = makeProduct('a', {
+      sizes: [
+        { inches: 8, price: 30 },
+        { inches: 4, price: 5 },
+        { inches: 12, price: 60 },
+      ],
+    });
+
+    expect(getPriceBounds([product])).toEqual({ min: 5, max: 60 });
+  });
+
+  it('returns zeros for an empty catalog', () => {
+    expect(getPriceBounds([])).toEqual({ min: 0, max: 0 });
   });
 });

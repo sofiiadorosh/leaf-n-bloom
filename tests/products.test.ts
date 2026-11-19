@@ -1,4 +1,5 @@
 import { CATEGORIES } from '../src/constants/categories';
+import { LIGHT_LEVELS } from '../src/constants/light';
 import { PRODUCTS } from '../src/constants/products';
 
 describe('PRODUCTS data', () => {
@@ -90,5 +91,20 @@ describe('PRODUCTS data', () => {
     PRODUCTS.forEach((product) => {
       expect(product.images[0]).toBe(`images/products/${product.id}/1.webp`);
     });
+  });
+
+  it('has known light needs and a pet safety flag for every plant', () => {
+    const lightIds: readonly string[] = LIGHT_LEVELS.map(({ id }) => id);
+
+    PRODUCTS.filter(({ category }) => category !== 'planters').forEach(
+      (plant) => {
+        expect(lightIds).toContain(plant.light);
+        expect(typeof plant.petSafe).toBe('boolean');
+      },
+    );
+  });
+
+  it('has at least one pet-safe plant', () => {
+    expect(PRODUCTS.some(({ petSafe }) => petSafe)).toBe(true);
   });
 });

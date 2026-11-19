@@ -54,10 +54,316 @@
     </header>
 
     <main class="main">
-      <section class="page">
-        <div class="container page__container">
-          <h1 class="page__title">Shop</h1>
-          <p>The plant catalog is coming soon.</p>
+      <section class="shop" aria-labelledby="shop-title">
+        <div class="container">
+          <h1 class="shop__title" id="shop-title">Shop</h1>
+
+          <div class="shop__layout">
+            <aside class="shop__sidebar">
+              <button
+                class="filters-toggle"
+                type="button"
+                aria-expanded="false"
+                aria-controls="filters"
+              >
+                <svg
+                  class="filters-toggle__icon"
+                  width="20"
+                  height="20"
+                  aria-hidden="true"
+                >
+                  <use href="/icons/sprite.svg#filter"></use>
+                </svg>
+                Filters
+              </button>
+
+              <form
+                class="filters"
+                id="filters"
+                aria-labelledby="filters-title"
+              >
+                <div class="filters__header">
+                  <h2 class="filters__title" id="filters-title">
+                    <svg
+                      class="filters__title-icon"
+                      width="22"
+                      height="22"
+                      aria-hidden="true"
+                    >
+                      <use href="/icons/sprite.svg#filter"></use>
+                    </svg>
+                    Filter Plants
+                  </h2>
+                  <button class="filters__reset" type="reset">Reset</button>
+                </div>
+
+                <div class="filters__group">
+                  <label class="filters__label" for="filter-search"
+                    >Search</label
+                  >
+                  <div class="filters__search">
+                    <svg
+                      class="filters__search-icon"
+                      width="18"
+                      height="18"
+                      aria-hidden="true"
+                    >
+                      <use href="/icons/sprite.svg#search"></use>
+                    </svg>
+                    <input
+                      class="filters__field filters__field_search"
+                      id="filter-search"
+                      type="search"
+                      name="search"
+                      placeholder="Search plants"
+                      autocomplete="off"
+                    />
+                  </div>
+                </div>
+
+                <fieldset class="filters__group">
+                  <legend class="filters__label">Plant Type</legend>
+                  <div class="filters__pills filters__categories">
+                    <label class="pill">
+                      <input
+                        class="pill__input"
+                        type="radio"
+                        name="category"
+                        value="all"
+                        checked
+                      />
+                      <span class="pill__text">All</span>
+                    </label>
+                  </div>
+                </fieldset>
+
+                <fieldset class="filters__group">
+                  <legend class="filters__label">Light Needs</legend>
+                  <div class="filters__pills">
+                    <label class="pill">
+                      <input
+                        class="pill__input"
+                        type="checkbox"
+                        name="light"
+                        value="bright"
+                      />
+                      <span class="pill__text">
+                        <svg
+                          class="pill__icon"
+                          width="18"
+                          height="18"
+                          aria-hidden="true"
+                        >
+                          <use href="/icons/sprite.svg#sun"></use>
+                        </svg>
+                        Bright Light
+                      </span>
+                    </label>
+                    <label class="pill">
+                      <input
+                        class="pill__input"
+                        type="checkbox"
+                        name="light"
+                        value="medium"
+                      />
+                      <span class="pill__text">
+                        <svg
+                          class="pill__icon"
+                          width="18"
+                          height="18"
+                          aria-hidden="true"
+                        >
+                          <use href="/icons/sprite.svg#light-medium"></use>
+                        </svg>
+                        Medium Light
+                      </span>
+                    </label>
+                    <label class="pill">
+                      <input
+                        class="pill__input"
+                        type="checkbox"
+                        name="light"
+                        value="low"
+                      />
+                      <span class="pill__text">
+                        <svg
+                          class="pill__icon"
+                          width="18"
+                          height="18"
+                          aria-hidden="true"
+                        >
+                          <use href="/icons/sprite.svg#moon"></use>
+                        </svg>
+                        Low Light
+                      </span>
+                    </label>
+                  </div>
+                </fieldset>
+
+                <fieldset class="filters__group">
+                  <legend class="filters__label">Pet Friendly</legend>
+                  <label class="filters__checkbox">
+                    <input
+                      class="filters__checkbox-input"
+                      type="checkbox"
+                      name="petSafe"
+                    />
+                    <svg
+                      class="filters__checkbox-icon"
+                      width="20"
+                      height="20"
+                      aria-hidden="true"
+                    >
+                      <use href="/icons/sprite.svg#paw"></use>
+                    </svg>
+                    Pet Safe Only
+                  </label>
+                </fieldset>
+
+                <fieldset class="filters__group">
+                  <legend class="filters__label">Price Range</legend>
+                  <div class="price-range">
+                    <div class="price-range__track">
+                      <div class="price-range__fill"></div>
+                    </div>
+                    <label class="visually-hidden" for="price-min"
+                      >Minimum price</label
+                    >
+                    <input
+                      class="price-range__input"
+                      id="price-min"
+                      type="range"
+                      name="priceMin"
+                      min="0"
+                      max="100"
+                      step="1"
+                      value="0"
+                    />
+                    <label class="visually-hidden" for="price-max"
+                      >Maximum price</label
+                    >
+                    <input
+                      class="price-range__input"
+                      id="price-max"
+                      type="range"
+                      name="priceMax"
+                      min="0"
+                      max="100"
+                      step="1"
+                      value="100"
+                    />
+                  </div>
+                  <div class="price-range__values">
+                    <output
+                      class="price-range__value price-range__value_min"
+                      for="price-min"
+                      >$0</output
+                    >
+                    <output
+                      class="price-range__value price-range__value_max"
+                      for="price-max"
+                      >$100</output
+                    >
+                  </div>
+                </fieldset>
+
+                <div class="filters__group">
+                  <span class="filters__label" id="sort-label">Sort by</span>
+                  <div class="dropdown">
+                    <input
+                      class="dropdown__input"
+                      type="hidden"
+                      name="sort"
+                      value="default"
+                    />
+                    <button
+                      class="dropdown__button"
+                      id="sort-button"
+                      type="button"
+                      aria-haspopup="listbox"
+                      aria-expanded="false"
+                      aria-controls="sort-list"
+                      aria-labelledby="sort-label sort-button"
+                    >
+                      <span class="dropdown__value">Default</span>
+                      <svg
+                        class="dropdown__icon"
+                        width="18"
+                        height="18"
+                        aria-hidden="true"
+                      >
+                        <use href="/icons/sprite.svg#chevron-down"></use>
+                      </svg>
+                    </button>
+                    <ul
+                      class="dropdown__list"
+                      id="sort-list"
+                      role="listbox"
+                      tabindex="-1"
+                      aria-labelledby="sort-label"
+                      hidden
+                    >
+                      <li
+                        class="dropdown__option"
+                        id="sort-option-default"
+                        role="option"
+                        data-value="default"
+                        aria-selected="true"
+                      >
+                        Default
+                        <svg
+                          class="dropdown__check"
+                          width="16"
+                          height="16"
+                          aria-hidden="true"
+                        >
+                          <use href="/icons/sprite.svg#check"></use>
+                        </svg>
+                      </li>
+                      <li
+                        class="dropdown__option"
+                        id="sort-option-price-asc"
+                        role="option"
+                        data-value="price-asc"
+                        aria-selected="false"
+                      >
+                        Price: Low to High
+                        <svg
+                          class="dropdown__check"
+                          width="16"
+                          height="16"
+                          aria-hidden="true"
+                        >
+                          <use href="/icons/sprite.svg#check"></use>
+                        </svg>
+                      </li>
+                      <li
+                        class="dropdown__option"
+                        id="sort-option-price-desc"
+                        role="option"
+                        data-value="price-desc"
+                        aria-selected="false"
+                      >
+                        Price: High to Low
+                        <svg
+                          class="dropdown__check"
+                          width="16"
+                          height="16"
+                          aria-hidden="true"
+                        >
+                          <use href="/icons/sprite.svg#check"></use>
+                        </svg>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </form>
+            </aside>
+
+            <div class="shop__catalog">
+              <p class="shop__placeholder">The plant catalog is coming soon.</p>
+            </div>
+          </div>
         </div>
       </section>
     </main>

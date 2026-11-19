@@ -1,9 +1,4 @@
-import type { Category, Product } from './types';
-
-export type CategorySummary = Category & {
-  count: number;
-  image?: string;
-};
+import type { Category, CategorySummary, Product } from './types';
 
 export const getCategorySummaries = (
   categories: readonly Category[],

@@ -3,8 +3,8 @@ import { PRODUCTS } from '../constants/products';
 import {
   formatVarieties,
   getCategorySummaries,
-  type CategorySummary,
 } from '../core/categorySummaries';
+import type { CategorySummary } from '../core/types';
 import { createElement } from './createElement';
 
 const createCategoryImage = (image: string): HTMLImageElement =>

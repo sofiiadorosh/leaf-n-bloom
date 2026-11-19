@@ -1,4 +1,4 @@
-import type { Product } from './types';
+import type { PriceBounds, Product } from './types';
 
 export const getRandomBestSellers = (
   products: readonly Product[],
@@ -17,3 +17,18 @@ export const getRandomBestSellers = (
 
 export const getMinPrice = (product: Product): number =>
   Math.min(...product.sizes.map(({ price }) => price));
+
+export const getPriceBounds = (products: readonly Product[]): PriceBounds => {
+  const prices = products.flatMap(({ sizes }) =>
+    sizes.map(({ price }) => price),
+  );
+
+  if (prices.length === 0) {
+    return { min: 0, max: 0 };
+  }
+
+  return {
+    min: Math.floor(Math.min(...prices)),
+    max: Math.ceil(Math.max(...prices)),
+  };
+};
