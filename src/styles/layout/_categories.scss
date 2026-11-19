@@ -41,8 +41,8 @@
     border-radius: 4px;
     @include focus-ring;
 
-    @media (hover: hover) {
-      &:hover .categories__link-icon {
+    &:hover .categories__link-icon {
+      @media (hover: hover) {
         transform: translateX(3px);
       }
     }
@@ -81,8 +81,8 @@
     transform 200ms $timing-function,
     box-shadow 200ms $timing-function;
 
-  @media (hover: hover) {
-    &:hover {
+  &:hover {
+    @media (hover: hover) {
       transform: translateY(-4px);
       box-shadow: $ui-shadow-raised;
     }

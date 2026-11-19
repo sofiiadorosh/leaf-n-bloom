@@ -35,8 +35,8 @@
     color: $ui-green;
   }
 
-  @media (hover: hover) {
-    &:hover &__text {
+  &:hover &__text {
+    @media (hover: hover) {
       border-color: $ui-green;
     }
   }

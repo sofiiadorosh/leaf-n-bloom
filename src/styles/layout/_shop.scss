@@ -8,17 +8,6 @@
     padding: 56px 0;
   }
 
-  &__title {
-    margin-bottom: 24px;
-    font-size: 36px;
-    line-height: 1.1;
-
-    @include tablet {
-      margin-bottom: 32px;
-      font-size: 48px;
-    }
-  }
-
   &__layout {
     display: flex;
     flex-direction: column;
@@ -32,7 +21,16 @@
     }
   }
 
-  &__placeholder {
+  &__sidebar {
+    @include desktop {
+      align-self: stretch;
+      margin-bottom: -56px;
+    }
+  }
+
+  &__count {
+    margin-bottom: 16px;
+    font-size: 14px;
     color: $ui-muted;
   }
 }

@@ -141,8 +141,8 @@ $wave-back: wave(
   &__button {
     margin-top: 12px;
 
-    @media (hover: hover) {
-      &:hover .featured__button-icon {
+    &:hover .featured__button-icon {
+      @media (hover: hover) {
         transform: translateX(3px);
       }
     }

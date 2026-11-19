@@ -3,13 +3,7 @@ import { getMinPrice, getRandomBestSellers } from '../core/catalog';
 import { formatPrice } from '../core/formatPrice';
 import type { Product } from '../core/types';
 import { createElement } from './createElement';
-
-const cloneArrowIcon = (): Node[] => {
-  const template =
-    document.querySelector<HTMLTemplateElement>('#product-card-icon');
-
-  return template ? [template.content.cloneNode(true)] : [];
-};
+import { spriteHref } from './spriteHref';
 
 const createProductCard = (product: Product): HTMLLIElement =>
   createElement('li', {
@@ -54,7 +48,19 @@ const createProductCard = (product: Product): HTMLLIElement =>
                     className: 'product-card__price',
                     text: formatPrice(getMinPrice(product)),
                   }),
-                  ...cloneArrowIcon(),
+                  createElement('svg', {
+                    className: 'product-card__icon',
+                    attributes: {
+                      width: 16,
+                      height: 16,
+                      'aria-hidden': 'true',
+                    },
+                    children: [
+                      createElement('use', {
+                        attributes: { href: spriteHref('arrow-right') },
+                      }),
+                    ],
+                  }),
                 ],
               }),
             ],

@@ -1,25 +1,30 @@
 import {
+  describeRating,
+  formatProductCount,
+  getFilledStars,
   getMinPrice,
   getPriceBounds,
+  getProductMeta,
   getRandomBestSellers,
 } from '../src/core/catalog';
-import type { Product } from '../src/core/types';
+import type { Category, Product } from '../src/core/types';
 
 const makeProduct = (
   id: string,
   {
-    isBestSeller = true,
+    badge = 'bestseller',
     sizes = [{ inches: 6, price: 10 }],
-  }: Partial<Pick<Product, 'isBestSeller' | 'sizes'>> = {},
+  }: Partial<Pick<Product, 'badge' | 'sizes'>> = {},
 ): Product => ({
   id,
   name: id,
   tag: 'test',
+  rating: 5,
   category: 'indoor',
   sizes,
   description: 'test',
   images: [`images/products/${id}/1.webp`],
-  isBestSeller,
+  badge,
 });
 
 const ids = (products: readonly Product[]): string[] =>
@@ -42,17 +47,17 @@ describe('getRandomBestSellers', () => {
 
   it('returns only best sellers', () => {
     const products = [
-      makeProduct('regular', { isBestSeller: false }),
+      makeProduct('regular', { badge: 'new' }),
       makeProduct('hit'),
       makeProduct('no-flag'),
     ];
-    delete products[2].isBestSeller;
+    delete products[2].badge;
 
     expect(ids(getRandomBestSellers(products))).toEqual(['hit']);
   });
 
   it('returns an empty list when there are no best sellers', () => {
-    const products = [makeProduct('a', { isBestSeller: false })];
+    const products = [makeProduct('a', { badge: 'trending' })];
 
     expect(getRandomBestSellers(products)).toEqual([]);
   });
@@ -144,5 +149,66 @@ describe('getPriceBounds', () => {
 
   it('returns zeros for an empty catalog', () => {
     expect(getPriceBounds([])).toEqual({ min: 0, max: 0 });
+  });
+});
+
+describe('getProductMeta', () => {
+  const categories: Category[] = [
+    { id: 'indoor', name: 'Indoor Plants' },
+    { id: 'succulents', name: 'Succulents' },
+  ];
+
+  it('joins the category name and the tag', () => {
+    const product = { ...makeProduct('a'), tag: 'Air Purifying' };
+
+    expect(getProductMeta(product, categories)).toBe(
+      'Indoor Plants · Air Purifying',
+    );
+  });
+
+  it('shows only the tag when the category is unknown', () => {
+    const product = { ...makeProduct('a'), tag: 'Natural Wood' };
+
+    expect(getProductMeta(product, [])).toBe('Natural Wood');
+  });
+});
+
+describe('formatProductCount', () => {
+  it.each([
+    [0, '0 products'],
+    [1, '1 product'],
+    [12, '12 products'],
+  ])('formats %i as "%s"', (count, expected) => {
+    expect(formatProductCount(count)).toBe(expected);
+  });
+});
+
+describe('getFilledStars', () => {
+  it.each([
+    [4.9, 5],
+    [4.5, 5],
+    [4.4, 4],
+    [3, 3],
+    [0, 0],
+  ])('fills %d stars for a rating of %d', (rating, expected) => {
+    expect(getFilledStars(rating)).toBe(expected);
+  });
+
+  it('never fills more stars than the maximum', () => {
+    expect(getFilledStars(7)).toBe(5);
+  });
+
+  it('never fills a negative number of stars', () => {
+    expect(getFilledStars(-2)).toBe(0);
+  });
+});
+
+describe('describeRating', () => {
+  it('describes the rating for screen readers', () => {
+    expect(describeRating(4.8)).toBe('Rated 4.8 out of 5');
+  });
+
+  it('always shows one decimal', () => {
+    expect(describeRating(5)).toBe('Rated 5.0 out of 5');
   });
 });

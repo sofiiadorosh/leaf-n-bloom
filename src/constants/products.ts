@@ -5,6 +5,7 @@ export const PRODUCTS: readonly Product[] = [
     id: 'monstera-deliciosa',
     name: 'Monstera Deliciosa',
     tag: 'Indoor Favorite',
+    rating: 4.9,
     category: 'indoor',
     sizes: [
       { inches: 6, price: 29.99 },
@@ -21,12 +22,13 @@ export const PRODUCTS: readonly Product[] = [
     petSafe: false,
     description:
       'A tropical favourite with large, glossy split leaves. Easy to care for and great for bright rooms.',
-    isBestSeller: true,
+    badge: 'bestseller',
   },
   {
     id: 'snake-plant',
     name: 'Snake Plant',
     tag: 'Low Maintenance',
+    rating: 4.8,
     category: 'indoor',
     sizes: [
       { inches: 6, price: 19.99 },
@@ -43,12 +45,13 @@ export const PRODUCTS: readonly Product[] = [
     petSafe: false,
     description:
       'Upright, sword-like leaves that purify the air. Tolerates low light and irregular watering.',
-    isBestSeller: true,
+    badge: 'bestseller',
   },
   {
     id: 'peace-lily',
     name: 'Peace Lily',
     tag: 'Air Purifying',
+    rating: 4.7,
     category: 'flowering',
     sizes: [
       { inches: 6, price: 24.99 },
@@ -65,12 +68,13 @@ export const PRODUCTS: readonly Product[] = [
     petSafe: false,
     description:
       'Elegant white blooms and dark green leaves. Tells you when it needs water by drooping slightly.',
-    isBestSeller: true,
+    badge: 'bestseller',
   },
   {
     id: 'fiddle-leaf-fig',
     name: 'Fiddle Leaf Fig',
     tag: 'Statement Plant',
+    rating: 4.5,
     category: 'indoor',
     sizes: [
       { inches: 6, price: 39.99 },
@@ -85,6 +89,7 @@ export const PRODUCTS: readonly Product[] = [
     ],
     light: 'bright',
     petSafe: false,
+    badge: 'trending',
     description:
       'A statement plant with big violin-shaped leaves. Loves bright, indirect light and a stable spot.',
   },
@@ -92,6 +97,7 @@ export const PRODUCTS: readonly Product[] = [
     id: 'zz-plant',
     name: 'ZZ Plant',
     tag: 'Thrives in Low Light',
+    rating: 4.7,
     category: 'indoor',
     sizes: [
       { inches: 6, price: 22.99 },
@@ -106,6 +112,7 @@ export const PRODUCTS: readonly Product[] = [
     ],
     light: 'low',
     petSafe: false,
+    badge: 'trending',
     description:
       'Waxy, glossy leaves on graceful stems. One of the most forgiving plants for beginners.',
   },
@@ -113,6 +120,7 @@ export const PRODUCTS: readonly Product[] = [
     id: 'orchid-phalaenopsis',
     name: 'Phalaenopsis Orchid',
     tag: 'Long Blooming',
+    rating: 4.6,
     category: 'flowering',
     sizes: [
       { inches: 4, price: 27.99 },
@@ -134,6 +142,7 @@ export const PRODUCTS: readonly Product[] = [
     id: 'anthurium',
     name: 'Anthurium',
     tag: 'Year-Round Blooms',
+    rating: 4.5,
     category: 'flowering',
     sizes: [
       { inches: 5, price: 24.99 },
@@ -148,6 +157,7 @@ export const PRODUCTS: readonly Product[] = [
     ],
     light: 'medium',
     petSafe: false,
+    badge: 'new',
     description:
       'Bright red heart-shaped flowers all year round. Enjoys warmth and humidity.',
   },
@@ -155,6 +165,7 @@ export const PRODUCTS: readonly Product[] = [
     id: 'aloe-vera',
     name: 'Aloe Vera',
     tag: 'Medicinal',
+    rating: 4.8,
     category: 'succulents',
     sizes: [
       { inches: 4, price: 14.99 },
@@ -171,12 +182,13 @@ export const PRODUCTS: readonly Product[] = [
     petSafe: false,
     description:
       'A soothing succulent with thick, fleshy leaves. Needs plenty of sun and very little water.',
-    isBestSeller: true,
+    badge: 'bestseller',
   },
   {
     id: 'echeveria',
     name: 'Echeveria',
     tag: 'Sun Lover',
+    rating: 4.6,
     category: 'succulents',
     sizes: [
       { inches: 3, price: 8.99 },
@@ -198,6 +210,7 @@ export const PRODUCTS: readonly Product[] = [
     id: 'haworthia',
     name: 'Haworthia Zebra',
     tag: 'Compact Size',
+    rating: 4.7,
     category: 'succulents',
     sizes: [
       { inches: 3, price: 7.99 },
@@ -212,6 +225,7 @@ export const PRODUCTS: readonly Product[] = [
     ],
     light: 'medium',
     petSafe: true,
+    badge: 'new',
     description:
       'Small striped succulent that is happy in partial shade. Ideal for desks and shelves.',
   },
@@ -219,6 +233,7 @@ export const PRODUCTS: readonly Product[] = [
     id: 'ceramic-planter',
     name: 'Ceramic Planter',
     tag: 'Matte Finish',
+    rating: 4.8,
     category: 'planters',
     sizes: [
       { inches: 6, price: 14.99 },
@@ -238,6 +253,7 @@ export const PRODUCTS: readonly Product[] = [
     id: 'wooden-plant-stand',
     name: 'Wooden Plant Stand',
     tag: 'Natural Wood',
+    rating: 4.6,
     category: 'planters',
     sizes: [
       { inches: 8, price: 24.99 },
