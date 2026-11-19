@@ -7,6 +7,7 @@ import type { Category, Product } from '../src/core/types';
 const makeProduct = (id: string, category: Product['category']): Product => ({
   id,
   name: id,
+  tag: 'test',
   category,
   sizes: [{ inches: 6, price: 10 }],
   description: 'test',

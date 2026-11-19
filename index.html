@@ -162,6 +162,39 @@
           </div>
         </div>
       </section>
+
+      <section class="best-sellers" aria-labelledby="best-sellers-title">
+        <div class="container">
+          <div class="best-sellers__header">
+            <h2 class="best-sellers__title" id="best-sellers-title">
+              Our Best Sellers
+            </h2>
+            <a class="best-sellers__link" href="./shop.html">
+              View All
+              <svg
+                class="best-sellers__link-icon"
+                width="16"
+                height="16"
+                aria-hidden="true"
+              >
+                <use href="/icons/sprite.svg#arrow-right"></use>
+              </svg>
+            </a>
+          </div>
+          <ul class="best-sellers__list"></ul>
+        </div>
+      </section>
+
+      <template id="product-card-icon">
+        <svg
+          class="product-card__icon"
+          width="16"
+          height="16"
+          aria-hidden="true"
+        >
+          <use href="/icons/sprite.svg#arrow-right"></use>
+        </svg>
+      </template>
     </main>
 
     <script type="module" src="/src/pages/about.ts"></script>
