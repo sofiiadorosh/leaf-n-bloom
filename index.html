@@ -76,21 +76,90 @@
                 class="categories__link-icon"
                 width="16"
                 height="16"
-                viewBox="0 0 16 16"
                 aria-hidden="true"
               >
-                <path
-                  d="M3 8h10M9 4l4 4-4 4"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
+                <use href="/icons/sprite.svg#arrow-right"></use>
               </svg>
             </a>
           </div>
           <ul class="categories__list"></ul>
+        </div>
+      </section>
+
+      <section class="featured" aria-labelledby="featured-title">
+        <div class="container featured__container">
+          <div class="featured__content">
+            <h2 class="featured__title" id="featured-title">
+              Featured This Week
+            </h2>
+            <p class="featured__text">
+              Looking for your next green companion?<br />
+              This week we're loving plants that brighten any corner, forgive a
+              missed watering and look great on a shelf or windowsill.
+            </p>
+            <ul class="featured__tags" aria-label="Why we love them">
+              <li class="featured__tag">
+                <svg
+                  class="featured__tag-icon"
+                  width="20"
+                  height="20"
+                  aria-hidden="true"
+                >
+                  <use href="/icons/sprite.svg#drop"></use>
+                </svg>
+                Easy care
+              </li>
+              <li class="featured__tag">
+                <svg
+                  class="featured__tag-icon"
+                  width="20"
+                  height="20"
+                  aria-hidden="true"
+                >
+                  <use href="/icons/sprite.svg#growth"></use>
+                </svg>
+                Fast growing
+              </li>
+              <li class="featured__tag">
+                <svg
+                  class="featured__tag-icon"
+                  width="20"
+                  height="20"
+                  aria-hidden="true"
+                >
+                  <use href="/icons/sprite.svg#sun"></use>
+                </svg>
+                Bright indirect light
+              </li>
+            </ul>
+            <a class="button featured__button" href="./shop.html">
+              Explore Plants
+              <svg
+                class="featured__button-icon"
+                width="16"
+                height="16"
+                aria-hidden="true"
+              >
+                <use href="/icons/sprite.svg#arrow-right"></use>
+              </svg>
+            </a>
+          </div>
+          <div class="featured__visual" aria-hidden="true">
+            <svg class="featured__leaf featured__leaf_left">
+              <use href="/icons/sprite.svg#leaf-branch"></use>
+            </svg>
+            <svg class="featured__leaf featured__leaf_right">
+              <use href="/icons/sprite.svg#leaf-branch"></use>
+            </svg>
+            <img
+              class="featured__image"
+              src="/images/featured-plant.webp"
+              alt=""
+              width="800"
+              height="1014"
+              loading="lazy"
+            />
+          </div>
         </div>
       </section>
     </main>
