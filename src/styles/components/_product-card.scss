@@ -1,0 +1,82 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+.product-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  color: inherit;
+  text-decoration: none;
+  @include soft-card;
+  @include focus-ring;
+  transition:
+    transform 200ms $timing-function,
+    box-shadow 200ms $timing-function;
+
+  @media (hover: hover) {
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: $ui-shadow-raised;
+    }
+
+    &:hover .product-card__icon {
+      transform: translateX(3px);
+    }
+  }
+
+  &__media {
+    aspect-ratio: 1;
+    overflow: hidden;
+    background: $page-background;
+  }
+
+  &__image {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+  }
+
+  &__body {
+    padding: 16px 16px 20px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    gap: 4px;
+  }
+
+  &__name {
+    font-family: $ui-font;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.3;
+    color: $ui-ink;
+  }
+
+  &__tag {
+    font-size: 13px;
+    color: $ui-muted;
+  }
+
+  &__footer {
+    margin-top: auto;
+    padding-top: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  &__price {
+    font-size: 16px;
+    font-weight: 600;
+    color: $ui-green;
+  }
+
+  &__icon {
+    flex-shrink: 0;
+    color: $ui-green;
+    transition: transform 150ms $timing-function;
+  }
+}

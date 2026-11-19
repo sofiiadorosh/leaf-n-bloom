@@ -4,6 +4,7 @@ export const PRODUCTS: readonly Product[] = [
   {
     id: 'monstera-deliciosa',
     name: 'Monstera Deliciosa',
+    tag: 'Indoor Favorite',
     category: 'indoor',
     sizes: [
       { inches: 6, price: 29.99 },
@@ -23,6 +24,7 @@ export const PRODUCTS: readonly Product[] = [
   {
     id: 'snake-plant',
     name: 'Snake Plant',
+    tag: 'Low Maintenance',
     category: 'indoor',
     sizes: [
       { inches: 6, price: 19.99 },
@@ -42,6 +44,7 @@ export const PRODUCTS: readonly Product[] = [
   {
     id: 'peace-lily',
     name: 'Peace Lily',
+    tag: 'Air Purifying',
     category: 'flowering',
     sizes: [
       { inches: 6, price: 24.99 },
@@ -61,6 +64,7 @@ export const PRODUCTS: readonly Product[] = [
   {
     id: 'fiddle-leaf-fig',
     name: 'Fiddle Leaf Fig',
+    tag: 'Statement Plant',
     category: 'indoor',
     sizes: [
       { inches: 6, price: 39.99 },
@@ -79,6 +83,7 @@ export const PRODUCTS: readonly Product[] = [
   {
     id: 'zz-plant',
     name: 'ZZ Plant',
+    tag: 'Thrives in Low Light',
     category: 'indoor',
     sizes: [
       { inches: 6, price: 22.99 },
@@ -97,6 +102,7 @@ export const PRODUCTS: readonly Product[] = [
   {
     id: 'orchid-phalaenopsis',
     name: 'Phalaenopsis Orchid',
+    tag: 'Long Blooming',
     category: 'flowering',
     sizes: [
       { inches: 4, price: 27.99 },
@@ -115,6 +121,7 @@ export const PRODUCTS: readonly Product[] = [
   {
     id: 'anthurium',
     name: 'Anthurium',
+    tag: 'Year-Round Blooms',
     category: 'flowering',
     sizes: [
       { inches: 5, price: 24.99 },
@@ -133,6 +140,7 @@ export const PRODUCTS: readonly Product[] = [
   {
     id: 'aloe-vera',
     name: 'Aloe Vera',
+    tag: 'Medicinal',
     category: 'succulents',
     sizes: [
       { inches: 4, price: 14.99 },
@@ -152,6 +160,7 @@ export const PRODUCTS: readonly Product[] = [
   {
     id: 'echeveria',
     name: 'Echeveria',
+    tag: 'Sun Lover',
     category: 'succulents',
     sizes: [
       { inches: 3, price: 8.99 },
@@ -170,6 +179,7 @@ export const PRODUCTS: readonly Product[] = [
   {
     id: 'haworthia',
     name: 'Haworthia Zebra',
+    tag: 'Compact Size',
     category: 'succulents',
     sizes: [
       { inches: 3, price: 7.99 },
@@ -188,6 +198,7 @@ export const PRODUCTS: readonly Product[] = [
   {
     id: 'ceramic-planter',
     name: 'Ceramic Planter',
+    tag: 'Matte Finish',
     category: 'planters',
     sizes: [
       { inches: 6, price: 14.99 },
@@ -206,6 +217,7 @@ export const PRODUCTS: readonly Product[] = [
   {
     id: 'wooden-plant-stand',
     name: 'Wooden Plant Stand',
+    tag: 'Natural Wood',
     category: 'planters',
     sizes: [
       { inches: 8, price: 24.99 },

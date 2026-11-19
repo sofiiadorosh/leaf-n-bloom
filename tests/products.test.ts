@@ -64,9 +64,10 @@ describe('PRODUCTS data', () => {
     });
   });
 
-  it('has a non-empty name and description for every product', () => {
+  it('has a non-empty name, tag and description for every product', () => {
     PRODUCTS.forEach((product) => {
       expect(product.name.trim()).not.toBe('');
+      expect(product.tag.trim()).not.toBe('');
       expect(product.description.trim()).not.toBe('');
     });
   });

@@ -15,8 +15,9 @@ export type ProductSize = {
 export type Product = {
   id: string;
   name: string;
+  tag: string;
   category: CategoryId;
-  sizes: readonly ProductSize[];
+  sizes: readonly [ProductSize, ...ProductSize[]];
   description: string;
   images: readonly string[];
   isBestSeller?: boolean;
