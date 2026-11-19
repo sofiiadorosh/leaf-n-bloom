@@ -1,0 +1,93 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+.dropdown {
+  position: relative;
+
+  &__button {
+    width: 100%;
+    height: 44px;
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    font-size: 15px;
+    color: $ui-ink;
+    text-align: left;
+    background: $page-background;
+    border: 1px solid $ui-divider;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: border-color 150ms $timing-function;
+
+    &:focus-visible,
+    &[aria-expanded='true'] {
+      outline: none;
+      border-color: $ui-green;
+      box-shadow: 0 0 0 3px rgba($ui-green, 0.2);
+    }
+
+    @media (hover: hover) {
+      &:hover {
+        border-color: $ui-green;
+      }
+    }
+  }
+
+  &__icon {
+    flex-shrink: 0;
+    color: $ui-muted;
+    transition: transform 150ms $timing-function;
+  }
+
+  &__button[aria-expanded='true'] &__icon {
+    transform: rotate(180deg);
+  }
+
+  &__list {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    right: 0;
+    z-index: 10;
+    padding: 6px;
+    @include soft-card($ui-radius);
+    box-shadow: $ui-shadow-raised;
+
+    &:focus-visible {
+      outline: 3px solid rgba($ui-green, 0.35);
+      outline-offset: 2px;
+    }
+  }
+
+  &__option {
+    padding: 10px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    font-size: 15px;
+    color: $ui-ink;
+    border-radius: $ui-radius-small;
+    cursor: pointer;
+
+    &_active {
+      background: $page-background;
+    }
+
+    &[aria-selected='true'] {
+      font-weight: 600;
+      color: $ui-green;
+    }
+  }
+
+  &__check {
+    flex-shrink: 0;
+    visibility: hidden;
+  }
+
+  &__option[aria-selected='true'] &__check {
+    visibility: visible;
+  }
+}
