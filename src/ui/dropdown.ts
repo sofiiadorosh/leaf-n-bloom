@@ -1,6 +1,8 @@
 const ACTIVE_CLASS = 'dropdown__option_active';
 
-export const initDropdown = (root: HTMLElement): void => {
+export const initDropdown = (
+  root: HTMLElement,
+): ((value: string) => void) | undefined => {
   const input = root.querySelector<HTMLInputElement>('.dropdown__input');
   const button = root.querySelector<HTMLButtonElement>('.dropdown__button');
   const valueLabel = root.querySelector<HTMLElement>('.dropdown__value');
@@ -132,4 +134,12 @@ export const initDropdown = (root: HTMLElement): void => {
     select(getSelectedIndex());
     close(false);
   });
+
+  return (value: string): void => {
+    const index = options.findIndex((option) => option.dataset.value === value);
+
+    if (index >= 0) {
+      select(index);
+    }
+  };
 };

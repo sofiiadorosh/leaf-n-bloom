@@ -1,12 +1,15 @@
 import type { BADGES } from '../constants/badges';
 import type { CATEGORIES } from '../constants/categories';
 import type { LIGHT_LEVELS } from '../constants/light';
+import type { SORT_ORDERS } from '../constants/sort';
 
 export type CategoryId = (typeof CATEGORIES)[number]['id'];
 
 export type BadgeId = (typeof BADGES)[number]['id'];
 
 export type LightLevel = (typeof LIGHT_LEVELS)[number]['id'];
+
+export type SortOrder = (typeof SORT_ORDERS)[number];
 
 export type Category = {
   id: CategoryId;
@@ -40,6 +43,16 @@ export type Product = {
 export type PriceBounds = {
   min: number;
   max: number;
+};
+
+export type ProductFilters = {
+  search: string;
+  category: CategoryId | 'all';
+  light: readonly LightLevel[];
+  petSafe: boolean;
+  priceMin: number | null;
+  priceMax: number | null;
+  sort: SortOrder;
 };
 
 export type ElementTagNameMap = HTMLElementTagNameMap &

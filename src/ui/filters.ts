@@ -1,7 +1,9 @@
 import { CATEGORIES } from '../constants/categories';
 import { PRODUCTS } from '../constants/products';
 import { getPriceBounds } from '../core/catalog';
-import type { Category } from '../core/types';
+import { filtersFromParams, filtersToParams } from '../core/filterParams';
+import { parseFilters } from '../core/filterProducts';
+import type { Category, ProductFilters } from '../core/types';
 import { createElement } from './createElement';
 import { initDropdown } from './dropdown';
 
@@ -25,15 +27,6 @@ const renderCategoryPills = (form: HTMLFormElement): void => {
   }
 
   container.append(...CATEGORIES.map(createCategoryPill));
-
-  const selected = new URLSearchParams(window.location.search).get('category');
-  const input = container.querySelector<HTMLInputElement>(
-    `.pill__input[value="${CSS.escape(selected ?? '')}"]`,
-  );
-
-  if (input) {
-    input.checked = true;
-  }
 };
 
 const initPriceRange = (form: HTMLFormElement): void => {
@@ -92,7 +85,7 @@ const initPriceRange = (form: HTMLFormElement): void => {
   });
 
   form.addEventListener('reset', () => {
-    requestAnimationFrame(update);
+    queueMicrotask(update);
   });
 
   update();
@@ -113,6 +106,56 @@ const initToggle = (form: HTMLFormElement): void => {
   });
 };
 
+const setPrice = (
+  input: HTMLInputElement | null,
+  price: number | null,
+): void => {
+  if (!input || price === null) {
+    return;
+  }
+
+  input.value = String(price);
+  input.dispatchEvent(new Event('input', { bubbles: true }));
+};
+
+const applyFilters = (
+  form: HTMLFormElement,
+  filters: ProductFilters,
+  setSort?: (value: string) => void,
+): void => {
+  const search = form.querySelector<HTMLInputElement>('[name="search"]');
+  const petSafe = form.querySelector<HTMLInputElement>('[name="petSafe"]');
+
+  if (search) {
+    search.value = filters.search;
+  }
+
+  form
+    .querySelectorAll<HTMLInputElement>('[name="category"]')
+    .forEach((input) => {
+      input.checked = input.value === filters.category;
+    });
+
+  form.querySelectorAll<HTMLInputElement>('[name="light"]').forEach((input) => {
+    input.checked = filters.light.some((level) => level === input.value);
+  });
+
+  if (petSafe) {
+    petSafe.checked = filters.petSafe;
+  }
+
+  setPrice(form.querySelector('#price-max'), filters.priceMax);
+  setPrice(form.querySelector('#price-min'), filters.priceMin);
+  setSort?.(filters.sort);
+};
+
+const writeFiltersToUrl = (filters: ProductFilters): void => {
+  const query = filtersToParams(filters, getPriceBounds(PRODUCTS)).toString();
+  const url = `${window.location.pathname}${query ? `?${query}` : ''}`;
+
+  window.history.replaceState(null, '', url);
+};
+
 const trackFiltersHeight = (form: HTMLFormElement): void => {
   const update = (): void => {
     form.style.setProperty('--filters-height', `${form.offsetHeight}px`);
@@ -122,7 +165,9 @@ const trackFiltersHeight = (form: HTMLFormElement): void => {
   new ResizeObserver(update).observe(form);
 };
 
-export const renderFilters = (): void => {
+export const renderFilters = (
+  onChange: (filters: ProductFilters) => void,
+): void => {
   const form = document.querySelector<HTMLFormElement>('.filters');
 
   if (!form) {
@@ -134,6 +179,26 @@ export const renderFilters = (): void => {
   renderCategoryPills(form);
   initPriceRange(form);
   initToggle(form);
-  form.querySelectorAll<HTMLElement>('.dropdown').forEach(initDropdown);
+  const dropdown = form.querySelector<HTMLElement>('.dropdown');
+  const setSort = dropdown ? initDropdown(dropdown) : undefined;
+
+  applyFilters(
+    form,
+    filtersFromParams(new URLSearchParams(window.location.search)),
+    setSort,
+  );
   trackFiltersHeight(form);
+
+  const notify = (): void => {
+    const filters = parseFilters(new FormData(form));
+
+    writeFiltersToUrl(filters);
+    onChange(filters);
+  };
+
+  form.addEventListener('input', notify);
+  form.addEventListener('change', notify);
+  form.addEventListener('reset', () => queueMicrotask(notify));
+
+  notify();
 };

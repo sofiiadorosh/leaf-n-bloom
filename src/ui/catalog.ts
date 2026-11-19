@@ -1,6 +1,5 @@
 import { BADGES } from '../constants/badges';
 import { CATEGORIES } from '../constants/categories';
-import { PRODUCTS } from '../constants/products';
 import {
   describeRating,
   formatProductCount,
@@ -124,14 +123,16 @@ const createCatalogCard = (product: Product): HTMLLIElement =>
     ],
   });
 
-export const renderCatalog = (): void => {
+export const renderCatalog = (products: readonly Product[]): void => {
   const list = document.querySelector<HTMLUListElement>('.catalog');
   const count = document.querySelector<HTMLParagraphElement>('.shop__count');
+  const empty = document.querySelector<HTMLParagraphElement>('.shop__empty');
 
-  if (!list || !count) {
+  if (!list || !count || !empty) {
     return;
   }
 
-  list.replaceChildren(...PRODUCTS.map(createCatalogCard));
-  count.textContent = formatProductCount(PRODUCTS.length);
+  list.replaceChildren(...products.map(createCatalogCard));
+  count.textContent = formatProductCount(products.length);
+  empty.hidden = products.length > 0;
 };

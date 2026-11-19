@@ -23,7 +23,7 @@ export const getPriceBounds = (products: readonly Product[]): PriceBounds => {
     sizes.map(({ price }) => price),
   );
 
-  if (prices.length === 0) {
+  if (!prices.length) {
     return { min: 0, max: 0 };
   }
 

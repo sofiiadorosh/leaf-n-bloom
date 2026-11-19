@@ -17,7 +17,7 @@ export const createElement = <Tag extends keyof ElementTagNameMap>(
     element.setAttribute('class', className);
   }
 
-  if (text !== undefined) {
+  if (text) {
     element.textContent = text;
   }
 
