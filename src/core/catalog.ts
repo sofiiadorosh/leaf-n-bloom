@@ -1,11 +1,11 @@
-import type { PriceBounds, Product } from './types';
+import type { Category, PriceBounds, Product } from './types';
 
 export const getRandomBestSellers = (
   products: readonly Product[],
   count = 4,
   random: () => number = Math.random,
 ): Product[] => {
-  const bestSellers = products.filter((product) => product.isBestSeller);
+  const bestSellers = products.filter(({ badge }) => badge === 'bestseller');
 
   for (let i = bestSellers.length - 1; i > 0; i -= 1) {
     const j = Math.floor(random() * (i + 1));
@@ -32,3 +32,21 @@ export const getPriceBounds = (products: readonly Product[]): PriceBounds => {
     max: Math.ceil(Math.max(...prices)),
   };
 };
+
+export const getProductMeta = (
+  product: Product,
+  categories: readonly Category[],
+): string => {
+  const category = categories.find(({ id }) => id === product.category);
+
+  return category ? `${category.name} · ${product.tag}` : product.tag;
+};
+
+export const formatProductCount = (count: number): string =>
+  `${count} ${count === 1 ? 'product' : 'products'}`;
+
+export const getFilledStars = (rating: number, max = 5): number =>
+  Math.min(Math.max(Math.round(rating), 0), max);
+
+export const describeRating = (rating: number): string =>
+  `Rated ${rating.toFixed(1)} out of 5`;

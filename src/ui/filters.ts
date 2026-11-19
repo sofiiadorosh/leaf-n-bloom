@@ -113,6 +113,15 @@ const initToggle = (form: HTMLFormElement): void => {
   });
 };
 
+const trackFiltersHeight = (form: HTMLFormElement): void => {
+  const update = (): void => {
+    form.style.setProperty('--filters-height', `${form.offsetHeight}px`);
+  };
+
+  update();
+  new ResizeObserver(update).observe(form);
+};
+
 export const renderFilters = (): void => {
   const form = document.querySelector<HTMLFormElement>('.filters');
 
@@ -126,4 +135,5 @@ export const renderFilters = (): void => {
   initPriceRange(form);
   initToggle(form);
   form.querySelectorAll<HTMLElement>('.dropdown').forEach(initDropdown);
+  trackFiltersHeight(form);
 };

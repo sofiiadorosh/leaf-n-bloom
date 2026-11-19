@@ -169,8 +169,8 @@
       cursor: default;
     }
 
-    @media (hover: hover) {
-      &:hover {
+    &:hover {
+      @media (hover: hover) {
         color: $ui-green;
       }
     }
@@ -202,8 +202,8 @@
     cursor: default;
   }
 
-  @media (hover: hover) {
-    &:hover {
+  &:hover {
+    @media (hover: hover) {
       color: $ui-green;
       background: $ui-sage;
     }

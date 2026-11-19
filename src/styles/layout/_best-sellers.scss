@@ -41,8 +41,8 @@
     border-radius: 4px;
     @include focus-ring;
 
-    @media (hover: hover) {
-      &:hover .best-sellers__link-icon {
+    &:hover .best-sellers__link-icon {
+      @media (hover: hover) {
         transform: translateX(3px);
       }
     }

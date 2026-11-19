@@ -1,3 +1,4 @@
+import { BADGES } from '../src/constants/badges';
 import { CATEGORIES } from '../src/constants/categories';
 import { LIGHT_LEVELS } from '../src/constants/light';
 import { PRODUCTS } from '../src/constants/products';
@@ -102,6 +103,28 @@ describe('PRODUCTS data', () => {
         expect(typeof plant.petSafe).toBe('boolean');
       },
     );
+  });
+
+  it('has a rating from 1 to 5 with one decimal for every product', () => {
+    PRODUCTS.forEach(({ rating }) => {
+      expect(rating).toBeGreaterThanOrEqual(1);
+      expect(rating).toBeLessThanOrEqual(5);
+      expect(Math.round(rating * 10) / 10).toBe(rating);
+    });
+  });
+
+  it('uses only known badges', () => {
+    const badgeIds: readonly string[] = BADGES.map(({ id }) => id);
+
+    PRODUCTS.filter(({ badge }) => badge).forEach(({ badge }) => {
+      expect(badgeIds).toContain(badge);
+    });
+  });
+
+  it('has at least 4 best sellers for the home page', () => {
+    const bestSellers = PRODUCTS.filter(({ badge }) => badge === 'bestseller');
+
+    expect(bestSellers.length).toBeGreaterThanOrEqual(4);
   });
 
   it('has at least one pet-safe plant', () => {

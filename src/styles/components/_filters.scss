@@ -55,9 +55,23 @@ $thumb-size: 20px;
     padding: 28px;
   }
 
+  --filters-height: 0px;
+
   @include desktop {
+    position: sticky;
+    top: max(24px, calc((100dvh - var(--filters-height)) / 2));
+    max-height: calc(100dvh - 48px);
     margin-top: 0;
+    padding: 20px 24px;
     display: flex;
+    gap: 24px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: none;
+  }
+
+  &::-webkit-scrollbar {
+    display: none;
   }
 
   &__header {
@@ -75,6 +89,10 @@ $thumb-size: 20px;
     font-size: 20px;
     font-weight: 600;
     color: $ui-ink;
+
+    @include desktop {
+      font-size: 18px;
+    }
   }
 
   &__title-icon {
@@ -92,8 +110,8 @@ $thumb-size: 20px;
     cursor: pointer;
     @include focus-ring;
 
-    @media (hover: hover) {
-      &:hover {
+    &:hover {
+      @media (hover: hover) {
         text-decoration: underline;
       }
     }
@@ -107,6 +125,10 @@ $thumb-size: 20px;
     flex-direction: column;
     gap: 12px;
     border: none;
+
+    @include desktop {
+      gap: 8px;
+    }
   }
 
   &__label {
@@ -115,6 +137,11 @@ $thumb-size: 20px;
     font-size: 15px;
     font-weight: 600;
     color: $ui-ink;
+
+    @include desktop {
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
   }
 
   div > &__label {
@@ -125,6 +152,10 @@ $thumb-size: 20px;
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
+
+    @include desktop {
+      gap: 6px;
+    }
   }
 
   &__search {
@@ -150,6 +181,11 @@ $thumb-size: 20px;
     border: 1px solid $ui-divider;
     border-radius: 999px;
     transition: border-color 150ms $timing-function;
+
+    @include desktop {
+      height: 40px;
+      font-size: 14px;
+    }
 
     &:focus-visible {
       outline: none;
@@ -196,6 +232,28 @@ $thumb-size: 20px;
 
   &__checkbox-icon {
     color: $ui-green;
+  }
+}
+
+.filters .dropdown__list {
+  position: static;
+  margin-top: 6px;
+  border: 1px solid $ui-divider;
+  box-shadow: none;
+  scroll-margin-bottom: 24px;
+}
+
+.filters .dropdown__button {
+  @include desktop {
+    height: 40px;
+    font-size: 14px;
+  }
+}
+
+.filters .pill__text {
+  @include desktop {
+    padding: 6px 12px;
+    font-size: 13px;
   }
 }
 
