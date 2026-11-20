@@ -181,7 +181,10 @@
   }
 }
 
+$cart-badge-fade-duration: 400ms;
+
 .cart {
+  position: relative;
   grid-area: cart;
   justify-self: end;
   width: 40px;
@@ -195,6 +198,43 @@
     color 150ms $timing-function,
     background-color 150ms $timing-function;
   @include focus-ring;
+
+  &__badge:not([hidden]) {
+    position: absolute;
+    inset-block-start: -5px;
+    inset-inline-end: -4px;
+    display: grid;
+    place-items: center;
+    min-inline-size: 20px;
+    min-block-size: 20px;
+    padding-inline: 4px;
+    border-radius: 999px;
+    color: $ui-white;
+    background: $ui-green;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+    pointer-events: none;
+    &::after {
+      content: attr(data-quantity);
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      border-radius: inherit;
+      color: $ui-green-strong;
+      background: $ui-star;
+      box-shadow: 0 0 0 2px $page-background;
+      opacity: 0;
+      transition: opacity $cart-badge-fade-duration ease-out;
+    }
+
+    &.cart__badge_highlighted::after {
+      opacity: 1;
+      transition: none;
+    }
+  }
 
   &[aria-current='page'] {
     color: $ui-green;

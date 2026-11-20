@@ -94,7 +94,7 @@ const createCatalogCard = (product: Product): HTMLLIElement =>
               }),
               createElement('button', {
                 className: 'button product-card__button',
-                attributes: { type: 'button' },
+                attributes: { type: 'button', 'data-product-id': product.id },
                 children: [
                   createElement('svg', {
                     className: 'product-card__button-icon',
@@ -109,7 +109,10 @@ const createCatalogCard = (product: Product): HTMLLIElement =>
                       }),
                     ],
                   }),
-                  'Add to Cart',
+                  createElement('span', {
+                    className: 'product-card__button-label',
+                    text: 'Add to Cart',
+                  }),
                   createElement('span', {
                     className: 'visually-hidden',
                     text: `: ${product.name}`,

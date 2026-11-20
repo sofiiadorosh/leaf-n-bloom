@@ -54,10 +54,73 @@
     </header>
 
     <main class="main">
-      <section class="page">
-        <div class="container page__container">
-          <h1 class="page__title">Cart</h1>
-          <p>Your cart is coming soon.</p>
+      <section class="shopping-cart" aria-labelledby="cart-title">
+        <div class="container">
+          <a class="shopping-cart__back" href="./shop.html"
+            >Continue shopping</a
+          >
+          <h1 class="shopping-cart__title" id="cart-title">Your cart</h1>
+          <div class="shopping-cart__layout">
+            <section
+              class="shopping-cart__panel"
+              aria-labelledby="cart-items-title"
+            >
+              <h2 id="cart-items-title">Items in your cart</h2>
+              <ul class="shopping-cart__items" id="cart-items"></ul>
+              <div class="shopping-cart__empty" id="cart-empty">
+                <p>Your cart is empty.</p>
+                <a class="button" href="./shop.html">Browse plants</a>
+              </div>
+              <p
+                class="shopping-cart__message"
+                id="cart-message"
+                role="status"
+              ></p>
+            </section>
+            <section
+              class="shopping-cart__panel shopping-cart__summary"
+              aria-labelledby="cart-summary-title"
+            >
+              <h2 id="cart-summary-title">Order summary</h2>
+              <dl
+                class="shopping-cart__totals"
+                aria-live="polite"
+                aria-atomic="true"
+              >
+                <div>
+                  <dt>Subtotal</dt>
+                  <dd id="cart-subtotal">$0.00</dd>
+                </div>
+                <div>
+                  <dt>Discount</dt>
+                  <dd id="cart-discount">$0.00</dd>
+                </div>
+                <div class="shopping-cart__total">
+                  <dt>Total</dt>
+                  <dd id="cart-total">$0.00</dd>
+                </div>
+              </dl>
+              <form class="shopping-cart__promo" id="cart-promo" hidden>
+                <label for="promo-code">Promo code</label>
+                <div class="shopping-cart__promo-controls">
+                  <input
+                    id="promo-code"
+                    name="promo"
+                    type="text"
+                    placeholder="e.g. SALE10"
+                    autocomplete="off"
+                    aria-describedby="promo-message"
+                  />
+                  <button class="button" type="submit">Apply</button>
+                </div>
+                <p
+                  class="shopping-cart__message"
+                  id="promo-message"
+                  role="status"
+                ></p>
+              </form>
+            </section>
+          </div>
         </div>
       </section>
     </main>

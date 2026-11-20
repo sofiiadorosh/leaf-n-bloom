@@ -67,6 +67,5 @@ export type ElementOptions = {
 
 export type CartItem = {
   productId: Product['id'];
-  inches: ProductSize['inches'];
   quantity: number;
 };
