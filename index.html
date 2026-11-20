@@ -54,13 +54,150 @@
     </header>
 
     <main class="main">
-      <section class="page">
-        <div class="container page__container">
-          <h1 class="page__title">About us</h1>
-          <p>
-            Leaf &amp; Bloom is a small online store of houseplants. The about
-            page with the team is coming soon.
-          </p>
+      <section class="page about" aria-labelledby="about-title">
+        <div class="container page__container about__container">
+          <div class="about__hero">
+            <div class="about__hero-copy">
+              <h1 class="page__title about__title" id="about-title">
+                About us
+              </h1>
+              <div class="about__intro">
+                <p>
+                  Leaf &amp; Bloom is an RS School team project for browsing
+                  houseplants and accessories. Search by name, filter by plant
+                  type, light needs, pet safety, or price, and share the
+                  filtered catalog by URL.
+                </p>
+                <p>
+                  In the cart, change quantities, remove items, or apply a promo
+                  code to update the total. Items and quantities persist across
+                  pages and reloads.
+                </p>
+              </div>
+            </div>
+            <div class="about__visual">
+              <img src="/images/home.webp" alt="" width="1440" height="1080" />
+            </div>
+          </div>
+
+          <h2 class="about__section-title">Meet the team</h2>
+          <ul class="about__team">
+            <li class="about__member">
+              <h3>Sofiia Dorosh</h3>
+              <a class="about__profile" href="https://github.com/sofiiadorosh">
+                @sofiiadorosh
+              </a>
+              <ul class="about__contributions">
+                <li>
+                  Built product cards that let shoppers compare photos, ratings,
+                  and starting prices directly in the catalog.
+                </li>
+                <li>
+                  Helped shoppers narrow their choices with search, filters, and
+                  price sorting. Saved those choices in shareable URLs and
+                  covered the filtering logic with unit tests.
+                </li>
+                <li>
+                  Created paths from Home to the catalog through category links,
+                  featured plants, and best sellers.
+                </li>
+                <li>
+                  Gave Home, Shop, and Cart direct URLs and consistent
+                  navigation through a shared header, mobile menu, and footer.
+                </li>
+                <li>
+                  Kept styling consistent with shared Sass tokens and automated
+                  checks and publishing with GitHub Actions and GitHub Pages.
+                </li>
+              </ul>
+            </li>
+            <li class="about__member">
+              <h3>Max Snischuk</h3>
+              <a class="about__profile" href="https://github.com/snischuk">
+                @snischuk
+              </a>
+              <ul class="about__contributions">
+                <li>
+                  Built the cart flow so shoppers can track their item count,
+                  change quantities, remove products, and apply a promo code.
+                </li>
+                <li>
+                  Preserved cart selections across pages and reloads and
+                  calculated prices in cents to keep order totals consistent.
+                </li>
+                <li>
+                  Moved unit tests to Vitest and added Playwright coverage for
+                  key shopping journeys in Chromium, Firefox, and WebKit.
+                </li>
+                <li>
+                  Organized modules by feature and separated cart state from
+                  storage so persistence can change independently.
+                </li>
+                <li>
+                  Standardized issue reports and pull requests with templates.
+                  Automated checks for commit messages and branch names with
+                  Commitlint and <code>validate-branch-name</code> in Git hooks
+                  and CI.
+                </li>
+              </ul>
+            </li>
+          </ul>
+
+          <div class="about__approach">
+            <section class="about__topic" aria-labelledby="about-workflow">
+              <h2 class="about__section-title" id="about-workflow">
+                How we worked
+              </h2>
+              <p>
+                We scoped the first release to the catalog and cart, assigned an
+                owner to each, and agreed on shared product IDs and prices.
+              </p>
+              <p>
+                We create a GitHub issue with acceptance criteria, assign an
+                owner, and track it on the Kanban board. The owner starts a
+                branch from the latest <code>main</code>, makes focused commits,
+                and opens a pull request linked to the issue with steps to
+                verify the change.
+              </p>
+              <p>
+                The teammate reviews the pull request while GitHub Actions runs
+                linting, unit tests, and the build. After review and passing
+                checks, we merge into <code>main</code>, move the issue to Done,
+                and GitHub Actions deploys the updated store to GitHub Pages.
+              </p>
+              <a
+                class="about__link"
+                href="https://github.com/users/sofiiadorosh/projects/2/views/1"
+              >
+                View the GitHub Projects board
+              </a>
+            </section>
+            <section class="about__topic" aria-labelledby="about-architecture">
+              <h2 class="about__section-title" id="about-architecture">
+                How the store is built
+              </h2>
+              <p>
+                <strong>MPA.</strong> Home, Shop, and Cart are separate HTML
+                pages on GitHub Pages. Search engines can read their titles and
+                links before JavaScript runs.
+              </p>
+              <p>
+                <strong>Catalog.</strong> JavaScript renders cards from one
+                product list. The URL stores search, filters, and sort order so
+                the same catalog view can be reopened or shared.
+              </p>
+              <p>
+                <strong>Cart.</strong> The cart saves product IDs and quantities
+                in <code>localStorage</code>, uses catalog prices, and
+                calculates totals in cents.
+              </p>
+              <p>
+                <strong>Tests.</strong> Vitest checks pricing, filters, and cart
+                recovery. Playwright runs shopper journeys in Chromium, Firefox,
+                and WebKit.
+              </p>
+            </section>
+          </div>
         </div>
       </section>
 
