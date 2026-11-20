@@ -27,8 +27,8 @@ const setupStore = (items: readonly CartItem[]) => {
 
   jest.resetModules();
   const { cartStore } = jest.requireActual<
-    typeof import('../src/storage/cartStore')
-  >('../src/storage/cartStore');
+    typeof import('../src/core/cart/cartStore')
+  >('../src/core/cart/cartStore');
 
   return {
     cartStore,

@@ -1,5 +1,8 @@
-import { DEFAULT_FILTERS } from '../src/constants/filters';
-import { filterProducts, parseFilters } from '../src/core/filterProducts';
+import { DEFAULT_FILTERS } from '../src/constants/filters/filters';
+import {
+  filterProducts,
+  parseFilters,
+} from '../src/core/catalog/filterProducts';
 import type { Product, ProductFilters } from '../src/core/types';
 
 const makeProduct = (

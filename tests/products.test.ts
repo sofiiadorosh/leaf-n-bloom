@@ -1,7 +1,7 @@
-import { BADGES } from '../src/constants/badges';
-import { CATEGORIES } from '../src/constants/categories';
-import { LIGHT_LEVELS } from '../src/constants/light';
-import { PRODUCTS } from '../src/constants/products';
+import { BADGES } from '../src/constants/catalog/badges';
+import { CATEGORIES } from '../src/constants/catalog/categories';
+import { LIGHT_LEVELS } from '../src/constants/filters/light';
+import { PRODUCTS } from '../src/constants/catalog/products';
 
 describe('PRODUCTS data', () => {
   it('has between 8 and 12 products', () => {

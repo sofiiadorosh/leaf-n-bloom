@@ -6,7 +6,7 @@ import {
   getPriceBounds,
   getProductMeta,
   getRandomBestSellers,
-} from '../src/core/catalog';
+} from '../src/core/catalog/catalog';
 import type { Category, Product } from '../src/core/types';
 
 const makeProduct = (

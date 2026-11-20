@@ -1,4 +1,4 @@
-import { calculateCart } from '../src/core/calculateCart';
+import { calculateCart } from '../src/core/cart/calculateCart';
 import type { CartItem } from '../src/core/types';
 
 const cartItem: CartItem = {
