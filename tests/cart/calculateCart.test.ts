@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest';
 import { calculateCart } from '../../src/core/cart/calculateCart';
 import type { CartItem } from '../../src/core/types';
 

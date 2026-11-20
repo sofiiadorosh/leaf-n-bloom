@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest';
 import { formatPrice } from '../src/core/formatPrice';
 
 describe('formatPrice', () => {

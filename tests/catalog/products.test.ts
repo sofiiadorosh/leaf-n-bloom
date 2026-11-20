@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest';
 import { BADGES } from '../../src/constants/catalog/badges';
 import { CATEGORIES } from '../../src/constants/catalog/categories';
 import { LIGHT_LEVELS } from '../../src/constants/filters/light';
