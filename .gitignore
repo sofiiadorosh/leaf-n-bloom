@@ -104,3 +104,7 @@ dist
 .tern-port
 
 .idea
+
+# Playwright output
+/test-results/
+/playwright-report/
