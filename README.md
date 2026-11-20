@@ -6,7 +6,7 @@ A small online store of houseplants: catalog with search, filters and sorting, a
 
 ## Tech stack
 
-TypeScript · Vite · Sass · Jest · ESLint · Prettier · Husky + lint-staged · GitHub Actions · GitHub Pages
+TypeScript · Vite · Sass · Vitest · ESLint · Prettier · Husky + lint-staged · GitHub Actions · GitHub Pages
 
 ## Getting started
 
@@ -22,7 +22,8 @@ npm run dev
 | `npm run dev`          | Start the dev server                 |
 | `npm run build`        | Type-check and build to `dist`       |
 | `npm run preview`      | Preview the production build         |
-| `npm test`             | Run unit tests (Jest)                |
+| `npm test`             | Run unit tests with Vitest           |
+| `npm run test:watch`   | Rerun affected tests as files change |
 | `npm run lint`         | Lint with ESLint (`lint:fix` to fix) |
 | `npm run format:check` | Check formatting (`format` to fix)   |
 
