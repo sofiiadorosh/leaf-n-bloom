@@ -1,7 +1,7 @@
-import type { BADGES } from '../constants/badges';
-import type { CATEGORIES } from '../constants/categories';
-import type { LIGHT_LEVELS } from '../constants/light';
-import type { SORT_ORDERS } from '../constants/sort';
+import type { BADGES } from '../constants/catalog/badges';
+import type { CATEGORIES } from '../constants/catalog/categories';
+import type { LIGHT_LEVELS } from '../constants/filters/light';
+import type { SORT_ORDERS } from '../constants/filters/sort';
 
 export type CategoryId = (typeof CATEGORIES)[number]['id'];
 

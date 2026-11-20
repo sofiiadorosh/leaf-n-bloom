@@ -1,0 +1,30 @@
+@use '../../abstracts/variables' as *;
+@use '../../abstracts/mixins' as *;
+
+.main {
+  flex-grow: 1;
+}
+
+.page {
+  padding: 40px 0;
+
+  @include tablet {
+    padding: 56px 0;
+  }
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  &__title {
+    font-size: 36px;
+    line-height: 1.1;
+
+    @include tablet {
+      font-size: 48px;
+    }
+  }
+}
