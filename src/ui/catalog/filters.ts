@@ -203,7 +203,16 @@ export const renderFilters = (
   };
 
   form.addEventListener('input', notifyFiltersChanged);
-  form.addEventListener('change', notifyFiltersChanged);
+  form.addEventListener('change', (event) => {
+    if (
+      event.target instanceof HTMLInputElement &&
+      event.target.type === 'search'
+    ) {
+      return;
+    }
+
+    notifyFiltersChanged();
+  });
   form.addEventListener('reset', () => queueMicrotask(notifyFiltersChanged));
 
   notifyFiltersChanged();

@@ -41,11 +41,9 @@ npm run test:e2e
 To run one browser, pass `--project`, for example
 `npm run test:e2e -- --project=webkit`.
 
-Five scenarios pass in each browser. The other two reproduce the same bugs
-in Chromium, Firefox, and WebKit:
-
-- One click on Reset clears the search input, but the results and URL stay filtered.
-- The first click on Add to Cart after typing in Search does not add the product.
+Six scenarios pass in each browser. The Reset scenario still fails in
+Chromium, Firefox, and WebKit: one click clears the search input, but the
+results and URL stay filtered.
 
 The terminal output shows the expected and actual results. Playwright saves
 a trace for each failed scenario in `test-results/`.
