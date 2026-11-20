@@ -30,8 +30,8 @@
     "format:check": "prettier . --check",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "test": "vitest run",
-    "test:watch": "vitest",
+    "test": "vitest run --dir tests/unit",
+    "test:watch": "vitest --dir tests/unit",
     "prepare": "husky"
   },
   "lint-staged": {

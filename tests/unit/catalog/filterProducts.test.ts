@@ -1,10 +1,10 @@
 import { describe, expect, it } from 'vitest';
-import { DEFAULT_FILTERS } from '../../src/constants/filters/filters';
+import { DEFAULT_FILTERS } from '../../../src/constants/filters/filters';
 import {
   filterProducts,
   parseFilters,
-} from '../../src/core/catalog/filterProducts';
-import type { Product, ProductFilters } from '../../src/core/types';
+} from '../../../src/core/catalog/filterProducts';
+import type { Product, ProductFilters } from '../../../src/core/types';
 
 const makeProduct = (
   id: string,

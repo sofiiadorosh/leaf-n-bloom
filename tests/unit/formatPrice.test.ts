@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { formatPrice } from '../src/core/formatPrice';
+import { formatPrice } from '../../src/core/formatPrice';
 
 describe('formatPrice', () => {
   it('formats dollars with two decimals', () => {

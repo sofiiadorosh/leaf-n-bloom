@@ -2,8 +2,8 @@ import { describe, expect, it } from 'vitest';
 import {
   formatVarieties,
   getCategorySummaries,
-} from '../../src/core/catalog/categorySummaries';
-import type { Category, Product } from '../../src/core/types';
+} from '../../../src/core/catalog/categorySummaries';
+import type { Category, Product } from '../../../src/core/types';
 
 const makeProduct = (id: string, category: Product['category']): Product => ({
   id,
