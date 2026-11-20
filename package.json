@@ -30,8 +30,9 @@
     "format:check": "prettier . --check",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "test": "vitest run",
-    "test:watch": "vitest",
+    "test": "vitest run --dir tests/unit",
+    "test:watch": "vitest --dir tests/unit",
+    "test:e2e": "playwright test",
     "prepare": "husky"
   },
   "lint-staged": {
@@ -45,6 +46,7 @@
     "@commitlint/cli": "^21.2.4",
     "@commitlint/config-conventional": "^21.2.4",
     "@eslint/js": "^10.0.1",
+    "@playwright/test": "^1.65.1",
     "eslint": "^10.14.0",
     "eslint-config-prettier": "^10.1.8",
     "globals": "^17.14.0",

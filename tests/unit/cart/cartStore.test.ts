@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import type { CartItem } from '../../src/core/types';
+import type { CartItem } from '../../../src/core/types';
 
 const STORAGE_KEY = 'leaf-n-bloom:cart:v1';
 const monstera: CartItem = { productId: 'monstera-deliciosa', quantity: 1 };
@@ -15,7 +15,7 @@ const setupStore = async (items: readonly CartItem[]) => {
   });
 
   vi.resetModules();
-  const { cartStore } = await import('../../src/core/cart/cartStore');
+  const { cartStore } = await import('../../../src/core/cart/cartStore');
 
   return {
     cartStore,
