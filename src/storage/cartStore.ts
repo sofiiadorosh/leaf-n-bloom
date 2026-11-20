@@ -14,14 +14,45 @@ const isCartItem = (value: unknown): value is CartItem =>
   Number.isSafeInteger(value.quantity) &&
   value.quantity > 0;
 
-const readStoredCartItems = (): CartItem[] => {
-  try {
-    const storedCartJson = localStorage.getItem(CART_STORAGE_KEY);
+const keepPriceableItems = (storedItems: Iterable<CartItem>): CartItem[] => {
+  const validItems: CartItem[] = [];
+  let subtotalCents = 0;
 
-    if (storedCartJson === null) {
-      return [];
+  Array.from(storedItems).forEach((cartItem) => {
+    try {
+      const { lines, subtotalCents: lineTotalCents } = calculateCart([
+        cartItem,
+      ]);
+      const nextSubtotalCents = subtotalCents + lineTotalCents;
+
+      if (lines.length > 0 && Number.isSafeInteger(nextSubtotalCents)) {
+        validItems.push(cartItem);
+        subtotalCents = nextSubtotalCents;
+      }
+    } catch (error) {
+      if (!(error instanceof RangeError)) {
+        throw error;
+      }
     }
+  });
 
+  return validItems;
+};
+
+const readStoredCartItems = (): CartItem[] | undefined => {
+  let storedCartJson: string | null;
+
+  try {
+    storedCartJson = localStorage.getItem(CART_STORAGE_KEY);
+  } catch {
+    return undefined;
+  }
+
+  if (storedCartJson === null) {
+    return [];
+  }
+
+  try {
     const storedCart: unknown = JSON.parse(storedCartJson);
 
     if (
@@ -44,12 +75,7 @@ const readStoredCartItems = (): CartItem[] => {
       });
     });
 
-    const { lines: validLines } = calculateCart([...itemsByProductId.values()]);
-
-    return validLines.map(({ productId, quantity }) => ({
-      productId,
-      quantity,
-    }));
+    return keepPriceableItems(itemsByProductId.values());
   } catch {
     return [];
   }
@@ -61,7 +87,7 @@ const cartListeners = new Set<CartListener>();
 
 const getItems = (): CartItem[] => {
   if (cartItems === undefined) {
-    cartItems = readStoredCartItems();
+    cartItems = readStoredCartItems() ?? [];
   }
 
   return cartItems.map((item) => ({ ...item }));
@@ -70,6 +96,19 @@ const getItems = (): CartItem[] => {
 const notifyCartListeners = (): void => {
   cartListeners.forEach((listener) => listener(getItems()));
 };
+
+window.addEventListener('pageshow', (event) => {
+  if (!event.persisted || hasCartSaveError) {
+    return;
+  }
+
+  const restoredItems = readStoredCartItems();
+
+  if (restoredItems !== undefined) {
+    cartItems = restoredItems;
+    notifyCartListeners();
+  }
+});
 
 const applyCartItems = (nextCartItems: CartItem[]): boolean => {
   try {
