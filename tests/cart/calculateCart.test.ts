@@ -1,5 +1,5 @@
-import { calculateCart } from '../src/core/cart/calculateCart';
-import type { CartItem } from '../src/core/types';
+import { calculateCart } from '../../src/core/cart/calculateCart';
+import type { CartItem } from '../../src/core/types';
 
 const cartItem: CartItem = {
   productId: 'monstera-deliciosa',

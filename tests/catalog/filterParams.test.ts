@@ -1,9 +1,9 @@
-import { DEFAULT_FILTERS } from '../src/constants/filters/filters';
+import { DEFAULT_FILTERS } from '../../src/constants/filters/filters';
 import {
   filtersFromParams,
   filtersToParams,
-} from '../src/core/catalog/filterParams';
-import type { PriceBounds, ProductFilters } from '../src/core/types';
+} from '../../src/core/catalog/filterParams';
+import type { PriceBounds, ProductFilters } from '../../src/core/types';
 
 const bounds: PriceBounds = { min: 7, max: 90 };
 

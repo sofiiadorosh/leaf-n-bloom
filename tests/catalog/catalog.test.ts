@@ -6,8 +6,8 @@ import {
   getPriceBounds,
   getProductMeta,
   getRandomBestSellers,
-} from '../src/core/catalog/catalog';
-import type { Category, Product } from '../src/core/types';
+} from '../../src/core/catalog/catalog';
+import type { Category, Product } from '../../src/core/types';
 
 const makeProduct = (
   id: string,

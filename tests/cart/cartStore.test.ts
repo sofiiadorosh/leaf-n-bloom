@@ -1,4 +1,4 @@
-import type { CartItem } from '../src/core/types';
+import type { CartItem } from '../../src/core/types';
 
 const STORAGE_KEY = 'leaf-n-bloom:cart:v1';
 const monstera: CartItem = { productId: 'monstera-deliciosa', quantity: 1 };
@@ -27,8 +27,8 @@ const setupStore = (items: readonly CartItem[]) => {
 
   jest.resetModules();
   const { cartStore } = jest.requireActual<
-    typeof import('../src/core/cart/cartStore')
-  >('../src/core/cart/cartStore');
+    typeof import('../../src/core/cart/cartStore')
+  >('../../src/core/cart/cartStore');
 
   return {
     cartStore,

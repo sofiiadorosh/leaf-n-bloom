@@ -1,7 +1,7 @@
-import { BADGES } from '../src/constants/catalog/badges';
-import { CATEGORIES } from '../src/constants/catalog/categories';
-import { LIGHT_LEVELS } from '../src/constants/filters/light';
-import { PRODUCTS } from '../src/constants/catalog/products';
+import { BADGES } from '../../src/constants/catalog/badges';
+import { CATEGORIES } from '../../src/constants/catalog/categories';
+import { LIGHT_LEVELS } from '../../src/constants/filters/light';
+import { PRODUCTS } from '../../src/constants/catalog/products';
 
 describe('PRODUCTS data', () => {
   it('has between 8 and 12 products', () => {
