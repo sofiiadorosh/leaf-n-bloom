@@ -5,14 +5,14 @@ export const getCategorySummaries = (
   products: readonly Product[],
 ): CategorySummary[] =>
   categories.map((category) => {
-    const items = products.filter(
+    const categoryProducts = products.filter(
       (product) => product.category === category.id,
     );
 
     return {
       ...category,
-      count: items.length,
-      image: items[0]?.images[0],
+      count: categoryProducts.length,
+      image: categoryProducts[0]?.images[0],
     };
   });
 

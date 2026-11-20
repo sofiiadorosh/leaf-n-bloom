@@ -7,24 +7,24 @@ const SALE10_PROMO = {
   discountDivisor: 10,
 } as const;
 
-export type CartLine = CartItem & {
+export type CartEntry = CartItem & {
   name: string;
   unitPriceCents: number;
-  lineTotalCents: number;
+  entryTotalCents: number;
 };
 
 export type CartTotals = {
-  lines: CartLine[];
+  lines: CartEntry[];
   subtotalCents: number;
   discountCents: number;
   totalCents: number;
 };
 
 export const calculateCart = (
-  items: readonly CartItem[],
+  cartItems: readonly CartItem[],
   promoCode = '',
 ): CartTotals => {
-  const lines = items.flatMap<CartLine>(({ productId, quantity }) => {
+  const lines = cartItems.flatMap<CartEntry>(({ productId, quantity }) => {
     if (!Number.isSafeInteger(quantity) || quantity < 1) {
       return [];
     }
@@ -41,13 +41,13 @@ export const calculateCart = (
         quantity,
         name: product.name,
         unitPriceCents,
-        lineTotalCents: unitPriceCents * quantity,
+        entryTotalCents: unitPriceCents * quantity,
       },
     ];
   });
 
   const subtotalCents = lines.reduce(
-    (sum, line) => sum + line.lineTotalCents,
+    (subtotalCents, cartEntry) => subtotalCents + cartEntry.entryTotalCents,
     0,
   );
   if (!Number.isSafeInteger(subtotalCents)) {

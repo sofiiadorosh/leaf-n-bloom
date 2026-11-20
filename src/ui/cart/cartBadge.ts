@@ -22,16 +22,19 @@ export const renderCartBadge = (): void => {
   let previousQuantity: number | undefined;
   let highlightTimer: number | undefined;
   let pop: Animation | undefined;
-  cartStore.subscribe((items) => {
-    const quantity = items.reduce((sum, item) => sum + item.quantity, 0);
-    const quantityText = String(quantity);
+  cartStore.subscribe((cartItems) => {
+    const totalQuantity = cartItems.reduce(
+      (quantity, cartItem) => quantity + cartItem.quantity,
+      0,
+    );
+    const quantityText = String(totalQuantity);
 
-    badge.hidden = quantity === 0;
+    badge.hidden = totalQuantity === 0;
     badge.textContent = quantityText;
     badge.dataset.quantity = quantityText;
-    label.textContent = `Cart, ${quantity} ${quantity === 1 ? 'item' : 'items'}`;
+    label.textContent = `Cart, ${totalQuantity} ${totalQuantity === 1 ? 'item' : 'items'}`;
 
-    if (previousQuantity !== undefined && quantity > previousQuantity) {
+    if (previousQuantity !== undefined && totalQuantity > previousQuantity) {
       window.clearTimeout(highlightTimer);
       badge.classList.add('cart__badge_highlighted');
       pop?.cancel();
@@ -50,6 +53,6 @@ export const renderCartBadge = (): void => {
       }, BADGE_HIGHLIGHT_DURATION_MS);
     }
 
-    previousQuantity = quantity;
+    previousQuantity = totalQuantity;
   });
 };

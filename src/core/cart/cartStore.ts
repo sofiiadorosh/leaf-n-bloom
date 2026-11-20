@@ -4,30 +4,30 @@ import type { CartItem } from '../types';
 const CART_STORAGE_KEY = 'leaf-n-bloom:cart:v1';
 type CartListener = (items: readonly CartItem[]) => void;
 
-const isCartItem = (value: unknown): value is CartItem =>
-  typeof value === 'object' &&
-  value !== null &&
-  'productId' in value &&
-  typeof value.productId === 'string' &&
-  'quantity' in value &&
-  typeof value.quantity === 'number' &&
-  Number.isSafeInteger(value.quantity) &&
-  value.quantity > 0;
+const isCartItem = (storedValue: unknown): storedValue is CartItem =>
+  typeof storedValue === 'object' &&
+  storedValue !== null &&
+  'productId' in storedValue &&
+  typeof storedValue.productId === 'string' &&
+  'quantity' in storedValue &&
+  typeof storedValue.quantity === 'number' &&
+  Number.isSafeInteger(storedValue.quantity) &&
+  storedValue.quantity > 0;
 
-const keepPriceableItems = (storedItems: Iterable<CartItem>): CartItem[] => {
+const filterValidCartItems = (storedItems: Iterable<CartItem>): CartItem[] => {
   const validItems: CartItem[] = [];
   let subtotalCents = 0;
 
   Array.from(storedItems).forEach((cartItem) => {
     try {
-      const { lines, subtotalCents: lineTotalCents } = calculateCart([
+      const { lines, subtotalCents: cartEntrySubtotalCents } = calculateCart([
         cartItem,
       ]);
-      const nextSubtotalCents = subtotalCents + lineTotalCents;
+      const updatedSubtotalCents = subtotalCents + cartEntrySubtotalCents;
 
-      if (lines.length > 0 && Number.isSafeInteger(nextSubtotalCents)) {
+      if (lines.length > 0 && Number.isSafeInteger(updatedSubtotalCents)) {
         validItems.push(cartItem);
-        subtotalCents = nextSubtotalCents;
+        subtotalCents = updatedSubtotalCents;
       }
     } catch (error) {
       if (!(error instanceof RangeError)) {
@@ -75,7 +75,7 @@ const readStoredCartItems = (): CartItem[] | undefined => {
       });
     });
 
-    return keepPriceableItems(itemsByProductId.values());
+    return filterValidCartItems(itemsByProductId.values());
   } catch {
     return [];
   }
@@ -90,7 +90,7 @@ const getItems = (): CartItem[] => {
     cartItems = readStoredCartItems() ?? [];
   }
 
-  return cartItems.map((item) => ({ ...item }));
+  return cartItems.map((cartItem) => ({ ...cartItem }));
 };
 
 const notifyCartListeners = (): void => {
@@ -149,12 +149,12 @@ export const cartStore = {
   add(productId: string): boolean {
     const nextCartItems = getItems();
 
-    const existingItem = nextCartItems.find(
-      (item) => item.productId === productId,
+    const existingCartItem = nextCartItems.find(
+      (cartItem) => cartItem.productId === productId,
     );
 
-    if (existingItem) {
-      existingItem.quantity += 1;
+    if (existingCartItem) {
+      existingCartItem.quantity += 1;
     } else {
       nextCartItems.push({ productId, quantity: 1 });
     }
@@ -164,7 +164,9 @@ export const cartStore = {
   changeQuantity(productId: string, quantity: number): boolean {
     const nextCartItems = getItems();
 
-    const cartItem = nextCartItems.find((item) => item.productId === productId);
+    const cartItem = nextCartItems.find(
+      (candidate) => candidate.productId === productId,
+    );
 
     if (!cartItem) {
       return false;
@@ -183,7 +185,7 @@ export const cartStore = {
     const previousCartItems = getItems();
 
     const nextCartItems = previousCartItems.filter(
-      (item) => item.productId !== productId,
+      (cartItem) => cartItem.productId !== productId,
     );
 
     if (nextCartItems.length !== previousCartItems.length) {

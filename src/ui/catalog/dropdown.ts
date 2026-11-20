@@ -2,20 +2,20 @@ const ACTIVE_CLASS = 'dropdown__option_active';
 
 export const initDropdown = (
   root: HTMLElement,
-): ((value: string) => void) | undefined => {
+): ((sortValue: string) => void) | undefined => {
   const input = root.querySelector<HTMLInputElement>('.dropdown__input');
   const button = root.querySelector<HTMLButtonElement>('.dropdown__button');
   const valueLabel = root.querySelector<HTMLElement>('.dropdown__value');
-  const list = root.querySelector<HTMLUListElement>('.dropdown__list');
+  const optionsList = root.querySelector<HTMLUListElement>('.dropdown__list');
 
-  if (!input || !button || !valueLabel || !list) {
+  if (!input || !button || !valueLabel || !optionsList) {
     return;
   }
 
   const options = [
-    ...list.querySelectorAll<HTMLLIElement>('.dropdown__option'),
+    ...optionsList.querySelectorAll<HTMLLIElement>('.dropdown__option'),
   ];
-  const defaultValue = input.value;
+  const defaultSortValue = input.value;
   let activeIndex = 0;
 
   const getSelectedIndex = (): number =>
@@ -24,39 +24,39 @@ export const initDropdown = (
       0,
     );
 
-  const setActive = (index: number): void => {
-    activeIndex = (index + options.length) % options.length;
+  const setActive = (optionIndex: number): void => {
+    activeIndex = (optionIndex + options.length) % options.length;
 
     options.forEach((option, i) => {
       option.classList.toggle(ACTIVE_CLASS, i === activeIndex);
     });
 
-    const active = options[activeIndex];
-    list.setAttribute('aria-activedescendant', active.id);
-    active.scrollIntoView({ block: 'nearest' });
+    const activeOption = options[activeIndex];
+    optionsList.setAttribute('aria-activedescendant', activeOption.id);
+    activeOption.scrollIntoView({ block: 'nearest' });
   };
 
-  const select = (index: number): void => {
-    const option = options[index];
+  const select = (optionIndex: number): void => {
+    const selectedOption = options[optionIndex];
 
-    options.forEach((item) => {
-      item.setAttribute('aria-selected', String(item === option));
+    options.forEach((option) => {
+      option.setAttribute('aria-selected', String(option === selectedOption));
     });
 
-    input.value = option.dataset.value ?? '';
-    valueLabel.textContent = option.textContent?.trim() ?? '';
+    input.value = selectedOption.dataset.value ?? '';
+    valueLabel.textContent = selectedOption.textContent?.trim() ?? '';
     root.dispatchEvent(new Event('change', { bubbles: true }));
   };
 
   const open = (): void => {
-    list.hidden = false;
+    optionsList.hidden = false;
     button.setAttribute('aria-expanded', 'true');
     setActive(getSelectedIndex());
-    list.focus();
+    optionsList.focus();
   };
 
   const close = (focusButton = true): void => {
-    list.hidden = true;
+    optionsList.hidden = true;
     button.setAttribute('aria-expanded', 'false');
 
     if (focusButton) {
@@ -65,7 +65,7 @@ export const initDropdown = (
   };
 
   button.addEventListener('click', () => {
-    if (list.hidden) {
+    if (optionsList.hidden) {
       open();
     } else {
       close();
@@ -79,7 +79,7 @@ export const initDropdown = (
     }
   });
 
-  list.addEventListener('keydown', (event) => {
+  optionsList.addEventListener('keydown', (event) => {
     switch (event.key) {
       case 'ArrowDown':
         event.preventDefault();
@@ -115,31 +115,33 @@ export const initDropdown = (
     }
   });
 
-  options.forEach((option, index) => {
-    option.addEventListener('mousemove', () => setActive(index));
+  options.forEach((option, optionIndex) => {
+    option.addEventListener('mousemove', () => setActive(optionIndex));
     option.addEventListener('click', () => {
-      select(index);
+      select(optionIndex);
       close();
     });
   });
 
   document.addEventListener('click', (event) => {
-    if (!list.hidden && !root.contains(event.target as Node)) {
+    if (!optionsList.hidden && !root.contains(event.target as Node)) {
       close(false);
     }
   });
 
   input.form?.addEventListener('reset', () => {
-    input.value = defaultValue;
+    input.value = defaultSortValue;
     select(getSelectedIndex());
     close(false);
   });
 
-  return (value: string): void => {
-    const index = options.findIndex((option) => option.dataset.value === value);
+  return (sortValue: string): void => {
+    const optionIndex = options.findIndex(
+      (option) => option.dataset.value === sortValue,
+    );
 
-    if (index >= 0) {
-      select(index);
+    if (optionIndex >= 0) {
+      select(optionIndex);
     }
   };
 };

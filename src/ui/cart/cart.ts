@@ -1,11 +1,12 @@
 import { PRODUCTS } from '../../constants/catalog/products';
-import { calculateCart, type CartLine } from '../../core/cart/calculateCart';
+import { calculateCart } from '../../core/cart/calculateCart';
+import type { CartEntry } from '../../core/cart/calculateCart';
 import { formatPrice } from '../../core/formatPrice';
 import { cartStore } from '../../core/cart/cartStore';
 import { createElement } from '../shared/createElement';
 import { spriteHref } from '../shared/spriteHref';
 
-const money = (cents: number): string => formatPrice(cents / 100);
+const formatCentsToUsd = (cents: number): string => formatPrice(cents / 100);
 
 const actionButton = (
   action: string,
@@ -17,26 +18,30 @@ const actionButton = (
     attributes: { type: 'button', 'data-action': action, 'aria-label': label },
   });
 
-const createLine = (line: CartLine, index: number): HTMLLIElement => {
-  const image = PRODUCTS.find(({ id }) => id === line.productId)?.images[0];
-  const { name } = line;
+const createCartEntry = (
+  entry: CartEntry,
+  entryIndex: number,
+): HTMLLIElement => {
+  const productImage = PRODUCTS.find(({ id }) => id === entry.productId)
+    ?.images[0];
+  const { name } = entry;
   const decrease = actionButton(
     'decrease',
     '−',
     `Decrease quantity of ${name}`,
   );
-  decrease.disabled = line.quantity === 1;
+  decrease.disabled = entry.quantity === 1;
 
   return createElement('li', {
     className: 'shopping-cart__item',
-    attributes: { 'data-index': index },
+    attributes: { 'data-index': entryIndex },
     children: [
-      ...(image
+      ...(productImage
         ? [
             createElement('img', {
               className: 'shopping-cart__image',
               attributes: {
-                src: `${import.meta.env.BASE_URL}${image}`,
+                src: `${import.meta.env.BASE_URL}${productImage}`,
                 alt: '',
                 width: 96,
                 height: 96,
@@ -47,9 +52,9 @@ const createLine = (line: CartLine, index: number): HTMLLIElement => {
       createElement('div', {
         className: 'shopping-cart__details',
         children: [
-          createElement('h3', { text: line.name }),
+          createElement('h3', { text: entry.name }),
           createElement('p', {
-            text: `${money(line.unitPriceCents)} each`,
+            text: `${formatCentsToUsd(entry.unitPriceCents)} each`,
           }),
         ],
       }),
@@ -64,14 +69,16 @@ const createLine = (line: CartLine, index: number): HTMLLIElement => {
             },
             children: [
               decrease,
-              createElement('span', { text: String(line.quantity) }),
+              createElement('span', { text: String(entry.quantity) }),
               actionButton('increase', '+', `Increase quantity of ${name}`),
             ],
           }),
           createElement('div', {
             className: 'shopping-cart__line-total',
             children: [
-              createElement('strong', { text: money(line.lineTotalCents) }),
+              createElement('strong', {
+                text: formatCentsToUsd(entry.entryTotalCents),
+              }),
               actionButton(
                 'remove',
                 createElement('svg', {
@@ -93,23 +100,24 @@ const createLine = (line: CartLine, index: number): HTMLLIElement => {
 };
 
 export const renderCart = (): void => {
-  const list = document.querySelector('#cart-items');
+  const cartItemsList = document.querySelector('#cart-items');
   const empty = document.querySelector<HTMLElement>('#cart-empty');
-  const form = document.querySelector<HTMLFormElement>('#cart-promo');
-  const input = document.querySelector<HTMLInputElement>('#promo-code');
+  const promoForm = document.querySelector<HTMLFormElement>('#cart-promo');
+  const promoCodeInput =
+    document.querySelector<HTMLInputElement>('#promo-code');
   const promoMessage = document.querySelector('#promo-message');
-  const message = document.querySelector('#cart-message');
+  const cartMessage = document.querySelector('#cart-message');
   const subtotal = document.querySelector('#cart-subtotal');
   const discount = document.querySelector('#cart-discount');
   const total = document.querySelector('#cart-total');
 
   if (
-    !list ||
+    !cartItemsList ||
     !empty ||
-    !form ||
-    !input ||
+    !promoForm ||
+    !promoCodeInput ||
     !promoMessage ||
-    !message ||
+    !cartMessage ||
     !subtotal ||
     !discount ||
     !total
@@ -118,34 +126,34 @@ export const renderCart = (): void => {
   }
 
   let promoCode = '';
-  const renderTotals = (cart: ReturnType<typeof calculateCart>): void => {
-    subtotal.textContent = money(cart.subtotalCents);
-    discount.textContent = cart.discountCents
-      ? `−${money(cart.discountCents)}`
-      : money(0);
-    total.textContent = money(cart.totalCents);
+  const renderTotals = (cartTotals: ReturnType<typeof calculateCart>): void => {
+    subtotal.textContent = formatCentsToUsd(cartTotals.subtotalCents);
+    discount.textContent = cartTotals.discountCents
+      ? `−${formatCentsToUsd(cartTotals.discountCents)}`
+      : formatCentsToUsd(0);
+    total.textContent = formatCentsToUsd(cartTotals.totalCents);
   };
 
   const render = (): void => {
-    const cart = calculateCart(cartStore.getItems(), promoCode);
-    const hasItems = cart.lines.length > 0;
-    list.replaceChildren(...cart.lines.map(createLine));
-    empty.hidden = hasItems;
-    form.hidden = !hasItems;
-    renderTotals(cart);
-    message.textContent = cartStore.isSaved()
+    const cartTotals = calculateCart(cartStore.getItems(), promoCode);
+    const hasCartEntries = cartTotals.lines.length > 0;
+    cartItemsList.replaceChildren(...cartTotals.lines.map(createCartEntry));
+    empty.hidden = hasCartEntries;
+    promoForm.hidden = !hasCartEntries;
+    renderTotals(cartTotals);
+    cartMessage.textContent = cartStore.isSaved()
       ? ''
       : 'Cart changes may be lost when you leave.';
   };
 
-  form.addEventListener('submit', (event) => {
+  promoForm.addEventListener('submit', (event) => {
     event.preventDefault();
-    promoCode = input.value.trim().toUpperCase();
-    const cart = calculateCart(cartStore.getItems(), promoCode);
-    renderTotals(cart);
-    const hasDiscount = cart.discountCents > 0;
+    promoCode = promoCodeInput.value.trim().toUpperCase();
+    const cartTotals = calculateCart(cartStore.getItems(), promoCode);
+    renderTotals(cartTotals);
+    const hasDiscount = cartTotals.discountCents > 0;
     const isPromoCodeInvalid = promoCode !== '' && !hasDiscount;
-    input.setAttribute('aria-invalid', String(isPromoCodeInvalid));
+    promoCodeInput.setAttribute('aria-invalid', String(isPromoCodeInvalid));
     promoMessage.textContent = hasDiscount
       ? '10% discount applied.'
       : isPromoCodeInvalid
@@ -153,7 +161,7 @@ export const renderCart = (): void => {
         : '';
   });
 
-  list.addEventListener('click', (event) => {
+  cartItemsList.addEventListener('click', (event) => {
     if (!(event.target instanceof Element)) {
       return;
     }
@@ -165,33 +173,36 @@ export const renderCart = (): void => {
       return;
     }
 
-    const index = Number(row.dataset.index);
-    const current = cartStore.getItems();
-    const line = current[index];
-    if (!line) {
+    const entryIndex = Number(row.dataset.index);
+    const cartItems = cartStore.getItems();
+    const cartItem = cartItems[entryIndex];
+    if (!cartItem) {
       return;
     }
-    const { productId, quantity } = line;
-    const action = button.dataset.action;
+    const { productId, quantity } = cartItem;
+    const cartAction = button.dataset.action;
 
-    if (action === 'remove') {
+    if (cartAction === 'remove') {
       cartStore.remove(productId);
     } else if (
       !cartStore.changeQuantity(
         productId,
-        quantity + (action === 'increase' ? 1 : -1),
+        quantity + (cartAction === 'increase' ? 1 : -1),
       )
     ) {
-      message.textContent = 'This quantity exceeds the cart limit.';
+      cartMessage.textContent = 'This quantity exceeds the cart limit.';
       return;
     }
 
-    const nextRow = list.children[Math.min(index, list.children.length - 1)];
-    const nextButton =
-      action === 'decrease' && quantity === 2 ? 'increase' : action;
+    const nextRow =
+      cartItemsList.children[
+        Math.min(entryIndex, cartItemsList.children.length - 1)
+      ];
+    const focusAction =
+      cartAction === 'decrease' && quantity === 2 ? 'increase' : cartAction;
     if (nextRow) {
       nextRow
-        .querySelector<HTMLButtonElement>(`[data-action="${nextButton}"]`)
+        .querySelector<HTMLButtonElement>(`[data-action="${focusAction}"]`)
         ?.focus({ preventScroll: true });
     } else {
       empty.querySelector('a')?.focus();

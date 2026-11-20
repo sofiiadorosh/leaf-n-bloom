@@ -7,11 +7,11 @@ import {
 import type { CategorySummary } from '../../core/types';
 import { createElement } from '../shared/createElement';
 
-const createCategoryImage = (image: string): HTMLImageElement =>
+const createCategoryImage = (categoryImage: string): HTMLImageElement =>
   createElement('img', {
     className: 'category-card__image',
     attributes: {
-      src: `${import.meta.env.BASE_URL}${image}`,
+      src: `${import.meta.env.BASE_URL}${categoryImage}`,
       alt: '',
       width: 800,
       height: 800,

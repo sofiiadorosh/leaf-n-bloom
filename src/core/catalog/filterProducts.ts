@@ -8,23 +8,23 @@ import {
 } from './filterGuards';
 import type { Product, ProductFilters, SortOrder } from '../types';
 
-const getString = (data: FormData, key: string): string | null => {
-  const value = data.get(key);
+const getString = (formData: FormData, key: string): string | null => {
+  const fieldValue = formData.get(key);
 
-  return typeof value === 'string' ? value : null;
+  return typeof fieldValue === 'string' ? fieldValue : null;
 };
 
-export const parseFilters = (data: FormData): ProductFilters => {
-  const category = String(data.get('category') ?? '');
-  const sort = String(data.get('sort') ?? '');
+export const parseFilters = (formData: FormData): ProductFilters => {
+  const category = String(formData.get('category') ?? '');
+  const sort = String(formData.get('sort') ?? '');
 
   return {
-    search: String(data.get('search') ?? ''),
+    search: String(formData.get('search') ?? ''),
     category: isCategoryId(category) ? category : DEFAULT_FILTERS.category,
-    light: data.getAll('light').map(String).filter(isLightLevel),
-    petSafe: data.has('petSafe'),
-    priceMin: parsePrice(getString(data, 'priceMin')),
-    priceMax: parsePrice(getString(data, 'priceMax')),
+    light: formData.getAll('light').map(String).filter(isLightLevel),
+    petSafe: formData.has('petSafe'),
+    priceMin: parsePrice(getString(formData, 'priceMin')),
+    priceMax: parsePrice(getString(formData, 'priceMax')),
     sort: isSortOrder(sort) ? sort : DEFAULT_FILTERS.sort,
   };
 };
@@ -33,17 +33,18 @@ const matchesFilters = (
   product: Product,
   { search, category, light, petSafe, priceMin, priceMax }: ProductFilters,
 ): boolean => {
-  const query = search.trim().toLowerCase();
-  const price = getMinPrice(product);
+  const normalizedSearch = search.trim().toLowerCase();
+  const productPrice = getMinPrice(product);
 
   return (
-    (!query || product.name.toLowerCase().includes(query)) &&
+    (!normalizedSearch ||
+      product.name.toLowerCase().includes(normalizedSearch)) &&
     (category === 'all' || product.category === category) &&
     (!light.length ||
       (product.light !== undefined && light.includes(product.light))) &&
     (!petSafe || product.petSafe === true) &&
-    (priceMin === null || price >= priceMin) &&
-    (priceMax === null || price <= priceMax)
+    (priceMin === null || productPrice >= priceMin) &&
+    (priceMax === null || productPrice <= priceMax)
   );
 };
 

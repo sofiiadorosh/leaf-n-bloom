@@ -23,13 +23,13 @@ const createCategoryPill = ({ id, name }: Category): HTMLLabelElement =>
   });
 
 const renderCategoryPills = (form: HTMLFormElement): void => {
-  const container = form.querySelector('.filters__categories');
+  const categoryPillsContainer = form.querySelector('.filters__categories');
 
-  if (!container) {
+  if (!categoryPillsContainer) {
     return;
   }
 
-  container.append(...CATEGORIES.map(createCategoryPill));
+  categoryPillsContainer.append(...CATEGORIES.map(createCategoryPill));
 };
 
 const initPriceRange = (form: HTMLFormElement): void => {
@@ -58,17 +58,17 @@ const initPriceRange = (form: HTMLFormElement): void => {
   minInput.value = String(min);
   maxInput.value = String(max);
 
-  const toPercent = (value: number): number =>
-    max === min ? 0 : ((value - min) / (max - min)) * 100;
+  const toPercent = (price: number): number =>
+    max === min ? 0 : ((price - min) / (max - min)) * 100;
 
-  const update = (): void => {
-    const from = Number(minInput.value);
-    const to = Number(maxInput.value);
+  const updateRangeDisplay = (): void => {
+    const minPrice = Number(minInput.value);
+    const maxPrice = Number(maxInput.value);
 
-    range.style.setProperty('--from', `${toPercent(from)}%`);
-    range.style.setProperty('--to', `${toPercent(to)}%`);
-    minOutput.value = `$${from}`;
-    maxOutput.value = `$${to}`;
+    range.style.setProperty('--from', `${toPercent(minPrice)}%`);
+    range.style.setProperty('--to', `${toPercent(maxPrice)}%`);
+    minOutput.value = `$${minPrice}`;
+    maxOutput.value = `$${maxPrice}`;
   };
 
   minInput.addEventListener('input', () => {
@@ -76,7 +76,7 @@ const initPriceRange = (form: HTMLFormElement): void => {
       minInput.value = maxInput.value;
     }
 
-    update();
+    updateRangeDisplay();
   });
 
   maxInput.addEventListener('input', () => {
@@ -84,14 +84,14 @@ const initPriceRange = (form: HTMLFormElement): void => {
       maxInput.value = minInput.value;
     }
 
-    update();
+    updateRangeDisplay();
   });
 
   form.addEventListener('reset', () => {
-    queueMicrotask(update);
+    queueMicrotask(updateRangeDisplay);
   });
 
-  update();
+  updateRangeDisplay();
 };
 
 const initToggle = (form: HTMLFormElement): void => {
@@ -124,7 +124,7 @@ const setPrice = (
 const applyFilters = (
   form: HTMLFormElement,
   filters: ProductFilters,
-  setSort?: (value: string) => void,
+  setSort?: (sortValue: string) => void,
 ): void => {
   const search = form.querySelector<HTMLInputElement>('[name="search"]');
   const petSafe = form.querySelector<HTMLInputElement>('[name="petSafe"]');
@@ -153,19 +153,22 @@ const applyFilters = (
 };
 
 const writeFiltersToUrl = (filters: ProductFilters): void => {
-  const query = filtersToParams(filters, getPriceBounds(PRODUCTS)).toString();
-  const url = `${window.location.pathname}${query ? `?${query}` : ''}`;
+  const queryString = filtersToParams(
+    filters,
+    getPriceBounds(PRODUCTS),
+  ).toString();
+  const url = `${window.location.pathname}${queryString ? `?${queryString}` : ''}`;
 
   window.history.replaceState(null, '', url);
 };
 
 const trackFiltersHeight = (form: HTMLFormElement): void => {
-  const update = (): void => {
+  const updateFiltersHeight = (): void => {
     form.style.setProperty('--filters-height', `${form.offsetHeight}px`);
   };
 
-  update();
-  new ResizeObserver(update).observe(form);
+  updateFiltersHeight();
+  new ResizeObserver(updateFiltersHeight).observe(form);
 };
 
 export const renderFilters = (
@@ -192,16 +195,16 @@ export const renderFilters = (
   );
   trackFiltersHeight(form);
 
-  const notify = (): void => {
+  const notifyFiltersChanged = (): void => {
     const filters = parseFilters(new FormData(form));
 
     writeFiltersToUrl(filters);
     onChange(filters);
   };
 
-  form.addEventListener('input', notify);
-  form.addEventListener('change', notify);
-  form.addEventListener('reset', () => queueMicrotask(notify));
+  form.addEventListener('input', notifyFiltersChanged);
+  form.addEventListener('change', notifyFiltersChanged);
+  form.addEventListener('reset', () => queueMicrotask(notifyFiltersChanged));
 
-  notify();
+  notifyFiltersChanged();
 };
