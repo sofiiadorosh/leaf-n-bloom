@@ -1,16 +1,13 @@
 @use '../../abstracts/variables' as *;
 @use '../../abstracts/mixins' as *;
 
-$about-cream-top: #f3e3cf;
-$about-cream-bottom: #ead0b7;
-
 .about {
   &__hero {
     position: relative;
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    background: linear-gradient($about-cream-top, $about-cream-bottom);
+    background: $page-background;
 
     @include desktop {
       min-height: 560px;
@@ -24,9 +21,10 @@ $about-cream-bottom: #ead0b7;
         inset: 0;
         background: linear-gradient(
           90deg,
-          rgba($about-cream-top, 0.95) 0%,
-          rgba($about-cream-top, 0.85) 45%,
-          rgba($about-cream-top, 0) 70%
+          $page-background 0%,
+          $page-background 35%,
+          rgba($page-background, 0.85) 50%,
+          rgba($page-background, 0) 72%
         );
         pointer-events: none;
       }
