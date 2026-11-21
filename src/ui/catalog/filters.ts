@@ -88,7 +88,7 @@ const initPriceRange = (form: HTMLFormElement): void => {
   });
 
   form.addEventListener('reset', () => {
-    queueMicrotask(updateRangeDisplay);
+    setTimeout(updateRangeDisplay);
   });
 
   updateRangeDisplay();
@@ -203,7 +203,7 @@ export const renderFilters = (
 
     notifyFiltersChanged();
   });
-  form.addEventListener('reset', () => queueMicrotask(notifyFiltersChanged));
+  form.addEventListener('reset', () => setTimeout(notifyFiltersChanged));
 
   notifyFiltersChanged();
 };
