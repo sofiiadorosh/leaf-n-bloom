@@ -55,11 +55,9 @@ $thumb-size: 20px;
     padding: 28px;
   }
 
-  --filters-height: 0px;
-
   @include desktop {
     position: sticky;
-    top: max(24px, calc((100dvh - var(--filters-height)) / 2));
+    top: 24px;
     max-height: calc(100dvh - 48px);
     margin-top: 0;
     padding: 20px 24px;
