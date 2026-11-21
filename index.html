@@ -54,150 +54,84 @@
     </header>
 
     <main class="main">
-      <section class="page about" aria-labelledby="about-title">
-        <div class="container page__container about__container">
-          <div class="about__hero">
-            <div class="about__hero-copy">
-              <h1 class="page__title about__title" id="about-title">
-                About us
+      <section class="about" aria-labelledby="about-title">
+        <div class="about__hero">
+          <div class="container">
+            <div class="about__content">
+              <h1 class="about__headline" id="about-title">
+                Plants Make<br />People Happier
               </h1>
-              <div class="about__intro">
-                <p>
-                  Leaf &amp; Bloom is an RS School team project for browsing
-                  houseplants and accessories. Search by name, filter by plant
-                  type, light needs, pet safety, or price, and share the
-                  filtered catalog by URL.
-                </p>
-                <p>
-                  In the cart, change quantities, remove items, or apply a promo
-                  code to update the total. Items and quantities persist across
-                  pages and reloads.
-                </p>
-              </div>
-            </div>
-            <div class="about__visual">
-              <img src="/images/home.webp" alt="" width="1440" height="1080" />
-            </div>
-          </div>
-
-          <h2 class="about__section-title">Meet the team</h2>
-          <ul class="about__team">
-            <li class="about__member">
-              <h3>Sofiia Dorosh</h3>
-              <a class="about__profile" href="https://github.com/sofiiadorosh">
-                @sofiiadorosh
+              <p class="about__text">
+                Science says plants lift your mood. We make choosing the right
+                one simple, whether you have a sunny window, a shady corner or a
+                curious cat.
+              </p>
+              <a class="button about__button" href="./shop.html">
+                Shop Plants
+                <svg
+                  class="about__button-icon"
+                  width="16"
+                  height="16"
+                  aria-hidden="true"
+                >
+                  <use href="/icons/sprite.svg#arrow-right"></use>
+                </svg>
               </a>
-              <ul class="about__contributions">
-                <li>
-                  Built product cards that let shoppers compare photos, ratings,
-                  and starting prices directly in the catalog.
+              <ul class="about__features" aria-label="Why shop with us">
+                <li class="about__feature">
+                  <svg
+                    class="about__feature-icon"
+                    width="32"
+                    height="32"
+                    aria-hidden="true"
+                  >
+                    <use href="/icons/sprite.svg#shield-check"></use>
+                  </svg>
+                  <span class="about__feature-name">Quality Checked</span>
+                  <span class="about__feature-text">Before It Ships</span>
                 </li>
-                <li>
-                  Helped shoppers narrow their choices with search, filters, and
-                  price sorting. Saved those choices in shareable URLs and
-                  covered the filtering logic with unit tests.
+                <li class="about__feature">
+                  <svg
+                    class="about__feature-icon"
+                    width="32"
+                    height="32"
+                    aria-hidden="true"
+                  >
+                    <use href="/icons/sprite.svg#shield-heart"></use>
+                  </svg>
+                  <span class="about__feature-name">Pet Friendly</span>
+                  <span class="about__feature-text">Safe Picks Marked</span>
                 </li>
-                <li>
-                  Created paths from Home to the catalog through category links,
-                  featured plants, and best sellers.
-                </li>
-                <li>
-                  Gave Home, Shop, and Cart direct URLs and consistent
-                  navigation through a shared header, mobile menu, and footer.
-                </li>
-                <li>
-                  Kept styling consistent with shared Sass tokens and automated
-                  checks and publishing with GitHub Actions and GitHub Pages.
+                <li class="about__feature">
+                  <svg
+                    class="about__feature-icon about__feature-icon_star"
+                    width="32"
+                    height="32"
+                    aria-hidden="true"
+                  >
+                    <use href="/icons/sprite.svg#shield-star"></use>
+                  </svg>
+                  <span class="about__feature-name">Loved by Buyers</span>
+                  <span class="about__feature-text">4.7 Average Rating</span>
                 </li>
               </ul>
-            </li>
-            <li class="about__member">
-              <h3>Max Snischuk</h3>
-              <a class="about__profile" href="https://github.com/snischuk">
-                @snischuk
-              </a>
-              <ul class="about__contributions">
-                <li>
-                  Built the cart flow so shoppers can track their item count,
-                  change quantities, remove products, and apply a promo code.
-                </li>
-                <li>
-                  Preserved cart selections across pages and reloads and
-                  calculated prices in cents to keep order totals consistent.
-                </li>
-                <li>
-                  Moved unit tests to Vitest and added Playwright coverage for
-                  key shopping journeys in Chromium, Firefox, and WebKit.
-                </li>
-                <li>
-                  Organized modules by feature and separated cart state from
-                  storage so persistence can change independently.
-                </li>
-                <li>
-                  Standardized issue reports and pull requests with templates.
-                  Automated checks for commit messages and branch names with
-                  Commitlint and <code>validate-branch-name</code> in Git hooks
-                  and CI.
-                </li>
-              </ul>
-            </li>
-          </ul>
-
-          <div class="about__approach">
-            <section class="about__topic" aria-labelledby="about-workflow">
-              <h2 class="about__section-title" id="about-workflow">
-                How we worked
-              </h2>
-              <p>
-                We scoped the first release to the catalog and cart, assigned an
-                owner to each, and agreed on shared product IDs and prices.
-              </p>
-              <p>
-                We create a GitHub issue with acceptance criteria, assign an
-                owner, and track it on the Kanban board. The owner starts a
-                branch from the latest <code>main</code>, makes focused commits,
-                and opens a pull request linked to the issue with steps to
-                verify the change.
-              </p>
-              <p>
-                The teammate reviews the pull request while GitHub Actions runs
-                linting, unit tests, and the build. After review and passing
-                checks, we merge into <code>main</code>, move the issue to Done,
-                and GitHub Actions deploys the updated store to GitHub Pages.
-              </p>
-              <a
-                class="about__link"
-                href="https://github.com/users/sofiiadorosh/projects/2/views/1"
-              >
-                View the GitHub Projects board
-              </a>
-            </section>
-            <section class="about__topic" aria-labelledby="about-architecture">
-              <h2 class="about__section-title" id="about-architecture">
-                How the store is built
-              </h2>
-              <p>
-                <strong>MPA.</strong> Home, Shop, and Cart are separate HTML
-                pages on GitHub Pages. Search engines can read their titles and
-                links before JavaScript runs.
-              </p>
-              <p>
-                <strong>Catalog.</strong> JavaScript renders cards from one
-                product list. The URL stores search, filters, and sort order so
-                the same catalog view can be reopened or shared.
-              </p>
-              <p>
-                <strong>Cart.</strong> The cart saves product IDs and quantities
-                in <code>localStorage</code>, uses catalog prices, and
-                calculates totals in cents.
-              </p>
-              <p>
-                <strong>Tests.</strong> Vitest checks pricing, filters, and cart
-                recovery. Playwright runs shopper journeys in Chromium, Firefox,
-                and WebKit.
-              </p>
-            </section>
+            </div>
           </div>
+          <picture>
+            <source
+              media="(min-width: 768px)"
+              srcset="/images/about.webp"
+              width="1905"
+              height="825"
+            />
+            <img
+              class="about__image"
+              src="/images/about-mobile.webp"
+              alt=""
+              width="1086"
+              height="1448"
+            />
+          </picture>
         </div>
       </section>
 
@@ -319,6 +253,308 @@
             </a>
           </div>
           <ul class="best-sellers__list"></ul>
+        </div>
+      </section>
+
+      <section class="project" aria-labelledby="project-title">
+        <div class="container project__container">
+          <div class="project__header">
+            <div class="project__heading">
+              <h2 class="project__title" id="project-title">
+                About the Project
+              </h2>
+              <p class="project__text">
+                Leaf &amp; Bloom is an RS School team project: two developers,
+                one shared board and a real plant store built from first issue
+                to live deploy.
+              </p>
+            </div>
+            <a class="project__badge" href="https://rs.school/">
+              RS School Course
+              <svg
+                class="project__link-icon"
+                width="16"
+                height="16"
+                aria-hidden="true"
+              >
+                <use href="/icons/sprite.svg#arrow-right"></use>
+              </svg>
+            </a>
+          </div>
+
+          <ul class="project__features" aria-label="What the store can do">
+            <li class="project__feature">
+              <svg
+                class="project__feature-icon"
+                width="24"
+                height="24"
+                aria-hidden="true"
+              >
+                <use href="/icons/sprite.svg#search"></use>
+              </svg>
+              <span class="project__feature-name">Search &amp; Filters</span>
+              <span class="project__feature-text">Shareable catalog links</span>
+            </li>
+            <li class="project__feature">
+              <svg
+                class="project__feature-icon"
+                width="24"
+                height="24"
+                aria-hidden="true"
+              >
+                <use href="/icons/sprite.svg#cart"></use>
+              </svg>
+              <span class="project__feature-name">Smart Cart</span>
+              <span class="project__feature-text">Saved across reloads</span>
+            </li>
+            <li class="project__feature">
+              <svg
+                class="project__feature-icon"
+                width="24"
+                height="24"
+                aria-hidden="true"
+              >
+                <use href="/icons/sprite.svg#tag"></use>
+              </svg>
+              <span class="project__feature-name">Promo Codes</span>
+              <span class="project__feature-text">Applied to the total</span>
+            </li>
+          </ul>
+
+          <div class="project__block">
+            <h3 class="project__subtitle" id="project-team-title">
+              Meet the Team
+            </h3>
+            <ul class="project__team" aria-labelledby="project-team-title">
+              <li class="project__member">
+                <div class="project__member-header">
+                  <span class="project__avatar" aria-hidden="true">SD</span>
+                  <div>
+                    <h4 class="project__name">Sofiia Dorosh</h4>
+                    <p class="project__role">Catalog &amp; Home</p>
+                  </div>
+                </div>
+                <ul class="project__list">
+                  <li class="project__item">
+                    <svg
+                      class="project__item-icon"
+                      width="18"
+                      height="18"
+                      aria-hidden="true"
+                    >
+                      <use href="/icons/sprite.svg#leaf-outline"></use>
+                    </svg>
+                    Product cards, search, filters and sorting saved in
+                    shareable URLs.
+                  </li>
+                  <li class="project__item">
+                    <svg
+                      class="project__item-icon"
+                      width="18"
+                      height="18"
+                      aria-hidden="true"
+                    >
+                      <use href="/icons/sprite.svg#leaf-outline"></use>
+                    </svg>
+                    Paths from Home to the catalog through categories, featured
+                    plants and best sellers.
+                  </li>
+                  <li class="project__item">
+                    <svg
+                      class="project__item-icon"
+                      width="18"
+                      height="18"
+                      aria-hidden="true"
+                    >
+                      <use href="/icons/sprite.svg#leaf-outline"></use>
+                    </svg>
+                    Shared header, menu, footer and SCSS tokens, deployed to
+                    GitHub Pages with GitHub Actions.
+                  </li>
+                </ul>
+                <ul class="project__tags" aria-label="Tools">
+                  <li class="project__tag">TypeScript</li>
+                  <li class="project__tag">SCSS</li>
+                  <li class="project__tag">Vitest</li>
+                  <li class="project__tag">GitHub Actions</li>
+                </ul>
+                <a class="project__link" href="https://github.com/sofiiadorosh">
+                  @sofiiadorosh
+                  <svg
+                    class="project__link-icon"
+                    width="16"
+                    height="16"
+                    aria-hidden="true"
+                  >
+                    <use href="/icons/sprite.svg#arrow-right"></use>
+                  </svg>
+                </a>
+              </li>
+              <li class="project__member">
+                <div class="project__member-header">
+                  <span class="project__avatar" aria-hidden="true">MS</span>
+                  <div>
+                    <h4 class="project__name">Max Snischuk</h4>
+                    <p class="project__role">Cart &amp; Tooling</p>
+                  </div>
+                </div>
+                <ul class="project__list">
+                  <li class="project__item">
+                    <svg
+                      class="project__item-icon"
+                      width="18"
+                      height="18"
+                      aria-hidden="true"
+                    >
+                      <use href="/icons/sprite.svg#leaf-outline"></use>
+                    </svg>
+                    Cart flow with quantities, removal and promo codes.
+                  </li>
+                  <li class="project__item">
+                    <svg
+                      class="project__item-icon"
+                      width="18"
+                      height="18"
+                      aria-hidden="true"
+                    >
+                      <use href="/icons/sprite.svg#leaf-outline"></use>
+                    </svg>
+                    Cart saved across pages and reloads, with totals calculated
+                    in cents.
+                  </li>
+                  <li class="project__item">
+                    <svg
+                      class="project__item-icon"
+                      width="18"
+                      height="18"
+                      aria-hidden="true"
+                    >
+                      <use href="/icons/sprite.svg#leaf-outline"></use>
+                    </svg>
+                    Vitest and Playwright tests, plus commit and branch name
+                    checks in Git hooks and CI.
+                  </li>
+                </ul>
+                <ul class="project__tags" aria-label="Tools">
+                  <li class="project__tag">TypeScript</li>
+                  <li class="project__tag">Playwright</li>
+                  <li class="project__tag">Vitest</li>
+                  <li class="project__tag">Commitlint</li>
+                </ul>
+                <a class="project__link" href="https://github.com/snischuk">
+                  @snischuk
+                  <svg
+                    class="project__link-icon"
+                    width="16"
+                    height="16"
+                    aria-hidden="true"
+                  >
+                    <use href="/icons/sprite.svg#arrow-right"></use>
+                  </svg>
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="project__block">
+            <h3 class="project__subtitle" id="project-workflow">
+              How We Worked
+            </h3>
+            <ol class="project__timeline" aria-labelledby="project-workflow">
+              <li class="project__stage">
+                <span class="project__stage-number" aria-hidden="true">1</span>
+                <span class="project__stage-name">Plan</span>
+                <span class="project__stage-text"
+                  >An issue with acceptance criteria on the board</span
+                >
+              </li>
+              <li class="project__stage">
+                <span class="project__stage-number" aria-hidden="true">2</span>
+                <span class="project__stage-name">Build</span>
+                <span class="project__stage-text"
+                  >A branch, focused commits and a linked pull request</span
+                >
+              </li>
+              <li class="project__stage">
+                <span class="project__stage-number" aria-hidden="true">3</span>
+                <span class="project__stage-name">Review</span>
+                <span class="project__stage-text"
+                  >A teammate reviews while CI runs the checks</span
+                >
+              </li>
+              <li class="project__stage">
+                <span class="project__stage-number" aria-hidden="true">4</span>
+                <span class="project__stage-name">Ship</span>
+                <span class="project__stage-text"
+                  >Merge into <code>main</code> and deploy to GitHub Pages</span
+                >
+              </li>
+            </ol>
+          </div>
+
+          <div class="project__block">
+            <h3 class="project__subtitle" id="project-architecture">
+              How the Store Is Built
+            </h3>
+            <ul class="project__parts" aria-labelledby="project-architecture">
+              <li class="project__part">
+                <svg
+                  class="project__part-icon"
+                  width="24"
+                  height="24"
+                  aria-hidden="true"
+                >
+                  <use href="/icons/sprite.svg#layers"></use>
+                </svg>
+                <span class="project__part-name">Pages</span>
+                <span class="project__part-text"
+                  >Home, Shop and Cart as separate HTML pages</span
+                >
+              </li>
+              <li class="project__part">
+                <svg
+                  class="project__part-icon"
+                  width="24"
+                  height="24"
+                  aria-hidden="true"
+                >
+                  <use href="/icons/sprite.svg#filter"></use>
+                </svg>
+                <span class="project__part-name">Catalog</span>
+                <span class="project__part-text"
+                  >One product list, filters saved in the URL</span
+                >
+              </li>
+              <li class="project__part">
+                <svg
+                  class="project__part-icon"
+                  width="24"
+                  height="24"
+                  aria-hidden="true"
+                >
+                  <use href="/icons/sprite.svg#cart"></use>
+                </svg>
+                <span class="project__part-name">Cart</span>
+                <span class="project__part-text"
+                  >Saved in <code>localStorage</code>, totals in cents</span
+                >
+              </li>
+              <li class="project__part">
+                <svg
+                  class="project__part-icon"
+                  width="24"
+                  height="24"
+                  aria-hidden="true"
+                >
+                  <use href="/icons/sprite.svg#check"></use>
+                </svg>
+                <span class="project__part-name">Tests</span>
+                <span class="project__part-text"
+                  >Vitest for logic, Playwright in three browsers</span
+                >
+              </li>
+            </ul>
+          </div>
         </div>
       </section>
     </main>
