@@ -1,163 +1,179 @@
 @use '../../abstracts/variables' as *;
 @use '../../abstracts/mixins' as *;
 
-$about-wave: 'M0 -220H1440V47C1300 39 1160 69 1030 69C865 69 770 28 610 28C503 28 459 100 343 100C220 100 138 44 0 55Z';
-
-@function about-wave-mask($vertical: false) {
-  $view-box: '0 0 1440 272';
-  $transform: 'translate(0 0)';
-
-  @if $vertical {
-    $view-box: '0 0 272 1440';
-    $transform: 'matrix(0 1 1 0 0 0)';
-  }
-
-  @return url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='#{$view-box}' preserveAspectRatio='none'%3E%3Cfilter id='fade' filterUnits='userSpaceOnUse' x='0' y='-272' width='1440' height='600'%3E%3CfeGaussianBlur stdDeviation='0 52'/%3E%3C/filter%3E%3ClinearGradient id='seam' x2='0' y2='100%25'%3E%3Cstop offset='0'/%3E%3Cstop offset='1' stop-opacity='0'/%3E%3C/linearGradient%3E%3Cg transform='#{$transform}'%3E%3Cpath d='#{$about-wave}' filter='url(%23fade)'/%3E%3Crect width='1440' height='72' fill='url(%23seam)'/%3E%3C/g%3E%3C/svg%3E");
-}
+$about-cream-top: #f3e3cf;
+$about-cream-bottom: #ead0b7;
 
 .about {
-  &__container {
-    gap: 24px;
-  }
-
   &__hero {
-    display: grid;
-    inline-size: 100%;
-    overflow: hidden;
-    border-radius: $ui-radius;
-    background: $ui-sage-light;
-
-    @include tablet {
-      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
-    }
-  }
-
-  &__hero-copy {
-    display: grid;
-    align-content: center;
-    gap: 16px;
-    padding: clamp(24px, 4vw, 56px);
-  }
-
-  &__title {
-    font-size: clamp(42px, 5vw, 64px);
-  }
-
-  &__intro {
-    display: grid;
-    gap: 12px;
-    max-inline-size: 65ch;
-  }
-
-  &__visual {
-    --about-wave-depth: 22px;
-
     position: relative;
-    min-block-size: 192px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background: linear-gradient($about-cream-top, $about-cream-bottom);
 
-    @include tablet {
-      --about-wave-depth: clamp(24px, 3vw, 44px);
+    @include desktop {
+      min-height: 560px;
+      justify-content: center;
     }
 
     &::after {
-      position: absolute;
-      z-index: 1;
-      inset-block-start: -1px;
-      inset-inline: 0;
-      block-size: calc(var(--about-wave-depth) * 2);
-      content: '';
-      background-color: $ui-sage-light;
-      mask-image: about-wave-mask();
-      mask-repeat: no-repeat;
-      mask-size: 100% 100%;
-      pointer-events: none;
-
       @include tablet {
-        inset-block: 0;
-        inset-inline: -1px auto;
-        inline-size: calc(var(--about-wave-depth) * 2);
-        block-size: auto;
-        mask-image: about-wave-mask($vertical: true);
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          90deg,
+          rgba($about-cream-top, 0.95) 0%,
+          rgba($about-cream-top, 0.85) 45%,
+          rgba($about-cream-top, 0) 70%
+        );
+        pointer-events: none;
       }
     }
-
-    img {
-      position: absolute;
-      inset: 0;
-      display: block;
-      inline-size: 100%;
-      block-size: 100%;
-      object-fit: cover;
-      object-position: right 58%;
-    }
   }
 
-  &__section-title {
-    font-size: clamp(28px, 3vw, 36px);
-    line-height: 1.15;
-  }
-
-  &__team {
-    display: grid;
+  &__content {
+    position: relative;
+    z-index: 1;
+    padding: 40px 0 320px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
     gap: 16px;
-    inline-size: 100%;
 
     @include tablet {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 24px;
+      width: fit-content;
+      padding: 56px 0 160px;
+    }
+
+    @include desktop {
+      padding: 72px 0;
     }
   }
 
-  &__member {
-    @include soft-card;
-
-    display: grid;
-    align-content: start;
-    gap: 8px;
-    padding: clamp(20px, 3vw, 32px);
-
-    h3 {
-      font-size: clamp(25px, 2.5vw, 32px);
-      line-height: 1.15;
-    }
-  }
-
-  &__profile,
-  &__link {
-    @include focus-ring;
-
-    justify-self: start;
+  &__headline {
+    font-family: $heading-font;
+    font-size: 40px;
+    font-weight: 600;
+    line-height: 1.02;
     color: $ui-green;
-    text-underline-offset: 3px;
-  }
-
-  &__contributions {
-    display: grid;
-    gap: 8px;
-    margin-block-start: 8px;
-    padding-inline-start: 20px;
-    list-style: disc;
-
-    li::marker {
-      color: $ui-green-soft;
-    }
-  }
-
-  &__approach {
-    display: grid;
-    gap: 24px;
-    inline-size: 100%;
-    border-block-start: 1px solid $ui-divider;
-    padding-block-start: 24px;
 
     @include tablet {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      font-size: 56px;
+    }
+
+    @include desktop {
+      font-size: 72px;
     }
   }
 
-  &__topic {
+  &__text {
+    max-width: 480px;
+    font-size: 16px;
+    line-height: 1.6;
+    color: $ui-ink;
+
+    @include tablet {
+      width: 100%;
+      max-width: none;
+      contain: inline-size;
+    }
+
+    @include desktop {
+      font-size: 17px;
+    }
+  }
+
+  &__button {
+    margin-top: 8px;
+
+    &:hover .about__button-icon {
+      @media (hover: hover) {
+        transform: translateX(3px);
+      }
+    }
+  }
+
+  &__button-icon {
+    transition: transform 150ms $timing-function;
+  }
+
+  &__features {
+    width: 100%;
+    margin-top: 8px;
+    padding: 20px 12px;
     display: grid;
-    align-content: start;
-    gap: 12px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px 8px;
+    background: rgba($ui-white, 0.8);
+    border-radius: $ui-radius;
+    box-shadow: $ui-shadow;
+    backdrop-filter: blur(6px);
+
+    @include tablet {
+      width: max-content;
+      padding: 20px;
+      gap: 12px 24px;
+    }
+
+    @include desktop {
+      width: 100%;
+    }
+  }
+
+  &__feature {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    text-align: center;
+  }
+
+  &__feature-icon {
+    color: $ui-green;
+
+    &_star {
+      color: $ui-star;
+    }
+  }
+
+  &__feature-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: $ui-ink;
+
+    @include tablet {
+      white-space: nowrap;
+    }
+  }
+
+  &__feature-text {
+    font-size: 13px;
+    line-height: 1.35;
+    color: $ui-muted;
+
+    @include tablet {
+      white-space: nowrap;
+    }
+  }
+
+  &__image {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+    display: block;
+    mask-image: linear-gradient(transparent, #000 30%);
+
+    @include tablet {
+      top: 0;
+      height: 100%;
+      object-fit: cover;
+      object-position: right center;
+      mask-image: none;
+    }
   }
 }

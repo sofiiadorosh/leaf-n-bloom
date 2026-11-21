@@ -1,0 +1,91 @@
+@use '../../abstracts/variables' as *;
+@use '../../abstracts/mixins' as *;
+
+.project {
+  padding: 40px 0;
+
+  @include tablet {
+    padding: 56px 0;
+  }
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  &__intro {
+    display: grid;
+    gap: 12px;
+    max-inline-size: 70ch;
+  }
+
+  &__title {
+    font-size: clamp(28px, 3vw, 36px);
+    line-height: 1.15;
+  }
+
+  &__team {
+    display: grid;
+    gap: 16px;
+    inline-size: 100%;
+
+    @include tablet {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 24px;
+    }
+  }
+
+  &__member {
+    @include soft-card;
+
+    display: grid;
+    align-content: start;
+    gap: 8px;
+    padding: clamp(20px, 3vw, 32px);
+
+    h3 {
+      font-size: clamp(25px, 2.5vw, 32px);
+      line-height: 1.15;
+    }
+  }
+
+  &__profile,
+  &__link {
+    @include focus-ring;
+
+    justify-self: start;
+    color: $ui-green;
+    text-underline-offset: 3px;
+  }
+
+  &__contributions {
+    display: grid;
+    gap: 8px;
+    margin-block-start: 8px;
+    padding-inline-start: 20px;
+    list-style: disc;
+
+    li::marker {
+      color: $ui-green-soft;
+    }
+  }
+
+  &__approach {
+    display: grid;
+    gap: 24px;
+    inline-size: 100%;
+    border-block-start: 1px solid $ui-divider;
+    padding-block-start: 24px;
+
+    @include tablet {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  &__topic {
+    display: grid;
+    align-content: start;
+    gap: 12px;
+  }
+}
