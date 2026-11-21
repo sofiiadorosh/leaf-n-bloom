@@ -162,15 +162,6 @@ const writeFiltersToUrl = (filters: ProductFilters): void => {
   window.history.replaceState(null, '', url);
 };
 
-const trackFiltersHeight = (form: HTMLFormElement): void => {
-  const updateFiltersHeight = (): void => {
-    form.style.setProperty('--filters-height', `${form.offsetHeight}px`);
-  };
-
-  updateFiltersHeight();
-  new ResizeObserver(updateFiltersHeight).observe(form);
-};
-
 export const renderFilters = (
   onChange: (filters: ProductFilters) => void,
 ): void => {
@@ -193,7 +184,6 @@ export const renderFilters = (
     filtersFromParams(new URLSearchParams(window.location.search)),
     setSort,
   );
-  trackFiltersHeight(form);
 
   const notifyFiltersChanged = (): void => {
     const filters = parseFilters(new FormData(form));
