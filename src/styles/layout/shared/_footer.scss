@@ -12,13 +12,13 @@ $wave-back: wave-mask(
 
 .footer {
   position: relative;
-  padding: 40px 0;
+  padding: $wave-section-padding 0 $section-padding;
   overflow: hidden;
   color: $ui-ink;
   background: $ui-sage;
 
   @include tablet {
-    padding: 56px 0;
+    padding: $wave-section-padding-tablet 0 $section-padding-tablet;
   }
 
   &::before,
@@ -34,30 +34,30 @@ $wave-back: wave-mask(
   }
 
   &::before {
-    height: 64px;
+    height: $wave-back-height;
     background-color: $ui-sage-light;
     mask-image: $wave-back;
 
     @include tablet {
-      height: 96px;
+      height: $wave-back-height-tablet;
     }
 
     @include desktop {
-      height: 120px;
+      height: $wave-back-height-desktop;
     }
   }
 
   &::after {
-    height: 40px;
+    height: $wave-front-height;
     background-color: $page-background;
     mask-image: $wave-front;
 
     @include tablet {
-      height: 64px;
+      height: $wave-front-height-tablet;
     }
 
     @include desktop {
-      height: 80px;
+      height: $wave-front-height-desktop;
     }
   }
 
