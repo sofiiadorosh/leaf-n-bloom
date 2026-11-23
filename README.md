@@ -60,8 +60,9 @@ Vite prints the local URL. The site is served under `/leaf-n-bloom/`.
 ### Unit tests
 
 Vitest runs the tests in `tests/unit/`. They cover the catalog logic
-(filtering, sorting, URL parameters, category summaries), cart calculations
-and promo codes, cart storage and recovery, and price formatting.
+(filtering, sorting, URL parameters, category summaries, product details),
+cart calculations with sizes, extra care and promo codes, cart storage and
+recovery, and price formatting.
 
 ```bash
 npm test
@@ -72,8 +73,9 @@ npm test
 Playwright runs the tests in `tests/e2e/` in Chromium, Firefox and WebKit. It
 starts its own Vite server, so you don't need to run `npm run dev` first. The
 scenarios cover shopper journeys: browsing a category, reopening a shared
-catalog link, clearing the search, adding products, changing quantities,
-applying a promo code, emptying the cart and using the mobile menu.
+catalog link, clearing the search, opening product details, adding products
+in different sizes and with extra care, changing quantities, applying a promo
+code, emptying the cart and using the mobile menu.
 
 Install the browsers once, then run the tests:
 
