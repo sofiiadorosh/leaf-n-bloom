@@ -1,5 +1,4 @@
 import { PRODUCTS } from '../../constants/catalog/products';
-import { getMinPrice } from '../catalog/catalog';
 import type { CartItem } from '../types';
 
 const SALE10_PROMO = {
@@ -9,6 +8,8 @@ const SALE10_PROMO = {
 
 export type CartEntry = CartItem & {
   name: string;
+  tag: string;
+  image?: string;
   unitPriceCents: number;
   entryTotalCents: number;
 };
@@ -24,27 +25,33 @@ export const calculateCart = (
   cartItems: readonly CartItem[],
   promoCode = '',
 ): CartTotals => {
-  const lines = cartItems.flatMap<CartEntry>(({ productId, quantity }) => {
-    if (!Number.isSafeInteger(quantity) || quantity < 1) {
-      return [];
-    }
+  const lines = cartItems.flatMap<CartEntry>(
+    ({ productId, size, quantity }) => {
+      if (!Number.isSafeInteger(quantity) || quantity < 1) {
+        return [];
+      }
 
-    const product = PRODUCTS.find(({ id }) => id === productId);
-    if (!product) {
-      return [];
-    }
+      const product = PRODUCTS.find(({ id }) => id === productId);
+      const productSize = product?.sizes.find(({ inches }) => inches === size);
+      if (!product || !productSize) {
+        return [];
+      }
 
-    const unitPriceCents = Math.round(getMinPrice(product) * 100);
-    return [
-      {
-        productId,
-        quantity,
-        name: product.name,
-        unitPriceCents,
-        entryTotalCents: unitPriceCents * quantity,
-      },
-    ];
-  });
+      const unitPriceCents = Math.round(productSize.price * 100);
+      return [
+        {
+          productId,
+          size,
+          quantity,
+          name: product.name,
+          tag: product.tag,
+          image: product.images[0],
+          unitPriceCents,
+          entryTotalCents: unitPriceCents * quantity,
+        },
+      ];
+    },
+  );
 
   const subtotalCents = lines.reduce(
     (subtotalCents, cartEntry) => subtotalCents + cartEntry.entryTotalCents,

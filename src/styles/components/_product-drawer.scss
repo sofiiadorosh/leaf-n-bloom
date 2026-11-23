@@ -405,37 +405,6 @@
     }
   }
 
-  &__quantity {
-    display: inline-grid;
-    grid-template-columns: 40px 3ch 40px;
-    align-items: center;
-    border: 1px solid $ui-divider;
-    border-radius: 999px;
-  }
-
-  &__quantity-button {
-    width: 40px;
-    height: 40px;
-    font-size: 20px;
-    color: $ui-ink;
-    background: none;
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
-    @include focus-ring;
-
-    &:disabled {
-      color: $ui-muted;
-      opacity: 0.5;
-      cursor: default;
-    }
-  }
-
-  &__quantity-value {
-    font-weight: 600;
-    text-align: center;
-  }
-
   &__add {
     width: 100%;
   }

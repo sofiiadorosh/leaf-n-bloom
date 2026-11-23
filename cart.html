@@ -62,10 +62,7 @@
     <main class="main">
       <section class="shopping-cart" aria-labelledby="cart-title">
         <div class="container">
-          <a class="shopping-cart__back" href="./shop.html"
-            >Continue shopping</a
-          >
-          <h1 class="shopping-cart__title" id="cart-title">Your cart</h1>
+          <h1 class="visually-hidden" id="cart-title">Your cart</h1>
           <div class="shopping-cart__layout">
             <section
               class="shopping-cart__panel"
@@ -75,7 +72,17 @@
               <ul class="shopping-cart__items" id="cart-items"></ul>
               <div class="shopping-cart__empty" id="cart-empty">
                 <p>Your cart is empty.</p>
-                <a class="button" href="./shop.html">Browse plants</a>
+                <a class="button shopping-cart__explore" href="./shop.html">
+                  Explore Plants
+                  <svg
+                    class="shopping-cart__explore-icon"
+                    width="16"
+                    height="16"
+                    aria-hidden="true"
+                  >
+                    <use href="/icons/sprite.svg#arrow-right"></use>
+                  </svg>
+                </a>
               </div>
               <p
                 class="shopping-cart__message"

@@ -1,6 +1,6 @@
-import { PRODUCTS } from '../../constants/catalog/products';
 import { calculateCart } from '../../core/cart/calculateCart';
 import type { CartEntry } from '../../core/cart/calculateCart';
+import { formatSize } from '../../core/catalog/productDetails';
 import { formatPrice } from '../../core/formatPrice';
 import { cartStore } from '../../core/cart/cartStore';
 import { createElement } from '../shared/createElement';
@@ -12,8 +12,10 @@ const actionButton = (
   action: string,
   content: string | SVGSVGElement,
   label: string,
+  className?: string,
 ): HTMLButtonElement =>
   createElement('button', {
+    className,
     children: [content],
     attributes: { type: 'button', 'data-action': action, 'aria-label': label },
   });
@@ -22,13 +24,13 @@ const createCartEntry = (
   entry: CartEntry,
   entryIndex: number,
 ): HTMLLIElement => {
-  const productImage = PRODUCTS.find(({ id }) => id === entry.productId)
-    ?.images[0];
-  const { name } = entry;
+  const size = formatSize({ inches: entry.size });
+  const label = `${entry.name}, ${size}`;
   const decrease = actionButton(
     'decrease',
     '−',
-    `Decrease quantity of ${name}`,
+    `Decrease quantity of ${label}`,
+    'quantity__button',
   );
   decrease.disabled = entry.quantity === 1;
 
@@ -36,12 +38,12 @@ const createCartEntry = (
     className: 'shopping-cart__item',
     attributes: { 'data-index': entryIndex },
     children: [
-      ...(productImage
+      ...(entry.image
         ? [
             createElement('img', {
               className: 'shopping-cart__image',
               attributes: {
-                src: `${import.meta.env.BASE_URL}${productImage}`,
+                src: `${import.meta.env.BASE_URL}${entry.image}`,
                 alt: '',
                 width: 96,
                 height: 96,
@@ -52,9 +54,23 @@ const createCartEntry = (
       createElement('div', {
         className: 'shopping-cart__details',
         children: [
-          createElement('h3', { text: entry.name }),
           createElement('p', {
-            text: `${formatCentsToUsd(entry.unitPriceCents)} each`,
+            className: 'shopping-cart__tag',
+            text: entry.tag,
+          }),
+          createElement('h3', {
+            className: 'shopping-cart__name',
+            text: entry.name,
+          }),
+          createElement('p', {
+            className: 'shopping-cart__meta',
+            children: [
+              createElement('span', {
+                className: 'shopping-cart__size',
+                text: size,
+              }),
+              `${formatCentsToUsd(entry.unitPriceCents)} each`,
+            ],
           }),
         ],
       }),
@@ -62,37 +78,42 @@ const createCartEntry = (
         className: 'shopping-cart__line-actions',
         children: [
           createElement('div', {
-            className: 'shopping-cart__quantity',
+            className: 'quantity',
             attributes: {
               role: 'group',
-              'aria-label': `Quantity of ${name}`,
+              'aria-label': `Quantity of ${label}`,
             },
             children: [
               decrease,
-              createElement('span', { text: String(entry.quantity) }),
-              actionButton('increase', '+', `Increase quantity of ${name}`),
-            ],
-          }),
-          createElement('div', {
-            className: 'shopping-cart__line-total',
-            children: [
-              createElement('strong', {
-                text: formatCentsToUsd(entry.entryTotalCents),
+              createElement('span', {
+                className: 'quantity__value',
+                text: String(entry.quantity),
               }),
               actionButton(
-                'remove',
-                createElement('svg', {
-                  attributes: { width: 20, height: 20, 'aria-hidden': 'true' },
-                  children: [
-                    createElement('use', {
-                      attributes: { href: spriteHref('trash') },
-                    }),
-                  ],
-                }),
-                `Remove ${name}`,
+                'increase',
+                '+',
+                `Increase quantity of ${label}`,
+                'quantity__button',
               ),
             ],
           }),
+          createElement('strong', {
+            className: 'shopping-cart__line-total',
+            text: formatCentsToUsd(entry.entryTotalCents),
+          }),
+          actionButton(
+            'remove',
+            createElement('svg', {
+              attributes: { width: 20, height: 20, 'aria-hidden': 'true' },
+              children: [
+                createElement('use', {
+                  attributes: { href: spriteHref('trash') },
+                }),
+              ],
+            }),
+            `Remove ${label}`,
+            'shopping-cart__remove',
+          ),
         ],
       }),
     ],
@@ -179,14 +200,14 @@ export const renderCart = (): void => {
     if (!cartItem) {
       return;
     }
-    const { productId, quantity } = cartItem;
+    const { quantity } = cartItem;
     const cartAction = button.dataset.action;
 
     if (cartAction === 'remove') {
-      cartStore.remove(productId);
+      cartStore.remove(cartItem);
     } else if (
       !cartStore.changeQuantity(
-        productId,
+        cartItem,
         quantity + (cartAction === 'increase' ? 1 : -1),
       )
     ) {

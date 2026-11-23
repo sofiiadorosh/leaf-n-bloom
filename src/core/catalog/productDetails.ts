@@ -9,7 +9,8 @@ import type {
 export const isPlant = ({ category }: Product): boolean =>
   category !== 'planters';
 
-export const formatSize = ({ inches }: ProductSize): string => `${inches} inch`;
+export const formatSize = ({ inches }: Pick<ProductSize, 'inches'>): string =>
+  `${inches} inch`;
 
 export const getProductFeatures = (
   product: Product,

@@ -375,16 +375,16 @@ const createQuantity = (): {
 } => {
   let quantity = MIN_QUANTITY;
   const value = createElement('span', {
-    className: `${BLOCK}__quantity-value`,
+    className: 'quantity__value',
     text: String(quantity),
   });
   const decrease = createElement('button', {
-    className: `${BLOCK}__quantity-button`,
+    className: 'quantity__button',
     text: '−',
     attributes: { type: 'button', 'aria-label': 'Decrease quantity' },
   });
   const increase = createElement('button', {
-    className: `${BLOCK}__quantity-button`,
+    className: 'quantity__button',
     text: '+',
     attributes: { type: 'button', 'aria-label': 'Increase quantity' },
   });
@@ -402,7 +402,7 @@ const createQuantity = (): {
 
   return {
     element: createElement('div', {
-      className: `${BLOCK}__quantity`,
+      className: 'quantity',
       attributes: { role: 'group', 'aria-label': 'Quantity' },
       children: [decrease, value, increase],
     }),
@@ -516,6 +516,7 @@ const getDialog = (): HTMLDialogElement => {
 
 const createDrawerContent = (product: Product): HTMLDivElement => {
   const [defaultSize] = product.sizes;
+  let selectedSize = defaultSize;
 
   const price = createElement('p', {
     className: `${BLOCK}__price`,
@@ -536,8 +537,9 @@ const createDrawerContent = (product: Product): HTMLDivElement => {
   });
 
   addButton.addEventListener('click', () => {
-    const isAdded = Array.from({ length: quantity.getValue() }).every(() =>
-      cartStore.add(product.id),
+    const isAdded = cartStore.add(
+      { productId: product.id, size: selectedSize.inches },
+      quantity.getValue(),
     );
 
     if (!isAdded) {
@@ -550,7 +552,7 @@ const createDrawerContent = (product: Product): HTMLDivElement => {
       return;
     }
 
-    announcer.textContent = `${product.name} added to cart.`;
+    announcer.textContent = `${product.name}, ${formatSize(selectedSize)}, added to cart.`;
     closeProductDrawer();
   });
 
@@ -586,6 +588,7 @@ const createDrawerContent = (product: Product): HTMLDivElement => {
               createTabs(product.description, careList),
               ...createFeatures(product),
               createSizeOptions(product, (size) => {
+                selectedSize = size;
                 price.textContent = formatPrice(size.price);
                 renderCareList(careList, product, size);
               }),

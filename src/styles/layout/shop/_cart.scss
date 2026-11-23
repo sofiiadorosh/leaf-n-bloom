@@ -2,28 +2,10 @@
 @use '../../abstracts/mixins' as *;
 
 .shopping-cart {
-  padding-block: 32px 64px;
+  padding: 40px 0;
 
   @include tablet {
-    padding-block: 48px 80px;
-  }
-
-  &__back {
-    color: $ui-green;
-    text-underline-offset: 3px;
-    @include focus-ring;
-
-    &:hover {
-      @media (hover: hover) {
-        color: $ui-green-strong;
-        text-decoration-thickness: 2px;
-      }
-    }
-  }
-
-  &__title {
-    margin-block: 12px 24px;
-    font: 600 clamp(2.5rem, 5vw, 4rem) / 1 $heading-font;
+    padding: 56px 0;
   }
 
   &__layout {
@@ -39,18 +21,31 @@
 
   &__panel {
     min-width: 0;
-    padding: clamp(16px, 3vw, 28px);
+    padding: 20px;
     @include soft-card;
 
+    @include tablet {
+      padding: 28px;
+    }
+
     h2 {
-      font: 650 1.125rem / 1.4 $ui-font;
+      padding-bottom: 16px;
+      font: 600 1.125rem / 1.4 $ui-font;
+      border-bottom: 1px solid $ui-divider;
+    }
+  }
+
+  &__summary {
+    @media (min-width: 980px) {
+      position: sticky;
+      top: 24px;
     }
   }
 
   &__item {
     display: grid;
-    grid-template-columns: 64px minmax(0, 1fr);
-    gap: 12px 16px;
+    grid-template-columns: 80px minmax(0, 1fr);
+    gap: 16px;
     padding-block: 20px;
     border-bottom: 1px solid $ui-divider;
 
@@ -60,8 +55,9 @@
     }
 
     @include tablet {
-      grid-template-columns: 88px minmax(0, 1fr) auto;
+      grid-template-columns: 96px minmax(0, 1fr) auto;
       align-items: center;
+      gap: 20px;
     }
   }
 
@@ -70,107 +66,100 @@
     height: auto;
     aspect-ratio: 1;
     object-fit: cover;
-    border-radius: $ui-radius-small;
-    background: $page-background;
+    border-radius: 12px;
+    background: $ui-sage-light;
   }
 
   &__details {
-    h3 {
-      font: 650 1rem / 1.4 $ui-font;
-    }
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+  }
 
-    p {
-      margin-top: 4px;
-      color: $ui-muted;
-      font-size: 0.875rem;
+  &__tag {
+    @include label-caps(12px);
+
+    color: $ui-green-soft;
+  }
+
+  &__name {
+    font: 600 1.25rem / 1.2 $heading-font;
+    color: $ui-ink;
+
+    @include tablet {
+      font-size: 1.375rem;
     }
   }
 
-  [data-action='remove'] {
-    inline-size: 44px;
-    block-size: 44px;
-    display: inline-grid;
-    place-items: center;
-    padding: 0;
-    border: 0;
-    border-radius: 50%;
-    color: $ui-green;
-    background: none;
-    cursor: pointer;
-    @include focus-ring;
+  &__meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin-top: 4px;
+    font-size: 14px;
+    color: $ui-muted;
+  }
 
-    &:hover {
-      background: $ui-sage;
-    }
+  &__size {
+    padding: 2px 10px;
+    font-size: 13px;
+    font-weight: 600;
+    color: $ui-green;
+    background: $ui-sage-light;
+    border: 1px solid $ui-green;
+    border-radius: 999px;
   }
 
   &__line-actions {
     grid-column: 1 / -1;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 8px 16px;
+    gap: 12px;
     font-variant-numeric: tabular-nums;
 
     @include tablet {
       grid-column: auto;
-      flex-wrap: nowrap;
     }
   }
 
   &__line-total {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 4px;
+    min-inline-size: 8ch;
     margin-inline-start: auto;
-
-    strong {
-      min-inline-size: 10ch;
-      text-align: end;
-    }
+    font-size: 18px;
+    font-weight: 700;
+    color: $ui-ink;
+    text-align: end;
   }
 
-  &__quantity {
+  &__remove {
+    inline-size: 40px;
+    block-size: 40px;
     display: inline-grid;
-    grid-template-columns: 40px minmax(3ch, auto) 40px;
-    align-items: center;
-    flex: 0 0 auto;
-    width: max-content;
-    max-width: 100%;
-    border: 1px solid $ui-divider;
-    border-radius: 999px;
-    background: $page-background;
+    place-items: center;
+    flex-shrink: 0;
+    padding: 0;
+    color: $ui-muted;
+    background: none;
+    border: 0;
+    border-radius: 50%;
+    cursor: pointer;
+    transition:
+      color 150ms $timing-function,
+      background-color 150ms $timing-function;
+    @include focus-ring;
 
-    span {
-      min-width: 2ch;
-      text-align: center;
-      overflow-wrap: anywhere;
-    }
-
-    button {
-      height: 40px;
-      border: 0;
-      border-radius: 50%;
-      color: $ui-green;
-      background: transparent;
-      cursor: pointer;
-      @include focus-ring;
-
-      &:hover:not(:disabled) {
-        background: $ui-sage;
-      }
-
-      &:disabled {
-        opacity: 0.45;
-        cursor: default;
+    &:hover {
+      @media (hover: hover) {
+        color: $ui-green;
+        background: $ui-sage-light;
       }
     }
   }
 
   &__totals {
-    margin-block: 20px 0;
+    margin-block: 8px 0;
     font-variant-numeric: tabular-nums;
 
     div {
@@ -178,19 +167,32 @@
       justify-content: space-between;
       gap: 16px;
       margin-top: 10px;
+
+      &:last-child {
+        margin-top: 16px;
+      }
+    }
+
+    dt {
+      color: $ui-muted;
     }
 
     dd {
       margin: 0;
+      font-weight: 600;
       overflow-wrap: anywhere;
     }
   }
 
   &__total {
-    padding-top: 14px;
+    padding-top: 16px;
     border-top: 1px solid $ui-divider;
     font-size: 1.25rem;
     font-weight: 700;
+
+    dt {
+      color: $ui-ink;
+    }
   }
 
   &__promo:not([hidden]) {
@@ -226,14 +228,25 @@
     color: $ui-muted;
   }
 
+  &__explore {
+    &:hover .shopping-cart__explore-icon {
+      @media (hover: hover) {
+        transform: translateX(3px);
+      }
+    }
+  }
+
+  &__explore-icon {
+    transition: transform 150ms $timing-function;
+  }
+
   &__message {
-    min-block-size: 1lh;
     margin-top: 8px;
     color: $ui-muted;
     font-size: 0.875rem;
-  }
 
-  #cart-message {
-    min-block-size: 2lh;
+    &:empty {
+      display: none;
+    }
   }
 }
