@@ -9,55 +9,74 @@
   }
 
   &__layout {
-    display: grid;
+    display: flex;
+    flex-direction: column;
     gap: 24px;
-    align-items: start;
 
-    @media (min-width: 980px) {
-      grid-template-columns: minmax(0, 1fr) minmax(290px, 0.52fr);
+    @include desktop {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 320px;
+      align-items: start;
       gap: 32px;
     }
   }
 
   &__panel {
-    min-width: 0;
     padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    min-width: 0;
     @include soft-card;
 
     @include tablet {
       padding: 28px;
     }
-
-    h2 {
-      padding-bottom: 16px;
-      font: 600 1.125rem / 1.4 $ui-font;
-      border-bottom: 1px solid $ui-divider;
-    }
   }
 
   &__summary {
-    @media (min-width: 980px) {
+    @include desktop {
       position: sticky;
       top: 24px;
     }
   }
 
+  &__heading {
+    padding-bottom: 16px;
+    font-size: 28px;
+    font-weight: 600;
+    line-height: 1.15;
+    border-bottom: 1px solid $ui-divider;
+
+    @include tablet {
+      font-size: 36px;
+    }
+  }
+
+  &__items:empty {
+    display: none;
+  }
+
   &__item {
+    padding: 20px 0;
     display: grid;
     grid-template-columns: 80px minmax(0, 1fr);
     gap: 16px;
-    padding-block: 20px;
     border-bottom: 1px solid $ui-divider;
-
-    &:last-child {
-      padding-bottom: 0;
-      border-bottom: 0;
-    }
 
     @include tablet {
       grid-template-columns: 96px minmax(0, 1fr) auto;
       align-items: center;
       gap: 20px;
+    }
+
+    &:first-child {
+      padding-top: 0;
+    }
+
+    &:last-child {
+      padding-bottom: 0;
+      border-bottom: none;
     }
   }
 
@@ -66,8 +85,8 @@
     height: auto;
     aspect-ratio: 1;
     object-fit: cover;
-    border-radius: 12px;
     background: $ui-sage-light;
+    border-radius: 12px;
   }
 
   &__details {
@@ -84,11 +103,15 @@
   }
 
   &__name {
-    font: 600 1.25rem / 1.2 $heading-font;
+    margin-bottom: 4px;
+    font-family: $heading-font;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1.2;
     color: $ui-ink;
 
     @include tablet {
-      font-size: 1.375rem;
+      font-size: 22px;
     }
   }
 
@@ -97,7 +120,6 @@
     flex-wrap: wrap;
     align-items: center;
     gap: 8px;
-    margin-top: 4px;
     font-size: 14px;
     color: $ui-muted;
   }
@@ -125,24 +147,23 @@
   }
 
   &__line-total {
-    min-inline-size: 8ch;
-    margin-inline-start: auto;
+    margin-left: auto;
+    min-width: 8ch;
     font-size: 18px;
     font-weight: 700;
     color: $ui-ink;
-    text-align: end;
+    text-align: right;
   }
 
   &__remove {
-    inline-size: 40px;
-    block-size: 40px;
+    width: 40px;
+    height: 40px;
     display: inline-grid;
     place-items: center;
     flex-shrink: 0;
-    padding: 0;
     color: $ui-muted;
     background: none;
-    border: 0;
+    border: none;
     border-radius: 50%;
     cursor: pointer;
     transition:
@@ -159,47 +180,52 @@
   }
 
   &__totals {
-    margin-block: 8px 0;
     font-variant-numeric: tabular-nums;
+  }
 
-    div {
-      display: flex;
-      justify-content: space-between;
-      gap: 16px;
-      margin-top: 10px;
+  &__row {
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
 
-      &:last-child {
-        margin-top: 16px;
-      }
+    &:nth-last-child(2) {
+      margin-bottom: 16px;
     }
 
-    dt {
-      color: $ui-muted;
+    &:last-child {
+      margin-bottom: 0;
     }
 
-    dd {
-      margin: 0;
-      font-weight: 600;
-      overflow-wrap: anywhere;
+    &_total {
+      padding-top: 16px;
+      font-size: 20px;
+      font-weight: 700;
+      border-top: 1px solid $ui-divider;
     }
   }
 
-  &__total {
-    padding-top: 16px;
-    border-top: 1px solid $ui-divider;
-    font-size: 1.25rem;
-    font-weight: 700;
+  &__label {
+    color: $ui-muted;
 
-    dt {
+    .shopping-cart__row_total & {
       color: $ui-ink;
     }
   }
 
+  &__value {
+    font-weight: 600;
+    overflow-wrap: anywhere;
+  }
+
   &__promo:not([hidden]) {
-    display: grid;
+    display: flex;
+    flex-direction: column;
     gap: 8px;
-    margin-top: 24px;
-    font-size: 0.875rem;
+  }
+
+  &__promo-label {
+    font-size: 14px;
     font-weight: 600;
   }
 
@@ -207,24 +233,29 @@
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
+  }
 
-    input {
-      flex: 1 1 8rem;
-      min-width: 0;
-      padding: 10px 14px;
-      border: 1px solid $ui-divider;
-      border-radius: 999px;
-      background: $page-background;
-      color: $ui-ink;
-      @include focus-ring;
-    }
+  &__promo-input {
+    padding: 10px 14px;
+    flex: 1 1 128px;
+    min-width: 0;
+    font-size: 14px;
+    color: $ui-ink;
+    background: $page-background;
+    border: 1px solid $ui-divider;
+    border-radius: 999px;
+    @include focus-ring;
   }
 
   &__empty:not([hidden]) {
-    display: grid;
-    justify-items: start;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
     gap: 16px;
-    padding-top: 18px;
+  }
+
+  &__empty-text {
+    font-size: 16px;
     color: $ui-muted;
   }
 
@@ -241,9 +272,8 @@
   }
 
   &__message {
-    margin-top: 8px;
+    font-size: 14px;
     color: $ui-muted;
-    font-size: 0.875rem;
 
     &:empty {
       display: none;
