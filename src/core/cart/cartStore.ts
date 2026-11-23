@@ -1,5 +1,6 @@
 import { calculateCart } from './calculateCart';
-import type { CartItem } from '../types';
+import { isSameCartLine } from './cartLine';
+import type { CartItem, CartLine } from '../types';
 import { readStoredCartItems, saveCartItems } from './cartLocalStorage';
 
 type CartListener = (items: readonly CartItem[]) => void;
@@ -60,26 +61,30 @@ export const cartStore = {
 
   isSaved: (): boolean => !hasCartSaveError,
 
-  add(productId: string): boolean {
+  add(line: CartLine, quantity = 1): boolean {
+    if (!Number.isSafeInteger(quantity) || quantity < 1) {
+      return false;
+    }
+
     const nextCartItems = getItems();
 
-    const existingCartItem = nextCartItems.find(
-      (cartItem) => cartItem.productId === productId,
+    const existingCartItem = nextCartItems.find((cartItem) =>
+      isSameCartLine(cartItem, line),
     );
 
     if (existingCartItem) {
-      existingCartItem.quantity += 1;
+      existingCartItem.quantity += quantity;
     } else {
-      nextCartItems.push({ productId, quantity: 1 });
+      nextCartItems.push({ ...line, quantity });
     }
     return applyCartItems(nextCartItems);
   },
 
-  changeQuantity(productId: string, quantity: number): boolean {
+  changeQuantity(line: CartLine, quantity: number): boolean {
     const nextCartItems = getItems();
 
-    const cartItem = nextCartItems.find(
-      (candidate) => candidate.productId === productId,
+    const cartItem = nextCartItems.find((candidate) =>
+      isSameCartLine(candidate, line),
     );
 
     if (!cartItem) {
@@ -95,11 +100,11 @@ export const cartStore = {
     return applyCartItems(nextCartItems);
   },
 
-  remove(productId: string): void {
+  remove(line: CartLine): void {
     const previousCartItems = getItems();
 
     const nextCartItems = previousCartItems.filter(
-      (cartItem) => cartItem.productId !== productId,
+      (cartItem) => !isSameCartLine(cartItem, line),
     );
 
     if (nextCartItems.length !== previousCartItems.length) {

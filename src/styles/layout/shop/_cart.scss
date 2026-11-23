@@ -2,66 +2,81 @@
 @use '../../abstracts/mixins' as *;
 
 .shopping-cart {
-  padding-block: 32px 64px;
+  padding: 40px 0;
 
   @include tablet {
-    padding-block: 48px 80px;
-  }
-
-  &__back {
-    color: $ui-green;
-    text-underline-offset: 3px;
-    @include focus-ring;
-
-    &:hover {
-      @media (hover: hover) {
-        color: $ui-green-strong;
-        text-decoration-thickness: 2px;
-      }
-    }
-  }
-
-  &__title {
-    margin-block: 12px 24px;
-    font: 600 clamp(2.5rem, 5vw, 4rem) / 1 $heading-font;
+    padding: 56px 0;
   }
 
   &__layout {
-    display: grid;
+    display: flex;
+    flex-direction: column;
     gap: 24px;
-    align-items: start;
 
-    @media (min-width: 980px) {
-      grid-template-columns: minmax(0, 1fr) minmax(290px, 0.52fr);
+    @include desktop {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 320px;
+      align-items: start;
       gap: 32px;
     }
   }
 
   &__panel {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
     min-width: 0;
-    padding: clamp(16px, 3vw, 28px);
     @include soft-card;
 
-    h2 {
-      font: 650 1.125rem / 1.4 $ui-font;
+    @include tablet {
+      padding: 28px;
     }
   }
 
-  &__item {
-    display: grid;
-    grid-template-columns: 64px minmax(0, 1fr);
-    gap: 12px 16px;
-    padding-block: 20px;
+  &__summary {
+    @include desktop {
+      position: sticky;
+      top: 24px;
+    }
+  }
+
+  &__heading {
+    padding-bottom: 16px;
+    font-size: 28px;
+    font-weight: 600;
+    line-height: 1.15;
     border-bottom: 1px solid $ui-divider;
+
+    @include tablet {
+      font-size: 36px;
+    }
+  }
+
+  &__items:empty {
+    display: none;
+  }
+
+  &__item {
+    padding: 20px 0;
+    display: grid;
+    grid-template-columns: 80px minmax(0, 1fr);
+    gap: 16px;
+    border-bottom: 1px solid $ui-divider;
+
+    @include tablet {
+      grid-template-columns: 96px minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 20px;
+    }
+
+    &:first-child {
+      padding-top: 0;
+    }
 
     &:last-child {
       padding-bottom: 0;
-      border-bottom: 0;
-    }
-
-    @include tablet {
-      grid-template-columns: 88px minmax(0, 1fr) auto;
-      align-items: center;
+      border-bottom: none;
     }
   }
 
@@ -70,134 +85,147 @@
     height: auto;
     aspect-ratio: 1;
     object-fit: cover;
-    border-radius: $ui-radius-small;
-    background: $page-background;
+    background: $ui-sage-light;
+    border-radius: 12px;
   }
 
   &__details {
-    h3 {
-      font: 650 1rem / 1.4 $ui-font;
-    }
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+  }
 
-    p {
-      margin-top: 4px;
-      color: $ui-muted;
-      font-size: 0.875rem;
+  &__tag {
+    @include label-caps(12px);
+
+    color: $ui-green-soft;
+  }
+
+  &__name {
+    margin-bottom: 4px;
+    font-family: $heading-font;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1.2;
+    color: $ui-ink;
+
+    @include tablet {
+      font-size: 22px;
     }
   }
 
-  [data-action='remove'] {
-    inline-size: 44px;
-    block-size: 44px;
-    display: inline-grid;
-    place-items: center;
-    padding: 0;
-    border: 0;
-    border-radius: 50%;
-    color: $ui-green;
-    background: none;
-    cursor: pointer;
-    @include focus-ring;
+  &__meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: $ui-muted;
+  }
 
-    &:hover {
-      background: $ui-sage;
-    }
+  &__size {
+    padding: 2px 10px;
+    font-size: 13px;
+    font-weight: 600;
+    color: $ui-green;
+    background: $ui-sage-light;
+    border: 1px solid $ui-green;
+    border-radius: 999px;
   }
 
   &__line-actions {
     grid-column: 1 / -1;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 8px 16px;
+    gap: 12px;
     font-variant-numeric: tabular-nums;
 
     @include tablet {
       grid-column: auto;
-      flex-wrap: nowrap;
     }
   }
 
   &__line-total {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 4px;
-    margin-inline-start: auto;
-
-    strong {
-      min-inline-size: 10ch;
-      text-align: end;
-    }
+    margin-left: auto;
+    min-width: 8ch;
+    font-size: 18px;
+    font-weight: 700;
+    color: $ui-ink;
+    text-align: right;
   }
 
-  &__quantity {
+  &__remove {
+    width: 40px;
+    height: 40px;
     display: inline-grid;
-    grid-template-columns: 40px minmax(3ch, auto) 40px;
-    align-items: center;
-    flex: 0 0 auto;
-    width: max-content;
-    max-width: 100%;
-    border: 1px solid $ui-divider;
-    border-radius: 999px;
-    background: $page-background;
+    place-items: center;
+    flex-shrink: 0;
+    color: $ui-muted;
+    background: none;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    transition:
+      color 150ms $timing-function,
+      background-color 150ms $timing-function;
+    @include focus-ring;
 
-    span {
-      min-width: 2ch;
-      text-align: center;
-      overflow-wrap: anywhere;
-    }
-
-    button {
-      height: 40px;
-      border: 0;
-      border-radius: 50%;
-      color: $ui-green;
-      background: transparent;
-      cursor: pointer;
-      @include focus-ring;
-
-      &:hover:not(:disabled) {
-        background: $ui-sage;
-      }
-
-      &:disabled {
-        opacity: 0.45;
-        cursor: default;
+    &:hover {
+      @media (hover: hover) {
+        color: $ui-green;
+        background: $ui-sage-light;
       }
     }
   }
 
   &__totals {
-    margin-block: 20px 0;
     font-variant-numeric: tabular-nums;
+  }
 
-    div {
-      display: flex;
-      justify-content: space-between;
-      gap: 16px;
-      margin-top: 10px;
+  &__row {
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+
+    &:nth-last-child(2) {
+      margin-bottom: 16px;
     }
 
-    dd {
-      margin: 0;
-      overflow-wrap: anywhere;
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    &_total {
+      padding-top: 16px;
+      font-size: 20px;
+      font-weight: 700;
+      border-top: 1px solid $ui-divider;
     }
   }
 
-  &__total {
-    padding-top: 14px;
-    border-top: 1px solid $ui-divider;
-    font-size: 1.25rem;
-    font-weight: 700;
+  &__label {
+    color: $ui-muted;
+
+    .shopping-cart__row_total & {
+      color: $ui-ink;
+    }
+  }
+
+  &__value {
+    font-weight: 600;
+    overflow-wrap: anywhere;
   }
 
   &__promo:not([hidden]) {
-    display: grid;
+    display: flex;
+    flex-direction: column;
     gap: 8px;
-    margin-top: 24px;
-    font-size: 0.875rem;
+  }
+
+  &__promo-label {
+    font-size: 14px;
     font-weight: 600;
   }
 
@@ -205,35 +233,50 @@
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
+  }
 
-    input {
-      flex: 1 1 8rem;
-      min-width: 0;
-      padding: 10px 14px;
-      border: 1px solid $ui-divider;
-      border-radius: 999px;
-      background: $page-background;
-      color: $ui-ink;
-      @include focus-ring;
-    }
+  &__promo-input {
+    padding: 10px 14px;
+    flex: 1 1 128px;
+    min-width: 0;
+    font-size: 14px;
+    color: $ui-ink;
+    background: $page-background;
+    border: 1px solid $ui-divider;
+    border-radius: 999px;
+    @include focus-ring;
   }
 
   &__empty:not([hidden]) {
-    display: grid;
-    justify-items: start;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
     gap: 16px;
-    padding-top: 18px;
+  }
+
+  &__empty-text {
+    font-size: 16px;
     color: $ui-muted;
+  }
+
+  &__explore {
+    &:hover .shopping-cart__explore-icon {
+      @media (hover: hover) {
+        transform: translateX(3px);
+      }
+    }
+  }
+
+  &__explore-icon {
+    transition: transform 150ms $timing-function;
   }
 
   &__message {
-    min-block-size: 1lh;
-    margin-top: 8px;
+    font-size: 14px;
     color: $ui-muted;
-    font-size: 0.875rem;
-  }
 
-  #cart-message {
-    min-block-size: 2lh;
+    &:empty {
+      display: none;
+    }
   }
 }

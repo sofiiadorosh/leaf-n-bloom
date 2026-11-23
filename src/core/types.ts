@@ -81,7 +81,11 @@ export type ElementOptions = {
   children?: readonly (Node | string)[];
 };
 
-export type CartItem = {
+export type CartLine = {
   productId: Product['id'];
+  size: ProductSize['inches'];
+};
+
+export type CartItem = CartLine & {
   quantity: number;
 };

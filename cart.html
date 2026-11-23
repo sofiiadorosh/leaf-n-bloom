@@ -62,20 +62,29 @@
     <main class="main">
       <section class="shopping-cart" aria-labelledby="cart-title">
         <div class="container">
-          <a class="shopping-cart__back" href="./shop.html"
-            >Continue shopping</a
-          >
-          <h1 class="shopping-cart__title" id="cart-title">Your cart</h1>
+          <h1 class="visually-hidden" id="cart-title">Your cart</h1>
           <div class="shopping-cart__layout">
             <section
               class="shopping-cart__panel"
               aria-labelledby="cart-items-title"
             >
-              <h2 id="cart-items-title">Items in your cart</h2>
+              <h2 class="shopping-cart__heading" id="cart-items-title">
+                Items in your cart
+              </h2>
               <ul class="shopping-cart__items" id="cart-items"></ul>
               <div class="shopping-cart__empty" id="cart-empty">
-                <p>Your cart is empty.</p>
-                <a class="button" href="./shop.html">Browse plants</a>
+                <p class="shopping-cart__empty-text">Your cart is empty.</p>
+                <a class="button shopping-cart__explore" href="./shop.html">
+                  Explore Plants
+                  <svg
+                    class="shopping-cart__explore-icon"
+                    width="16"
+                    height="16"
+                    aria-hidden="true"
+                  >
+                    <use href="/icons/sprite.svg#arrow-right"></use>
+                  </svg>
+                </a>
               </div>
               <p
                 class="shopping-cart__message"
@@ -87,29 +96,34 @@
               class="shopping-cart__panel shopping-cart__summary"
               aria-labelledby="cart-summary-title"
             >
-              <h2 id="cart-summary-title">Order summary</h2>
+              <h2 class="shopping-cart__heading" id="cart-summary-title">
+                Order summary
+              </h2>
               <dl
                 class="shopping-cart__totals"
                 aria-live="polite"
                 aria-atomic="true"
               >
-                <div>
-                  <dt>Subtotal</dt>
-                  <dd id="cart-subtotal">$0.00</dd>
+                <div class="shopping-cart__row">
+                  <dt class="shopping-cart__label">Subtotal</dt>
+                  <dd class="shopping-cart__value" id="cart-subtotal">$0.00</dd>
                 </div>
-                <div>
-                  <dt>Discount</dt>
-                  <dd id="cart-discount">$0.00</dd>
+                <div class="shopping-cart__row">
+                  <dt class="shopping-cart__label">Discount</dt>
+                  <dd class="shopping-cart__value" id="cart-discount">$0.00</dd>
                 </div>
-                <div class="shopping-cart__total">
-                  <dt>Total</dt>
-                  <dd id="cart-total">$0.00</dd>
+                <div class="shopping-cart__row shopping-cart__row_total">
+                  <dt class="shopping-cart__label">Total</dt>
+                  <dd class="shopping-cart__value" id="cart-total">$0.00</dd>
                 </div>
               </dl>
               <form class="shopping-cart__promo" id="cart-promo" hidden>
-                <label for="promo-code">Promo code</label>
+                <label class="shopping-cart__promo-label" for="promo-code"
+                  >Promo code</label
+                >
                 <div class="shopping-cart__promo-controls">
                   <input
+                    class="shopping-cart__promo-input"
                     id="promo-code"
                     name="promo"
                     type="text"

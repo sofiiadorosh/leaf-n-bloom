@@ -13,8 +13,8 @@ const addMonsteraButton = (page: Page) =>
 
 const cartLink = (page: Page) => page.getByRole('link', { name: /^Cart,/ });
 
-const quantityControl = (page: Page) =>
-  page.getByRole('group', { name: `Quantity of ${productName}` });
+const quantityControl = (page: Page, size = '6 inch') =>
+  page.getByRole('group', { name: `Quantity of ${productName}, ${size}` });
 
 test.beforeEach(async ({ page }) => {
   await page.goto('shop.html');
@@ -65,7 +65,9 @@ test('a shopper reloads the cart and returns to Shop without losing quantity cha
 
   const quantity = quantityControl(page);
   await quantity
-    .getByRole('button', { name: `Increase quantity of ${productName}` })
+    .getByRole('button', {
+      name: `Increase quantity of ${productName}, 6 inch`,
+    })
     .click();
   await expect(quantity.getByText('2', { exact: true })).toBeVisible();
 
@@ -91,7 +93,9 @@ test('a shopper removes the last product and returns to the catalog from the emp
   await cartLink(page).click();
   await expect(page.locator('#cart-total')).toHaveText('$29.99');
 
-  await page.getByRole('button', { name: `Remove ${productName}` }).click();
+  await page
+    .getByRole('button', { name: `Remove ${productName}, 6 inch` })
+    .click();
 
   await expect(
     page.getByText('Your cart is empty.', { exact: true }),
@@ -102,7 +106,7 @@ test('a shopper removes the last product and returns to the catalog from the emp
   await expect(page.locator('#cart-total')).toHaveText('$0.00');
   await expect(page.locator('.cart__badge')).toBeHidden();
 
-  await page.getByRole('link', { name: 'Browse plants', exact: true }).click();
+  await page.getByRole('link', { name: 'Explore Plants', exact: true }).click();
   await expect(page).toHaveURL(/\/shop\.html$/);
   await expect(addMonsteraButton(page)).toBeVisible();
   await expect(page.locator('.cart__badge')).toBeHidden();
@@ -154,4 +158,39 @@ test('a shopper adds a plant directly from search results', async ({
 
   await cartLink(page).click();
   await expect(page.getByRole('heading', { name: productName })).toBeVisible();
+});
+
+test('a shopper adds two sizes of one plant and sees each size in the cart', async ({
+  page,
+}) => {
+  await addMonsteraButton(page).click();
+  await expect(page.locator('.cart__badge')).toHaveText('1');
+
+  await page.getByRole('button', { name: productName, exact: true }).click();
+  const drawer = page.getByRole('dialog', { name: productName });
+  await drawer.getByText('8 inch', { exact: true }).click();
+  await drawer.getByRole('button', { name: 'Increase quantity' }).click();
+  await drawer.getByRole('button', { name: 'Add to Cart' }).click();
+  await expect(drawer).toBeHidden();
+  await expect(page.locator('.cart__badge')).toHaveText('3');
+
+  await cartLink(page).click();
+
+  const entries = page.locator('#cart-items').getByRole('listitem');
+  await expect(entries).toHaveCount(2);
+  await expect(entries.nth(0)).toContainText('6 inch');
+  await expect(entries.nth(0)).toContainText('$29.99 each');
+  await expect(entries.nth(1)).toContainText('8 inch');
+  await expect(entries.nth(1)).toContainText('$44.99 each');
+  await expect(
+    quantityControl(page, '8 inch').getByText('2', { exact: true }),
+  ).toBeVisible();
+  await expect(page.locator('#cart-subtotal')).toHaveText('$119.97');
+
+  await page
+    .getByRole('button', { name: `Remove ${productName}, 6 inch` })
+    .click();
+  await expect(entries).toHaveCount(1);
+  await expect(page.locator('#cart-total')).toHaveText('$89.98');
+  await expect(page.locator('.cart__badge')).toHaveText('2');
 });

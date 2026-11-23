@@ -50,7 +50,7 @@ describe('isPlant', () => {
 
 describe('formatSize', () => {
   it('shows the pot size in inches', () => {
-    expect(formatSize({ inches: 8, price: 20 })).toBe('8 inch');
+    expect(formatSize({ inches: 8 })).toBe('8 inch');
   });
 });
 
