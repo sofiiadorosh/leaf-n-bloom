@@ -1,0 +1,43 @@
+@use '../abstracts/variables' as *;
+
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  &__stars {
+    display: flex;
+  }
+
+  &__star {
+    position: relative;
+    display: flex;
+    flex-shrink: 0;
+    color: $ui-divider;
+
+    & + & {
+      margin-left: -2px;
+    }
+  }
+
+  &__fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    display: flex;
+    overflow: hidden;
+    color: $ui-star;
+  }
+
+  &__icon {
+    flex-shrink: 0;
+  }
+
+  &__value {
+    font-family: $ui-font;
+    font-size: 14px;
+    line-height: 1;
+    color: $ui-muted;
+  }
+}

@@ -162,24 +162,6 @@
     }
   }
 
-  &__rating {
-    display: flex;
-    align-items: center;
-  }
-
-  &__star {
-    flex-shrink: 0;
-    color: $ui-divider;
-
-    & + & {
-      margin-left: -2px;
-    }
-
-    &_filled {
-      color: $ui-star;
-    }
-  }
-
   &__price {
     font-size: 22px;
     font-weight: 700;

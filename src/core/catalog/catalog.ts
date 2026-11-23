@@ -45,8 +45,14 @@ export const getProductMeta = (
 export const formatProductCount = (count: number): string =>
   `${count} ${count === 1 ? 'product' : 'products'}`;
 
-export const getFilledStars = (rating: number, max = 5): number =>
-  Math.min(Math.max(Math.round(rating), 0), max);
+export const getStarFills = (rating: number, max = 5): number[] =>
+  Array.from({ length: max }, (_, index) => {
+    const fill = Math.min(Math.max(rating - index, 0), 1);
+
+    return Math.round(fill * 100) / 100;
+  });
+
+export const formatRating = (rating: number): string => rating.toFixed(1);
 
 export const describeRating = (rating: number): string =>
-  `Rated ${rating.toFixed(1)} out of 5`;
+  `Rated ${formatRating(rating)} out of 5`;

@@ -669,7 +669,12 @@ export const renderProductDrawer = (listSelector: string): void => {
       return;
     }
 
-    const trigger = event.target.closest<HTMLElement>('[data-open-product]');
+    const control = event.target.closest('button, a');
+    const trigger = control
+      ? control.closest<HTMLElement>('[data-open-product]')
+      : event.target
+          .closest('.product-card')
+          ?.querySelector<HTMLElement>('[data-open-product]');
     const product = PRODUCTS.find(
       ({ id }) => id === trigger?.dataset.openProduct,
     );

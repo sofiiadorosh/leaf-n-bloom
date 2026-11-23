@@ -2,7 +2,8 @@ import { describe, expect, it } from 'vitest';
 import {
   describeRating,
   formatProductCount,
-  getFilledStars,
+  formatRating,
+  getStarFills,
   getMinPrice,
   getPriceBounds,
   getProductMeta,
@@ -184,23 +185,32 @@ describe('formatProductCount', () => {
   });
 });
 
-describe('getFilledStars', () => {
+describe('getStarFills', () => {
   it.each([
-    [4.9, 5],
-    [4.5, 5],
-    [4.4, 4],
-    [3, 3],
-    [0, 0],
-  ])('fills %d stars for a rating of %d', (rating, expected) => {
-    expect(getFilledStars(rating)).toBe(expected);
+    [4.9, [1, 1, 1, 1, 0.9]],
+    [4.5, [1, 1, 1, 1, 0.5]],
+    [3, [1, 1, 1, 0, 0]],
+    [0, [0, 0, 0, 0, 0]],
+  ])('fills the stars for a rating of %d', (rating, expected) => {
+    expect(getStarFills(rating)).toEqual(expected);
   });
 
   it('never fills more stars than the maximum', () => {
-    expect(getFilledStars(7)).toBe(5);
+    expect(getStarFills(7)).toEqual([1, 1, 1, 1, 1]);
   });
 
-  it('never fills a negative number of stars', () => {
-    expect(getFilledStars(-2)).toBe(0);
+  it('never fills a star below zero', () => {
+    expect(getStarFills(-2)).toEqual([0, 0, 0, 0, 0]);
+  });
+});
+
+describe('formatRating', () => {
+  it.each([
+    [4.9, '4.9'],
+    [4.5, '4.5'],
+    [5, '5.0'],
+  ])('formats %d as "%s"', (rating, expected) => {
+    expect(formatRating(rating)).toBe(expected);
   });
 });
 
