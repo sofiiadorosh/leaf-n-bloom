@@ -4,6 +4,7 @@ import { PRODUCTS } from '../../constants/catalog/products';
 import { LIGHT_LEVELS } from '../../constants/filters/light';
 import { TABLET_MEDIA_QUERY } from '../../constants/shared/breakpoints';
 import { MAX_QUANTITY, MIN_QUANTITY } from '../../constants/shared/quantity';
+import { isExtraCareId } from '../../core/cart/cartLine';
 import { cartStore } from '../../core/cart/cartStore';
 import {
   clampQuantity,
@@ -13,7 +14,12 @@ import {
   isPlant,
 } from '../../core/catalog/productDetails';
 import { formatPrice } from '../../core/formatPrice';
-import type { ExtraCareItem, Product, ProductSize } from '../../core/types';
+import type {
+  ExtraCareId,
+  ExtraCareItem,
+  Product,
+  ProductSize,
+} from '../../core/types';
 import { createElement } from '../shared/createElement';
 import { spriteHref } from '../shared/spriteHref';
 import { createRating } from './rating';
@@ -525,6 +531,7 @@ const createDrawerContent = (product: Product): HTMLDivElement => {
   const careList = createElement('dl', { className: `${BLOCK}__care` });
   renderCareList(careList, product, defaultSize);
 
+  const extras = createExtras(product);
   const quantity = createQuantity();
   const message = createElement('p', {
     className: `${BLOCK}__message`,
@@ -536,9 +543,25 @@ const createDrawerContent = (product: Product): HTMLDivElement => {
     children: [createIcon('cart', 18), 'Add to Cart'],
   });
 
+  const getCheckedExtras = (): ExtraCareId[] =>
+    extras
+      .flatMap((fieldset) =>
+        Array.from(
+          fieldset.querySelectorAll<HTMLInputElement>(
+            `.${BLOCK}__extra-input:checked`,
+          ),
+          ({ value }) => value,
+        ),
+      )
+      .filter(isExtraCareId);
+
   addButton.addEventListener('click', () => {
     const isAdded = cartStore.add(
-      { productId: product.id, size: selectedSize.inches },
+      {
+        productId: product.id,
+        size: selectedSize.inches,
+        extras: getCheckedExtras(),
+      },
       quantity.getValue(),
     );
 
@@ -592,7 +615,7 @@ const createDrawerContent = (product: Product): HTMLDivElement => {
                 price.textContent = formatPrice(size.price);
                 renderCareList(careList, product, size);
               }),
-              ...createExtras(product),
+              ...extras,
             ],
           }),
         ],

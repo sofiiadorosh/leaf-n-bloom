@@ -17,6 +17,8 @@ export type ProductFeatureId = ProductFeature['id'];
 
 export type ExtraCareItem = (typeof EXTRA_CARE)[number];
 
+export type ExtraCareId = ExtraCareItem['id'];
+
 export type CareDetail = {
   label: string;
   value: string;
@@ -84,6 +86,7 @@ export type ElementOptions = {
 export type CartLine = {
   productId: Product['id'];
   size: ProductSize['inches'];
+  extras: readonly ExtraCareId[];
 };
 
 export type CartItem = CartLine & {

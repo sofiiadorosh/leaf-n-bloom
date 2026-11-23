@@ -1,5 +1,9 @@
+import { EXTRA_CARE } from '../../constants/catalog/extraCare';
 import { PRODUCTS } from '../../constants/catalog/products';
-import type { CartItem } from '../types';
+import { isPlant } from '../catalog/productDetails';
+import type { CartItem, ExtraCareItem } from '../types';
+
+const toCents = (price: number): number => Math.round(price * 100);
 
 const SALE10_PROMO = {
   code: 'SALE10',
@@ -10,6 +14,7 @@ export type CartEntry = CartItem & {
   name: string;
   tag: string;
   image?: string;
+  extraItems: ExtraCareItem[];
   unitPriceCents: number;
   entryTotalCents: number;
 };
@@ -26,7 +31,7 @@ export const calculateCart = (
   promoCode = '',
 ): CartTotals => {
   const lines = cartItems.flatMap<CartEntry>(
-    ({ productId, size, quantity }) => {
+    ({ productId, size, extras, quantity }) => {
       if (!Number.isSafeInteger(quantity) || quantity < 1) {
         return [];
       }
@@ -37,15 +42,29 @@ export const calculateCart = (
         return [];
       }
 
-      const unitPriceCents = Math.round(productSize.price * 100);
+      const extraItems = EXTRA_CARE.filter(({ id }) => extras.includes(id));
+      const hasValidExtras =
+        extraItems.length === extras.length &&
+        extraItems.every(({ id }, index) => id === extras[index]) &&
+        (extras.length === 0 || isPlant(product));
+      if (!hasValidExtras) {
+        return [];
+      }
+
+      const unitPriceCents = extraItems.reduce(
+        (priceCents, { price }) => priceCents + toCents(price),
+        toCents(productSize.price),
+      );
       return [
         {
           productId,
           size,
+          extras,
           quantity,
           name: product.name,
           tag: product.tag,
           image: product.images[0],
+          extraItems,
           unitPriceCents,
           entryTotalCents: unitPriceCents * quantity,
         },

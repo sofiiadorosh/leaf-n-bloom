@@ -1,5 +1,5 @@
 import { calculateCart } from './calculateCart';
-import { isSameCartLine } from './cartLine';
+import { isSameCartLine, normalizeExtras } from './cartLine';
 import type { CartItem, CartLine } from '../types';
 import { readStoredCartItems, saveCartItems } from './cartLocalStorage';
 
@@ -61,11 +61,12 @@ export const cartStore = {
 
   isSaved: (): boolean => !hasCartSaveError,
 
-  add(line: CartLine, quantity = 1): boolean {
+  add(cartLine: CartLine, quantity = 1): boolean {
     if (!Number.isSafeInteger(quantity) || quantity < 1) {
       return false;
     }
 
+    const line = { ...cartLine, extras: normalizeExtras(cartLine.extras) };
     const nextCartItems = getItems();
 
     const existingCartItem = nextCartItems.find((cartItem) =>
