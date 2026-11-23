@@ -5,9 +5,15 @@ const STORAGE_KEY = 'leaf-n-bloom:cart:v1';
 const monstera: CartItem = {
   productId: 'monstera-deliciosa',
   size: 6,
+  extras: [],
   quantity: 1,
 };
-const aloe: CartItem = { productId: 'aloe-vera', size: 4, quantity: 2 };
+const aloe: CartItem = {
+  productId: 'aloe-vera',
+  size: 4,
+  extras: [],
+  quantity: 2,
+};
 
 const setupStore = async (items: readonly unknown[]) => {
   const browserWindow = new EventTarget();
@@ -137,5 +143,47 @@ describe('cartStore', () => {
     ]);
 
     expect(cartStore.getItems()).toEqual([aloe]);
+  });
+
+  it('merges the same extras and keeps different extras as separate lines', async () => {
+    const { cartStore } = await setupStore([]);
+
+    cartStore.add({ ...monstera, extras: ['plant-food', 'neem-oil'] });
+    cartStore.add({ ...monstera, extras: ['neem-oil', 'plant-food'] }, 2);
+    cartStore.add(monstera);
+
+    expect(cartStore.getItems()).toEqual([
+      { ...monstera, extras: ['neem-oil', 'plant-food'], quantity: 3 },
+      monstera,
+    ]);
+  });
+
+  it('changes and removes only the line with matching extras', async () => {
+    const withNeemOil = { ...monstera, extras: ['neem-oil'] as const };
+    const { cartStore } = await setupStore([monstera, withNeemOil]);
+
+    cartStore.changeQuantity(withNeemOil, 3);
+    cartStore.remove(monstera);
+
+    expect(cartStore.getItems()).toEqual([{ ...withNeemOil, quantity: 3 }]);
+  });
+
+  it('gives saved items no extras when extras are missing and drops unknown extras', async () => {
+    const { cartStore } = await setupStore([
+      { productId: 'monstera-deliciosa', size: 6, quantity: 1 },
+      {
+        productId: 'monstera-deliciosa',
+        size: 6,
+        extras: ['plant-food', 'unknown', 'neem-oil'],
+        quantity: 2,
+      },
+      { productId: 'aloe-vera', size: 4, extras: 'neem-oil', quantity: 2 },
+    ]);
+
+    expect(cartStore.getItems()).toEqual([
+      monstera,
+      { ...monstera, extras: ['neem-oil', 'plant-food'], quantity: 2 },
+      aloe,
+    ]);
   });
 });

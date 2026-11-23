@@ -1,11 +1,14 @@
 import { PRODUCTS } from '../../constants/catalog/products';
 import { calculateCart } from './calculateCart';
-import { getCartLineKey } from './cartLine';
+import { getCartLineKey, isExtraCareId, normalizeExtras } from './cartLine';
 import type { CartItem } from '../types';
 
 const CART_STORAGE_KEY = 'leaf-n-bloom:cart:v1';
 
-type StoredCartItem = Omit<CartItem, 'size'> & { size?: unknown };
+type StoredCartItem = Omit<CartItem, 'size' | 'extras'> & {
+  size?: unknown;
+  extras?: unknown;
+};
 
 const isStoredCartItem = (
   storedValue: unknown,
@@ -22,15 +25,19 @@ const isStoredCartItem = (
 const getDefaultSize = (productId: string): number | undefined =>
   PRODUCTS.find(({ id }) => id === productId)?.sizes[0].inches;
 
+const toExtras = (extras: unknown): CartItem['extras'] =>
+  Array.isArray(extras) ? normalizeExtras(extras.filter(isExtraCareId)) : [];
+
 const toCartItem = ({
   productId,
   size,
+  extras,
   quantity,
 }: StoredCartItem): CartItem | undefined => {
   const cartItemSize = size === undefined ? getDefaultSize(productId) : size;
 
   return typeof cartItemSize === 'number'
-    ? { productId, size: cartItemSize, quantity }
+    ? { productId, size: cartItemSize, extras: toExtras(extras), quantity }
     : undefined;
 };
 

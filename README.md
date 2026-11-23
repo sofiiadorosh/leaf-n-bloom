@@ -17,8 +17,8 @@ a cart that remembers your picks.
   URL, so the same view can be reopened or sent to someone
 - **Product details** in a drawer with a photo gallery, care guide and size
   options
-- **Cart** with product sizes, quantity changes and product removal, saved
-  across pages and reloads
+- **Cart** with product sizes, extra care, quantity changes and product
+  removal, saved across pages and reloads
 - **Promo codes**: `SALE10` takes 10% off the order total
 - **Mobile menu** with a slide-in panel, focus trap and cart item count
 - **Keyboard support** for the menu, sort dropdown and filters
@@ -130,9 +130,9 @@ and Playwright saves a trace in `test-results/`.
 - **Catalog.** Product cards render from one product list in
   `src/constants/catalog/products.ts`. Search, filters and sort order are
   stored in the URL query string.
-- **Cart.** The cart stores product IDs, sizes and quantities in
-  `localStorage` and reads the price for each size from the catalog, so a
-  stored cart can't change a price. Totals
+- **Cart.** The cart stores product IDs, sizes, extra care and quantities in
+  `localStorage` and reads the prices from the catalog, so a stored cart
+  can't change a price. Totals
   are calculated in cents to avoid rounding errors.
 - **Styles.** SCSS with BEM class names, shared variables and mixins in
   `src/styles/abstracts/`, and mobile-first breakpoints at 768px and 1200px.

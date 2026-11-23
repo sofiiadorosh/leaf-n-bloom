@@ -194,3 +194,38 @@ test('a shopper adds two sizes of one plant and sees each size in the cart', asy
   await expect(page.locator('#cart-total')).toHaveText('$89.98');
   await expect(page.locator('.cart__badge')).toHaveText('2');
 });
+
+test('a shopper adds a plant with extra care and sees the extra in the cart', async ({
+  page,
+}) => {
+  await page.getByRole('button', { name: productName, exact: true }).click();
+  const drawer = page.getByRole('dialog', { name: productName });
+  await drawer.getByRole('checkbox', { name: /Neem Oil/ }).check();
+  await drawer.getByRole('button', { name: 'Increase quantity' }).click();
+  await drawer.getByRole('button', { name: 'Add to Cart' }).click();
+  await expect(drawer).toBeHidden();
+
+  await addMonsteraButton(page).click();
+  await expect(page.locator('.cart__badge')).toHaveText('3');
+
+  await cartLink(page).click();
+
+  const entries = page
+    .locator('#cart-items')
+    .getByRole('listitem')
+    .filter({
+      has: page.getByRole('heading', { name: productName }),
+    });
+  await expect(entries).toHaveCount(2);
+  await expect(entries.nth(0)).toContainText('+ Neem Oil');
+  await expect(entries.nth(0)).toContainText('$36.98 each');
+  await expect(entries.nth(1)).not.toContainText('Neem Oil');
+  await expect(
+    page
+      .getByRole('group', {
+        name: `Quantity of ${productName}, 6 inch, with Neem Oil`,
+      })
+      .getByText('2', { exact: true }),
+  ).toBeVisible();
+  await expect(page.locator('#cart-subtotal')).toHaveText('$103.95');
+});

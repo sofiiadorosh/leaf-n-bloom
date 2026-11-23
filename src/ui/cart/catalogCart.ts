@@ -73,7 +73,13 @@ export const initCatalogCart = (products: readonly Product[]): void => {
 
     const [defaultSize] = product.sizes;
 
-    if (!cartStore.add({ productId: product.id, size: defaultSize.inches })) {
+    if (
+      !cartStore.add({
+        productId: product.id,
+        size: defaultSize.inches,
+        extras: [],
+      })
+    ) {
       showStatus('This quantity exceeds the cart limit.', true);
       return;
     }

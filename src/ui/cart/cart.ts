@@ -20,12 +20,44 @@ const actionButton = (
     attributes: { type: 'button', 'data-action': action, 'aria-label': label },
   });
 
+const extraNames = new Intl.ListFormat('en', { type: 'conjunction' });
+
+const getEntryLabel = ({ name, size, extraItems }: CartEntry): string => {
+  const label = `${name}, ${formatSize({ inches: size })}`;
+
+  return extraItems.length
+    ? `${label}, with ${extraNames.format(extraItems.map(({ name: extraName }) => extraName))}`
+    : label;
+};
+
+const createExtras = ({ extraItems }: CartEntry): HTMLUListElement[] =>
+  extraItems.length
+    ? [
+        createElement('ul', {
+          className: 'shopping-cart__extras',
+          attributes: { 'aria-label': 'Extra care' },
+          children: extraItems.map(({ name, price }) =>
+            createElement('li', {
+              className: 'shopping-cart__extra',
+              children: [
+                createElement('span', { text: `+ ${name}` }),
+                createElement('span', {
+                  className: 'shopping-cart__extra-price',
+                  text: formatPrice(price),
+                }),
+              ],
+            }),
+          ),
+        }),
+      ]
+    : [];
+
 const createCartEntry = (
   entry: CartEntry,
   entryIndex: number,
 ): HTMLLIElement => {
   const size = formatSize({ inches: entry.size });
-  const label = `${entry.name}, ${size}`;
+  const label = getEntryLabel(entry);
   const decrease = actionButton(
     'decrease',
     '−',
@@ -72,6 +104,7 @@ const createCartEntry = (
               `${formatCentsToUsd(entry.unitPriceCents)} each`,
             ],
           }),
+          ...createExtras(entry),
         ],
       }),
       createElement('div', {
