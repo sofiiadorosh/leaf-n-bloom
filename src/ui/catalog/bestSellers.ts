@@ -4,16 +4,14 @@ import { formatPrice } from '../../core/formatPrice';
 import type { Product } from '../../core/types';
 import { createElement } from '../shared/createElement';
 import { spriteHref } from '../shared/spriteHref';
+import { createOpenProductButton } from './openProductButton';
 
 const createProductCard = (product: Product): HTMLLIElement =>
   createElement('li', {
     className: 'best-sellers__item',
     children: [
-      createElement('a', {
+      createElement('article', {
         className: 'product-card',
-        attributes: {
-          href: `./shop.html?category=${encodeURIComponent(product.category)}`,
-        },
         children: [
           createElement('div', {
             className: 'product-card__media',
@@ -35,7 +33,7 @@ const createProductCard = (product: Product): HTMLLIElement =>
             children: [
               createElement('h3', {
                 className: 'product-card__name',
-                text: product.name,
+                children: [createOpenProductButton(product)],
               }),
               createElement('p', {
                 className: 'product-card__tag',

@@ -20,6 +20,9 @@ export const PRODUCTS: readonly Product[] = [
     ],
     light: 'medium',
     petSafe: false,
+    height: '60–90 cm',
+    watering: 'Every 1–2 weeks',
+    features: ['air-purifying', 'fast-growing'],
     description:
       'A tropical favourite with large, glossy split leaves. Easy to care for and great for bright rooms.',
     badge: 'bestseller',
@@ -43,6 +46,9 @@ export const PRODUCTS: readonly Product[] = [
     ],
     light: 'low',
     petSafe: false,
+    height: '50–70 cm',
+    watering: 'Every 2–3 weeks',
+    features: ['air-purifying', 'low-maintenance'],
     description:
       'Upright, sword-like leaves that purify the air. Tolerates low light and irregular watering.',
     badge: 'bestseller',
@@ -66,6 +72,9 @@ export const PRODUCTS: readonly Product[] = [
     ],
     light: 'low',
     petSafe: false,
+    height: '40–60 cm',
+    watering: 'Once a week',
+    features: ['air-purifying', 'long-blooming'],
     description:
       'Elegant white blooms and dark green leaves. Tells you when it needs water by drooping slightly.',
     badge: 'bestseller',
@@ -89,6 +98,9 @@ export const PRODUCTS: readonly Product[] = [
     ],
     light: 'bright',
     petSafe: false,
+    height: '90–120 cm',
+    watering: 'Once a week',
+    features: ['air-purifying', 'sun-loving'],
     badge: 'trending',
     description:
       'A statement plant with big violin-shaped leaves. Loves bright, indirect light and a stable spot.',
@@ -112,6 +124,9 @@ export const PRODUCTS: readonly Product[] = [
     ],
     light: 'low',
     petSafe: false,
+    height: '40–60 cm',
+    watering: 'Every 2–3 weeks',
+    features: ['air-purifying', 'low-maintenance'],
     badge: 'trending',
     description:
       'Waxy, glossy leaves on graceful stems. One of the most forgiving plants for beginners.',
@@ -135,6 +150,9 @@ export const PRODUCTS: readonly Product[] = [
     ],
     light: 'medium',
     petSafe: true,
+    height: '40–50 cm',
+    watering: 'Once a week',
+    features: ['long-blooming'],
     description:
       'Long-lasting blooms that can stay for months. Prefers bright, indirect light and weekly watering.',
   },
@@ -157,6 +175,9 @@ export const PRODUCTS: readonly Product[] = [
     ],
     light: 'medium',
     petSafe: false,
+    height: '30–45 cm',
+    watering: 'Once a week',
+    features: ['air-purifying', 'long-blooming'],
     badge: 'new',
     description:
       'Bright red heart-shaped flowers all year round. Enjoys warmth and humidity.',
@@ -180,6 +201,9 @@ export const PRODUCTS: readonly Product[] = [
     ],
     light: 'bright',
     petSafe: false,
+    height: '30–40 cm',
+    watering: 'Every 2–3 weeks',
+    features: ['low-maintenance', 'sun-loving'],
     description:
       'A soothing succulent with thick, fleshy leaves. Needs plenty of sun and very little water.',
     badge: 'bestseller',
@@ -203,6 +227,9 @@ export const PRODUCTS: readonly Product[] = [
     ],
     light: 'bright',
     petSafe: true,
+    height: '10–15 cm',
+    watering: 'Every 2–3 weeks',
+    features: ['low-maintenance', 'sun-loving'],
     description:
       'A compact rosette succulent in soft blue-green tones. Perfect for sunny windowsills.',
   },
@@ -225,6 +252,9 @@ export const PRODUCTS: readonly Product[] = [
     ],
     light: 'medium',
     petSafe: true,
+    height: '10–15 cm',
+    watering: 'Every 2–3 weeks',
+    features: ['low-maintenance'],
     badge: 'new',
     description:
       'Small striped succulent that is happy in partial shade. Ideal for desks and shelves.',

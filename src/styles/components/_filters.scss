@@ -206,26 +206,7 @@ $thumb-size: 20px;
   }
 
   &__checkbox-input {
-    width: 22px;
-    height: 22px;
-    margin: 0;
-    flex-shrink: 0;
-    background: $ui-white center / 18px 18px no-repeat;
-    border: 1.5px solid $ui-green;
-    border-radius: 6px;
-    appearance: none;
-    cursor: pointer;
-    transition: background-color 150ms $timing-function;
-
-    &:checked {
-      background-color: $ui-green;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5' fill='none' stroke='%23fff' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-    }
-
-    &:focus-visible {
-      outline: 3px solid rgba($ui-green, 0.35);
-      outline-offset: 2px;
-    }
+    @include checkbox;
   }
 
   &__checkbox-icon {

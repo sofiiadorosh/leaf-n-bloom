@@ -1,9 +1,7 @@
 import { BADGES } from '../../constants/catalog/badges';
 import { CATEGORIES } from '../../constants/catalog/categories';
 import {
-  describeRating,
   formatProductCount,
-  getFilledStars,
   getMinPrice,
   getProductMeta,
 } from '../../core/catalog/catalog';
@@ -11,6 +9,8 @@ import { formatPrice } from '../../core/formatPrice';
 import type { BadgeId, Product } from '../../core/types';
 import { createElement } from '../shared/createElement';
 import { spriteHref } from '../shared/spriteHref';
+import { createOpenProductButton } from './openProductButton';
+import { createRating } from './rating';
 
 const createBadge = (badgeId: BadgeId): HTMLSpanElement[] => {
   const badge = BADGES.find(({ id }) => id === badgeId);
@@ -23,34 +23,6 @@ const createBadge = (badgeId: BadgeId): HTMLSpanElement[] => {
         }),
       ]
     : [];
-};
-
-const STAR_COUNT = 5;
-
-const createStar = (isFilled: boolean): SVGSVGElement =>
-  createElement('svg', {
-    className: isFilled
-      ? 'product-card__star product-card__star_filled'
-      : 'product-card__star',
-    attributes: { width: 18, height: 18, 'aria-hidden': 'true' },
-    children: [
-      createElement('use', { attributes: { href: spriteHref('star') } }),
-    ],
-  });
-
-const createRating = ({ rating }: Product): HTMLDivElement => {
-  const filled = getFilledStars(rating, STAR_COUNT);
-
-  return createElement('div', {
-    className: 'product-card__rating',
-    attributes: {
-      role: 'img',
-      'aria-label': describeRating(rating),
-    },
-    children: Array.from({ length: STAR_COUNT }, (_, index) =>
-      createStar(index < filled),
-    ),
-  });
 };
 
 const createCatalogCard = (product: Product): HTMLLIElement =>
@@ -79,10 +51,10 @@ const createCatalogCard = (product: Product): HTMLLIElement =>
           createElement('div', {
             className: 'product-card__body',
             children: [
-              createRating(product),
+              createRating(product.rating, 'product-card'),
               createElement('h3', {
                 className: 'product-card__name',
-                text: product.name,
+                children: [createOpenProductButton(product)],
               }),
               createElement('p', {
                 className: 'product-card__tag',

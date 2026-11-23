@@ -1,5 +1,7 @@
 import type { BADGES } from '../constants/catalog/badges';
 import type { CATEGORIES } from '../constants/catalog/categories';
+import type { EXTRA_CARE } from '../constants/catalog/extraCare';
+import type { PRODUCT_FEATURES } from '../constants/catalog/features';
 import type { LIGHT_LEVELS } from '../constants/filters/light';
 import type { SORT_ORDERS } from '../constants/filters/sort';
 
@@ -8,6 +10,17 @@ export type CategoryId = (typeof CATEGORIES)[number]['id'];
 export type BadgeId = (typeof BADGES)[number]['id'];
 
 export type LightLevel = (typeof LIGHT_LEVELS)[number]['id'];
+
+export type ProductFeature = (typeof PRODUCT_FEATURES)[number];
+
+export type ProductFeatureId = ProductFeature['id'];
+
+export type ExtraCareItem = (typeof EXTRA_CARE)[number];
+
+export type CareDetail = {
+  label: string;
+  value: string;
+};
 
 export type SortOrder = (typeof SORT_ORDERS)[number];
 
@@ -38,6 +51,9 @@ export type Product = {
   light?: LightLevel;
   petSafe?: boolean;
   badge?: BadgeId;
+  height?: string;
+  watering?: string;
+  features?: readonly Exclude<ProductFeatureId, 'pet-safe'>[];
 };
 
 export type PriceBounds = {

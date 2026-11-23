@@ -5,6 +5,7 @@ import { filterProducts } from '../core/catalog/filterProducts';
 import { renderCatalog } from '../ui/catalog/catalog';
 import { initCatalogCart } from '../ui/cart/catalogCart';
 import { renderFilters } from '../ui/catalog/filters';
+import { renderProductDrawer } from '../ui/catalog/productDrawer';
 import { renderFooter } from '../ui/shared/footer';
 import { renderMenu } from '../ui/shared/menu';
 
@@ -13,3 +14,4 @@ renderCartBadge();
 renderFooter();
 initCatalogCart(PRODUCTS);
 renderFilters((filters) => renderCatalog(filterProducts(PRODUCTS, filters)));
+renderProductDrawer('.catalog');

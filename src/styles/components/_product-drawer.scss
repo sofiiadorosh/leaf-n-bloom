@@ -1,0 +1,451 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+.product-drawer {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background: rgba($ui-ink, 0.45);
+  border: none;
+
+  &::backdrop {
+    background: transparent;
+  }
+
+  &__sheet {
+    position: absolute;
+    inset: auto 0 0;
+    height: 92dvh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background: $ui-white;
+    border-radius: 20px 20px 0 0;
+    box-shadow: $ui-shadow-raised;
+
+    @include tablet {
+      inset: 0 0 0 auto;
+      width: min(520px, 100%);
+      height: 100%;
+      border-radius: 0;
+    }
+  }
+
+  &__close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 2;
+    width: 40px;
+    height: 40px;
+    display: grid;
+    place-items: center;
+    color: $ui-ink;
+    background: rgba($ui-white, 0.9);
+    border: none;
+    border-radius: 50%;
+    box-shadow: $ui-shadow;
+    cursor: pointer;
+    @include focus-ring;
+  }
+
+  &__content {
+    flex-grow: 1;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  &__gallery {
+    padding: 24px 20px 0;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+
+    &:has(.product-drawer__thumbs) {
+      grid-template-columns: 56px minmax(0, 1fr);
+    }
+
+    @include tablet {
+      &:has(.product-drawer__thumbs) {
+        grid-template-columns: 72px minmax(0, 1fr);
+      }
+    }
+  }
+
+  &__viewport {
+    position: relative;
+    overflow: hidden;
+    border-radius: $ui-radius;
+  }
+
+  &__slides {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    background: $page-background;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  &__slide {
+    flex: 0 0 100%;
+    aspect-ratio: 1;
+    scroll-snap-align: start;
+  }
+
+  &__image {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+  }
+
+  &__thumbs {
+    order: -1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  &__thumb {
+    width: 100%;
+    aspect-ratio: 1;
+    padding: 0;
+    display: block;
+    overflow: hidden;
+    background: $page-background;
+    border: 2px solid transparent;
+    border-radius: $ui-radius-small;
+    cursor: pointer;
+    @include focus-ring;
+
+    &[aria-current='true'] {
+      border-color: $ui-green;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+  }
+
+  &__body {
+    padding: 24px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  &__tag {
+    @include label-caps(12px);
+
+    color: $ui-green-soft;
+  }
+
+  &__title {
+    font-size: 28px;
+    line-height: 1.15;
+
+    @include tablet {
+      font-size: 32px;
+    }
+  }
+
+  &__rating {
+    display: flex;
+    align-items: center;
+  }
+
+  &__star {
+    flex-shrink: 0;
+    color: $ui-divider;
+
+    & + & {
+      margin-left: -2px;
+    }
+
+    &_filled {
+      color: $ui-star;
+    }
+  }
+
+  &__price {
+    font-size: 22px;
+    font-weight: 700;
+    color: $ui-ink;
+  }
+
+  &__tabs {
+    margin-top: 12px;
+  }
+
+  &__tablist {
+    display: flex;
+    gap: 24px;
+    border-bottom: 1px solid $ui-divider;
+  }
+
+  &__tab {
+    margin-bottom: -1px;
+    padding: 10px 0;
+    font-size: 15px;
+    font-weight: 600;
+    color: $ui-muted;
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+    @include focus-ring;
+
+    &[aria-selected='true'] {
+      color: $ui-ink;
+      border-bottom-color: $ui-green;
+    }
+  }
+
+  &__panel {
+    padding-top: 14px;
+    font-size: 15px;
+    line-height: 1.6;
+    color: $ui-ink;
+    border-radius: 4px;
+    @include focus-ring;
+  }
+
+  &__care {
+    display: grid;
+    gap: 8px;
+  }
+
+  &__care-row {
+    display: grid;
+    grid-template-columns: 120px minmax(0, 1fr);
+    gap: 12px;
+
+    dt {
+      color: $ui-muted;
+    }
+
+    dd {
+      margin: 0;
+      font-weight: 500;
+    }
+  }
+
+  &__features {
+    margin-top: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 20px;
+  }
+
+  &__feature {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    color: $ui-green;
+  }
+
+  &__feature-icon {
+    flex-shrink: 0;
+  }
+
+  &__options {
+    min-width: 0;
+    margin: 16px 0 0;
+    padding: 0;
+    border: none;
+  }
+
+  &__legend {
+    margin-bottom: 10px;
+    padding: 0;
+    font-size: 15px;
+    font-weight: 600;
+    color: $ui-ink;
+  }
+
+  &__legend-note {
+    font-weight: 400;
+    color: $ui-muted;
+  }
+
+  &__sizes {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  &__size {
+    position: relative;
+    padding: 12px 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    text-align: center;
+    border: 1px solid $ui-divider;
+    border-radius: $ui-radius-small;
+    cursor: pointer;
+    transition:
+      border-color 150ms $timing-function,
+      background-color 150ms $timing-function;
+
+    &:has(:checked) {
+      background: $ui-sage-light;
+      border-color: $ui-green;
+      box-shadow: inset 0 0 0 1px $ui-green;
+    }
+
+    &:has(:focus-visible) {
+      outline: 3px solid $ui-green;
+      outline-offset: 2px;
+    }
+  }
+
+  &__size-input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  &__size-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: $ui-ink;
+  }
+
+  &__size-price {
+    font-size: 13px;
+    color: $ui-muted;
+  }
+
+  &__extras {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  &__extra {
+    padding: 12px 14px;
+    display: grid;
+    grid-template-columns: 22px minmax(0, 1fr) auto;
+    align-items: start;
+    gap: 12px;
+    border: 1px solid $ui-divider;
+    border-radius: $ui-radius-small;
+    cursor: pointer;
+    transition:
+      border-color 150ms $timing-function,
+      background-color 150ms $timing-function;
+
+    &:has(:checked) {
+      background: $ui-sage-light;
+      border-color: $ui-green;
+    }
+  }
+
+  &__extra-input {
+    @include checkbox;
+  }
+
+  &__extra-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  &__extra-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: $ui-ink;
+  }
+
+  &__extra-note {
+    font-size: 13px;
+    line-height: 1.4;
+    color: $ui-muted;
+  }
+
+  &__extra-price {
+    font-size: 14px;
+    font-weight: 600;
+    color: $ui-ink;
+  }
+
+  &__footer {
+    padding: 12px 20px calc(16px + env(safe-area-inset-bottom));
+    display: grid;
+    gap: 12px;
+    background: $ui-white;
+    border-top: 1px solid $ui-divider;
+  }
+
+  &__quantity-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+
+    .product-drawer__legend {
+      margin-bottom: 0;
+    }
+  }
+
+  &__quantity {
+    display: inline-grid;
+    grid-template-columns: 40px 3ch 40px;
+    align-items: center;
+    border: 1px solid $ui-divider;
+    border-radius: 999px;
+  }
+
+  &__quantity-button {
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    color: $ui-ink;
+    background: none;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    @include focus-ring;
+
+    &:disabled {
+      color: $ui-muted;
+      opacity: 0.5;
+      cursor: default;
+    }
+  }
+
+  &__quantity-value {
+    font-weight: 600;
+    text-align: center;
+  }
+
+  &__add {
+    width: 100%;
+  }
+
+  &__message {
+    font-size: 14px;
+    color: $ui-ink;
+
+    &:empty {
+      display: none;
+    }
+  }
+}
