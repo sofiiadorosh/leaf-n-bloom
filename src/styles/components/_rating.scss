@@ -7,6 +7,7 @@
 
   &__stars {
     display: flex;
+    gap: 2px;
   }
 
   &__star {
@@ -14,10 +15,6 @@
     display: flex;
     flex-shrink: 0;
     color: $ui-divider;
-
-    & + & {
-      margin-left: -2px;
-    }
   }
 
   &__fill {
@@ -27,7 +24,7 @@
     height: 100%;
     display: flex;
     overflow: hidden;
-    color: $ui-star;
+    color: $ui-star-icon;
   }
 
   &__icon {

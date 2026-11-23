@@ -26,8 +26,21 @@ $ui-green-strong: #243a29;
 $ui-sage: #dfe6d6;
 $ui-sage-light: color.mix($ui-sage, $page-background, 50%);
 $ui-star: #f2b01e;
+$ui-star-icon: #f6c343;
 $ui-teal: #3f6f73;
 $ui-green-soft: #4f7a52;
+
+$section-padding: 40px;
+$section-padding-tablet: 56px;
+$wave-section-padding: $section-padding * 3;
+$wave-section-padding-tablet: $section-padding-tablet * 3;
+
+$wave-back-height: 64px;
+$wave-back-height-tablet: 96px;
+$wave-back-height-desktop: 128px;
+$wave-front-height: 40px;
+$wave-front-height-tablet: 64px;
+$wave-front-height-desktop: 88px;
 
 $ui-radius: 16px;
 $ui-radius-small: 10px;

@@ -27,30 +27,30 @@ $wave-back: wave-mask(
   }
 
   &::before {
-    height: 64px;
+    height: $wave-back-height;
     background-color: $ui-sage-light;
     mask-image: $wave-back;
 
     @include tablet {
-      height: 96px;
+      height: $wave-back-height-tablet;
     }
 
     @include desktop {
-      height: 128px;
+      height: $wave-back-height-desktop;
     }
   }
 
   &::after {
-    height: 40px;
+    height: $wave-front-height;
     background-color: $page-background;
     mask-image: $wave-front;
 
     @include tablet {
-      height: 64px;
+      height: $wave-front-height-tablet;
     }
 
     @include desktop {
-      height: 88px;
+      height: $wave-front-height-desktop;
     }
   }
 
@@ -71,7 +71,7 @@ $wave-back: wave-mask(
 
   &__content {
     align-self: stretch;
-    padding-top: 40px;
+    padding-top: $wave-section-padding;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -79,7 +79,7 @@ $wave-back: wave-mask(
 
     @include tablet {
       max-width: 75%;
-      padding: 56px 0;
+      padding: $wave-section-padding-tablet 0 $section-padding-tablet;
     }
 
     @include desktop {
