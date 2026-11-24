@@ -30,4 +30,4 @@ supports the `SALE10` promo code.
 - Deploy: https://sofiiadorosh.github.io/leaf-n-bloom/
 - Repository: https://github.com/sofiiadorosh/leaf-n-bloom
 - Task board: https://github.com/users/sofiiadorosh/projects/2
-- My interview as a candidate: TODO
+- My interview as a candidate: https://drive.google.com/file/d/13iFYPvYfaTfp-wvYCGyZ8x9G5Oe1D55Z/view?usp=sharing
